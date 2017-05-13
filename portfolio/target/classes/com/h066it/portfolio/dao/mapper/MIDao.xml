@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.h066it.portfolio.dao.IDao">
+
+	<!-- freeBoard #1 nav -->
+
+	<select id="list" resultType="com.h066it.portfolio.dto.Dto">
+		SELECT * FROM freeBoard ORDER BY
+		bId DESC
+	</select>
+
+	<insert id="write">
+		INSERT INTO freeBoard (gId, bId, bWriter, bTitle,
+		bContent, bCount) VALUES (1, freeBoard_seq.nextval, #{param1},
+		#{param2}, #{param3}, 0)
+	</insert>
+
+</mapper>

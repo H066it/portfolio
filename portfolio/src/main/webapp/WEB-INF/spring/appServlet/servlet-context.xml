@@ -14,6 +14,10 @@
 
 	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
 	<resources mapping="/resources/**" location="/resources/" />
+	<resources mapping="/assets/**" location="/resources/assets/" />
+	<resources mapping="/css/**" location="/resources/assets/css/" />
+	<resources mapping="/img/**" location="/resources/assets/img/" />
+	<resources mapping="/js/**" location="/resources/assets/js/" />
 
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -21,8 +25,22 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
-	<context:component-scan base-package="com.h066it.portfolio" />
+	<context:component-scan base-package="com.h066it.portfolio.controller" />
 	
+	<beans:bean name="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<beans:property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
+		<beans:property name="url" value="jdbc:oracle:thin:@localhost:1521:oracle"/>
+		<beans:property name="username" value="tosh"/>
+		<beans:property name="password" value="vlqkddyd"/>
+	</beans:bean>
+		
+	<beans:bean name="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<beans:property name="dataSource" ref="dataSource"/>
+		<beans:property name="mapperLocations" value="classpath:com/h066it/portfolio/dao/mapper/*.xml"/>
+	</beans:bean>
 	
+	<beans:bean name="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+		<beans:constructor-arg index="0" ref="sqlSessionFactory"/>
+	</beans:bean>
 	
 </beans:beans>

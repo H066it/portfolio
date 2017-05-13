@@ -1,0 +1,83 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style type="text/css">
+	body {
+		padding-top: 20px;
+		padding-bottom: 40px;
+        text-align: center;	
+	}
+	
+	.container-narrow {
+        max-width: 1000px;
+		margin: 0 auto;
+		margin-top: 6rem;
+	}	
+</style>
+<link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+<title>freeeeeeeeeeboard</title>
+</head>
+<body>
+	list.jsp
+
+	<h1>게시판</h1>
+
+	<div class="container-narrow">
+		<div class="navbar">
+			<div class="navbar-inner">
+				<a class="brand" href="#">Title</a>
+				<ul class="nav">
+					<li class="divider-vertical"></li>
+					<li class="active"><a href="#">Home</a></li>
+					<li class="divider-vertical"></li>
+					<li><a href="#">Link</a></li>
+					<li class="divider-vertical"></li>
+					<li><a href="#">Link</a></li>
+				</ul>
+			</div>
+		</div>
+
+		<table class="table table-striped">
+			<tr>
+				<td>번호</td>
+				<td width="500">제목</td>
+				<td>작성자</td>
+				<td>작성일</td>
+				<td>조회수</td>
+			</tr>
+			<c:forEach items="${list }" var="dto">
+				<tr>
+					<td>${dto.bId }</td>
+					<td>${dto.bTitle }</td>
+					<td>${dto.bWriter }</td>
+					<td>${dto.bDate }</td>
+					<td>${dto.bCount }</td>
+				</tr>
+			</c:forEach>
+		</table>
+
+		<a href="writeForm"><input class="btn" type="button" value="글쓰기" /></a><br />
+
+		<div class="pagination">
+			<ul>
+				<li class="disabled"><a href="#">Prev</a></li>
+				<li class="active"><a href="#">1</a></li>
+				<li><a href="#">2</a></li>
+				<li><a href="#">3</a></li>
+				<li><a href="#">4</a></li>
+				<li><a href="#">5</a></li>
+				<li><a href="#">Next</a></li>
+			</ul>
+		</div>
+
+	</div>
+
+	<script src="http://code.jquery.com/jquery.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+</body>
+</html>
