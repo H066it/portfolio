@@ -7,19 +7,20 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style type="text/css">
-	body {
-		padding-top: 20px;
-		padding-bottom: 40px;
-        text-align: center;	
-	}
-	
-	.container-narrow {
-        max-width: 1000px;
-		margin: 0 auto;
-		margin-top: 6rem;
-	}	
+body {
+	padding-top: 20px;
+	padding-bottom: 40px;
+	text-align: center;
+}
+
+.container-narrow {
+	max-width: 1000px;
+	margin: 0 auto;
+	margin-top: 6rem;
+}
 </style>
 <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+<link href="css/bootstrap-responsive.css" rel="stylesheet">
 <title>freeeeeeeeeeboard</title>
 </head>
 <body>
@@ -45,18 +46,21 @@
 		<table class="table table-striped">
 			<tr>
 				<td>번호</td>
-				<td width="500">제목</td>
+				<td width="50%">제목</td>
 				<td>작성자</td>
 				<td>작성일</td>
 				<td>조회수</td>
+				<td>삭제</td>
 			</tr>
 			<c:forEach items="${list }" var="dto">
 				<tr>
 					<td>${dto.bId }</td>
-					<td>${dto.bTitle }</td>
+					<td><a href="view?bId=${dto.bId }" style="color: black;">${dto.bTitle }</a></td>
 					<td>${dto.bWriter }</td>
 					<td>${dto.bDate }</td>
 					<td>${dto.bCount }</td>
+					<td><a href="delete?bId=${dto.bId }"><i
+							class="icon-remove"></i></a></td>
 				</tr>
 			</c:forEach>
 		</table>
@@ -74,7 +78,20 @@
 				<li><a href="#">Next</a></li>
 			</ul>
 		</div>
-
+		
+		<div class="input-prepend">
+			<div class="btn-group">
+				<select style="width: 74px;">
+					<option>1</option>
+					<option>2</option>
+					<option>3</option>
+					<option>4</option>
+					<option>5</option>
+				</select>
+			</div>
+			<input type="text" name="keyword" style="width: 146px;">
+			<button type="submit" class="btn">검색</button>
+		</div>
 	</div>
 
 	<script src="http://code.jquery.com/jquery.js"></script>

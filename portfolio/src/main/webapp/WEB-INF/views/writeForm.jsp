@@ -6,19 +6,20 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style type="text/css">
-	body {
-		padding-top: 20px;
-		padding-bottom: 40px;
-        text-align: center;	
-	}
-	
-	.container-narrow {
-        max-width: 1000px;
-		margin: 0 auto;
-		margin-top: 6rem;
-	}	
+body {
+	padding-top: 20px;
+	padding-bottom: 40px;
+	text-align: center;
+}
+
+.container-narrow {
+	max-width: 1000px;
+	margin: 0 auto;
+	margin-top: 6rem;
+}
 </style>
 <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+<link href="css/bootstrap-responsive.css" rel="stylesheet">
 <title>freeeeeeeeeeboard</title>
 </head>
 <body>
@@ -42,28 +43,31 @@
 		</div>
 
 		<form action="write" method="post" class="form-horizontal">
-			<div class="control-group">
-				<label class="control-label">작성자</label>
-				<div class="controls">
-					<input type="text" name="bWriter">
+			<div class="form-horizontal">
+				<div class="control-group">
+					<label class="control-label">작성자</label>
+					<div class="controls">
+						<input type="text" name="bWriter" style="width: 90%">
+					</div>
 				</div>
-			</div>
-			<div class="control-group">
-				<label class="control-label">제목</label>
-				<div class="controls">
-					<input type="text" name="bTitle">
+				<div class="control-group">
+					<label class="control-label">제목</label>
+					<div class="controls">
+						<input type="text" name="bTitle" style="width: 90%;">
+					</div>
 				</div>
-			</div>
-			<div class="control-group">
-				<label class="control-label">내용</label>
-				<div class="controls">
-					<textarea name="bContent" cols="30" rows="10" style="resize: none"></textarea>
+				<div class="control-group">
+					<label class="control-label">내용</label>
+					<div class="controls">
+						<textarea name="bContent" cols="30" rows="10"
+							style="resize: none; width: 90%;"></textarea>
+					</div>
 				</div>
-			</div>
-			<div class="control-group">
-				<div class="controls">
-					<input type="submit" class="btn" value="작성"></input>
-					<a href="list"><button type="button" class="btn">취소</button></a>
+				<div class="control-group">
+					<div class="controls">
+						<input type="submit" class="btn" value="작성"></input> <a
+							href="list"><button type="button" class="btn">취소</button></a>
+					</div>
 				</div>
 			</div>
 		</form>

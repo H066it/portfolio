@@ -10,5 +10,6 @@ public interface IDao {
 	public void write(String bWriter, String bTitle, String bContent);
 	public void delete(String bId);
 	public Dto view(String bId);
+	public void update(String bId, String bWriter, String bTitle, String bContent);
 	
 }

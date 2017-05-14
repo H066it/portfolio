@@ -18,4 +18,16 @@
 		#{param2}, #{param3}, 0)
 	</insert>
 
+	<select id="view" resultType="com.h066it.portfolio.dto.Dto">
+		SELECT * FROM freeBoard WHERE bId = #{param1}
+	</select>
+
+	<delete id="delete">
+		DELETE FROM freeBoard WHERE bId = #{param1}
+	</delete>
+	
+	<update id="update">
+		UPDATE freeBoard SET bWriter = #{param2}, bTitle = #{param3}, bContent = #{param4} WHERE bId = #{param1}
+	</update>
+
 </mapper>

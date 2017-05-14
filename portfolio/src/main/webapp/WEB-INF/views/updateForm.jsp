@@ -23,7 +23,7 @@ body {
 <title>freeeeeeeeeeboard</title>
 </head>
 <body>
-	view.jsp
+	updateForm.jsp
 
 	<h1>게시판</h1>
 
@@ -42,39 +42,39 @@ body {
 			</div>
 		</div>
 
-		<form action="updateForm" method="post" class="form-horizontal">
+		<form action="update" method="post" class="form-horizontal">
 			<div class="form-horizontal">
 				<input type="hidden" name="bId" value="${param.bId }" />
 				<div class="control-group">
 					<label class="control-label">작성자</label>
 					<div class="controls">
-						<input type="text" name="bWriter" value='${dto.bWriter }'
-							readonly="readonly" style="width: 90%;">
+						<input type="text" name="bWriter" style="width: 90%"
+							value="${param.bWriter }">
 					</div>
 				</div>
 				<div class="control-group">
 					<label class="control-label">제목</label>
 					<div class="controls">
-						<input type="text" name="bTitle" value='${dto.bTitle }'
-							readonly="readonly" style="width: 90%;">
+						<input type="text" name="bTitle" style="width: 90%;"
+							value="${param.bTitle }">
 					</div>
 				</div>
 				<div class="control-group">
 					<label class="control-label">내용</label>
 					<div class="controls">
 						<textarea name="bContent" cols="30" rows="10"
-							style="resize: none; width: 90%;" readonly="readonly">${dto.bContent }</textarea>
+							style="resize: none; width: 90%;">${param.bContent }</textarea>
 					</div>
 				</div>
 				<div class="control-group">
 					<div class="controls">
 						<input type="submit" class="btn" value="수정"></input> <a
-							href="list"><button type="button" class="btn">목록</button></a>
+							href="list"><button type="button" class="btn">취소</button></a>
 					</div>
 				</div>
-			
 			</div>
 		</form>
 	</div>
+
 </body>
 </html>
