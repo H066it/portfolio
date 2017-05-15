@@ -12,5 +12,6 @@ public interface IDao {
 	public Dto view(String bId);
 	public void update(String bId, String bWriter, String bTitle, String bContent);
 	public void countUpdate(String bId);
+	public ArrayList<Dto> searchList(String searchType, String keyword);
 	
 }

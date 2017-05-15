@@ -80,17 +80,19 @@ body {
 		</div>
 		
 		<div class="input-prepend">
-			<div class="btn-group">
-				<select style="width: 74px;">
-					<option>1</option>
-					<option>2</option>
-					<option>3</option>
-					<option>4</option>
-					<option>5</option>
-				</select>
-			</div>
-			<input type="text" name="keyword" style="width: 146px;">
-			<button type="submit" class="btn">검색</button>
+			<form action="search" method="post">
+				<div class="btn-group">
+					<select name="searchType" style="width: 74px;">
+						<option value="bTitle">제목</option>
+						<option value="bContent">내용</option>
+						<option value="bTitle_bContent">제목+내용</option>
+						<option value="bWriter">작성자</option>
+						<option>댓글</option>		<!-- 댓글 기능 완성후 만들기 -->
+					</select>
+				</div>
+				<input type="text" name="keyword" style="width: 146px;">
+				<button type="submit" class="btn">검색</button>
+			</form>
 		</div>
 	</div>
 

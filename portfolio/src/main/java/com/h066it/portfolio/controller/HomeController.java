@@ -106,4 +106,14 @@ public class HomeController {
 
 		return "redirect:list";
 	}
+	
+	@RequestMapping("/search")
+	public String search(HttpServletRequest request, Model model) {
+		
+		System.out.println("search");
+		IDao dao = sqlSession.getMapper(IDao.class);
+		model.addAttribute("list",dao.searchList(request.getParameter("searchType"), request.getParameter("keyword")));
+		
+		return "list";
+	}
 }
