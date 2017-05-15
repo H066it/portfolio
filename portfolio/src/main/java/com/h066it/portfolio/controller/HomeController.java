@@ -73,6 +73,7 @@ public class HomeController {
 
 		System.out.println("view");
 		IDao dao = sqlSession.getMapper(IDao.class);
+		dao.countUpdate(request.getParameter("bId"));		// Á¶È¸¼ö
 		model.addAttribute("dto", dao.view(request.getParameter("bId")));
 
 		return "view";

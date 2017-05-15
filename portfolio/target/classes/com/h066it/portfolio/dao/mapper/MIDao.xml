@@ -29,5 +29,9 @@
 	<update id="update">
 		UPDATE freeBoard SET bWriter = #{param2}, bTitle = #{param3}, bContent = #{param4} WHERE bId = #{param1}
 	</update>
+	
+	<update id="countUpdate">
+		UPDATE freeBoard SET bCount = bCount + 1 WHERE bId = #{param1}
+	</update>
 
 </mapper>

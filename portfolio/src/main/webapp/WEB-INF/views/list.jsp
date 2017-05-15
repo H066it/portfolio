@@ -34,7 +34,7 @@ body {
 				<a class="brand" href="#">Title</a>
 				<ul class="nav">
 					<li class="divider-vertical"></li>
-					<li class="active"><a href="#">Home</a></li>
+					<li class="active"><a href="list">Home</a></li>
 					<li class="divider-vertical"></li>
 					<li><a href="#">Link</a></li>
 					<li class="divider-vertical"></li>

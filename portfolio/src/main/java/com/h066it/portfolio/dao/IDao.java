@@ -11,5 +11,6 @@ public interface IDao {
 	public void delete(String bId);
 	public Dto view(String bId);
 	public void update(String bId, String bWriter, String bTitle, String bContent);
+	public void countUpdate(String bId);
 	
 }
