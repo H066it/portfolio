@@ -36,10 +36,10 @@
 	
 	<select id="searchList" resultType="com.h066it.portfolio.dto.Dto">
 		SELECT * FROM freeBoard WHERE
-		<if test="param1.equals('bTitle')">bTitle LIKE '%'||#{param2}||'%'</if>
-		<if test="param1.equals('bContent')">bContent LIKE '%'||#{param2}||'%'</if>
-		<if test="param1.equals('bTitle_bContent')">bTitle LIKE '%'||#{param2}||'%' OR bContent LIKE '%'||#{param2}||'%'</if>
-		<if test="param1.equals('bWriter')">bWriter LIKE '%'||#{param2}||'%'</if>
+		<if test="searchType.equals('bTitle')">bTitle LIKE '%'||#{keyword}||'%'</if>
+		<if test="searchType.equals('bContent')">bContent LIKE '%'||#{keyword}||'%'</if>
+		<if test="searchType.equals('bTitle_bContent')">bTitle LIKE '%'||#{keyword}||'%' OR bContent LIKE '%'||#{keyword}||'%'</if>
+		<if test="searchType.equals('bWriter')">bWriter LIKE '%'||#{keyword}||'%'</if>
 		ORDER BY bId DESC
 	</select>
 
