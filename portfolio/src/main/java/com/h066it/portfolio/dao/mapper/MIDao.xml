@@ -7,9 +7,8 @@
 
 	<!-- freeBoard #1 nav -->
 
-	<select id="list" resultType="com.h066it.portfolio.dto.Dto">
-		SELECT * FROM freeBoard ORDER BY
-		bId DESC
+	<select id="list" resultType="com.h066it.portfolio.dto.Dto" parameterType="com.h066it.portfolio.vo.PageVo">
+		SELECT * FROM freeBoard ORDER BY bId DESC
 	</select>
 
 	<insert id="write">

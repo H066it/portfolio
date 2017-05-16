@@ -34,7 +34,7 @@ body {
 				<a class="brand" href="#">Title</a>
 				<ul class="nav">
 					<li class="divider-vertical"></li>
-					<li class="active"><a href="list">Home</a></li>
+					<li class="active"><a href="list">익명판</a></li>
 					<li class="divider-vertical"></li>
 					<li><a href="#">Link</a></li>
 					<li class="divider-vertical"></li>
@@ -70,11 +70,9 @@ body {
 		<div class="pagination">
 			<ul>
 				<li class="disabled"><a href="#">Prev</a></li>
-				<li class="active"><a href="#">1</a></li>
-				<li><a href="#">2</a></li>
-				<li><a href="#">3</a></li>
-				<li><a href="#">4</a></li>
-				<li><a href="#">5</a></li>
+				<c:forEach begin="${pageVo.firPageNum }" end="${pageVo.lstPageNum }" step="1">
+					<li><a href="#">${pageVo.page }</a></li>
+				</c:forEach>
 				<li><a href="#">Next</a></li>
 			</ul>
 		</div>

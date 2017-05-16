@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.h066it.portfolio.dao.IDao;
+import com.h066it.portfolio.vo.PageVo;
 
 /**
  * Handles requests for the application home page.
@@ -42,11 +43,16 @@ public class HomeController {
 		 */
 
 	@RequestMapping("/list")
-	public String list(Model model) {
+	public String list(PageVo pageVo, Model model) {
 
+		
 		System.out.println("list");
 		IDao dao = sqlSession.getMapper(IDao.class);
 		model.addAttribute("list", dao.list());
+
+		System.out.println(dao.list().size());
+		pageVo.calPage(dao.list().size());
+		model.addAttribute("pageVo", pageVo);
 
 		return "list";
 	}
