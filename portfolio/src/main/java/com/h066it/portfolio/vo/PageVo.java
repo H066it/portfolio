@@ -12,6 +12,7 @@ public class PageVo {
 	public void calPage(int total) {
 		
 		getPage();
+		System.out.println("page : " + page);
 		setTotalNum(total);
 		setTotalPageNum((int)Math.ceil((float)total/displayNum));
 
@@ -20,6 +21,13 @@ public class PageVo {
 		
 		setLstPageNum(firPageNum + 9);
 		if(lstPageNum > totalPageNum) setLstPageNum(totalPageNum);
+		
+		setFirNum(1 + (getPage() - 1)*getDisplayNum());
+		if(firNum > totalNum) setFirNum(totalNum);
+		System.out.println("firNum :" + firNum);
+		setLstNum(page*getDisplayNum());
+		if(lstNum > totalNum) setLstNum(totalNum);
+		System.out.println("lstNum :" + lstNum);
 		
 	}
 

@@ -8,7 +8,8 @@ import com.h066it.portfolio.dto.Dto;
 
 public interface IDao {
 
-	public ArrayList<Dto> list();
+	public ArrayList<Dto> count();
+	public ArrayList<Dto> list(int firNum, int lstNum);
 	public void write(String bWriter, String bTitle, String bContent);
 	public void delete(String bId);
 	public Dto view(String bId);

@@ -46,14 +46,16 @@ public class HomeController {
 	public String list(PageVo pageVo, Model model) {
 
 		
-		System.out.println("list");
+		System.out.println("count");
 		IDao dao = sqlSession.getMapper(IDao.class);
-		model.addAttribute("list", dao.list());
 
-		System.out.println(dao.list().size());
-		pageVo.calPage(dao.list().size());
+		System.out.println(dao.count().size());
+		pageVo.calPage(dao.count().size());
 		model.addAttribute("pageVo", pageVo);
-
+		
+		System.out.println("list");
+		model.addAttribute("list", dao.list(pageVo.getFirNum(), pageVo.getLstNum()));
+		
 		return "list";
 	}
 

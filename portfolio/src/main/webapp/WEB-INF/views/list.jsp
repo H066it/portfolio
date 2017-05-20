@@ -70,13 +70,14 @@ body {
 		<div class="pagination">
 			<ul>
 				<li class="disabled"><a href="#">Prev</a></li>
-				<c:forEach begin="${pageVo.firPageNum }" end="${pageVo.lstPageNum }" step="1">
-					<li><a href="#">${pageVo.page }</a></li>
+				<c:forEach begin="${pageVo.firPageNum }" end="${pageVo.lstPageNum }" step="1" varStatus="page">
+					<li><a href="list?page=${pageVo.firPageNum -1 + page.count}">
+							${pageVo.firPageNum -1 + page.count} </a></li>
 				</c:forEach>
 				<li><a href="#">Next</a></li>
 			</ul>
 		</div>
-		
+
 		<div class="input-prepend">
 			<form action="search" method="post">
 				<div class="btn-group">
@@ -85,7 +86,8 @@ body {
 						<option value="bContent">내용</option>
 						<option value="bTitle_bContent">제목+내용</option>
 						<option value="bWriter">작성자</option>
-						<option>댓글</option>		<!-- 댓글 기능 완성후 만들기 -->
+						<option>댓글</option>
+						<!-- 댓글 기능 완성후 만들기 -->
 					</select>
 				</div>
 				<input type="text" name="keyword" style="width: 146px;">
