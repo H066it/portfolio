@@ -43,12 +43,16 @@ public class HomeController {
 		 */
 
 	@RequestMapping("/list")
-	public String list(PageVo pageVo, Model model) {
+	public String list(HttpServletRequest request, PageVo pageVo, Model model) {
 
-		
+		System.out.println("---------------------------------------");
 		System.out.println("count");
 		IDao dao = sqlSession.getMapper(IDao.class);
 
+		if(request.getParameter("page") != null) {
+			pageVo.setPage(Integer.parseInt(request.getParameter("page")));
+			System.out.println("request.getParameter(\"page\") : " + request.getParameter("page"));
+		}
 		System.out.println(dao.count().size());
 		pageVo.calPage(dao.count().size());
 		model.addAttribute("pageVo", pageVo);

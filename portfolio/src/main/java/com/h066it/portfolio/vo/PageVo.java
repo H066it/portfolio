@@ -2,7 +2,7 @@ package com.h066it.portfolio.vo;
 
 public class PageVo {
 
-	private int displayNum = 10;	// 한 페이지당 보이는 게시글 개수
+	private int displayNum = 2;	// 한 페이지당 보이는 게시글 개수
 	private int totalNum;	// 전체 게시글 수
 	private int totalPageNum; // 전체 페이지 수
 	private int firNum, lstNum;	// 한 페이지 내 시작, 끝 게시글 번호
@@ -13,6 +13,7 @@ public class PageVo {
 		
 		setTotalNum(total);
 		setTotalPageNum((int)Math.ceil((float)total/displayNum));
+		System.out.println("totalPageNum : " + totalPageNum);
 
 		getPage();
 		if(getPage() < 1) setPage(1);
@@ -20,10 +21,12 @@ public class PageVo {
 		System.out.println("page : " + page);
 				
 		setFirPageNum(1);
-		if(page % 10 == 1) setFirPageNum(page);
+		if(page > 10 && page % 10 != 0) setFirPageNum(page / 10 * 10 + 1);
+		System.out.println("firPageNum : " + firPageNum);
 		
 		setLstPageNum(firPageNum + 9);
 		if(lstPageNum > totalPageNum) setLstPageNum(totalPageNum);
+		System.out.println("lstPageNum : " + lstPageNum);
 		
 		setFirNum(1 + (getPage() - 1)*getDisplayNum());
 		if(firNum > totalNum) setFirNum(totalNum);
