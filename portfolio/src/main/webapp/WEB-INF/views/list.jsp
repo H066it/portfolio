@@ -70,12 +70,16 @@ body {
 		<div class="pagination">
 			<ul>
 				<li><a href="list?page=1">&lt;&lt;</a></li>
-				<li><a href="list?page=${pageVo.firPageNum -1 + page.count - 10 + 1}">&lt;</a></li>
+				<c:if test="${pageVo.firPageNum - 1 > 1}">
+					<li><a href="list?page=${pageVo.firPageNum - 1}">&lt;</a></li>
+				</c:if>
 				<c:forEach begin="${pageVo.firPageNum }" end="${pageVo.lstPageNum }" step="1" varStatus="page">
 					<li><a href="list?page=${pageVo.firPageNum -1 + page.count}">
 							${pageVo.firPageNum -1 + page.count} </a></li>
 				</c:forEach>
-				<li><a href="list?page=${pageVo.firPageNum -1 + page.count + 10 + 1}">&gt;</a></li>
+				<c:if test="${pageVo.firPageNum + 10 <= pageVo.totalPageNum}">				
+					<li><a href="list?page=${pageVo.firPageNum + 10}">&gt;</a></li>
+				</c:if>
 				<li><a href="list?page=${pageVo.totalPageNum }">&gt;&gt;</a></li>
 			</ul>
 		</div>
