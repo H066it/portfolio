@@ -68,15 +68,15 @@ body {
 
 		<a href="writeForm"><input class="btn" type="button" value="글쓰기" /></a><br />
 
-		<h1>
+		<%-- <h1>
 		<script type="text/javascript">
 			var i = document.location.href.split('/')[4];
 			if(${fn:contains(i, 'search')}) {document.write('search')};
 		</script>
-		<%-- <c:out value="${pageContext.request.pathTranslated }"></c:out> --%>
+		<c:out value="${pageContext.request.pathTranslated }"></c:out>
 		<c:if test="${fn:contains(i, 'search')}" >search</c:if>
-		<%-- <c:if test="${fn:contains(pageContext.request.servletPath, 'list')}" >list</c:if> --%>
-		</h1>
+		<c:if test="${fn:contains(pageContext.request.servletPath, 'list')}" >list</c:if>
+		</h1> --%>
 
 		<div class="pagination">
 			<ul>
