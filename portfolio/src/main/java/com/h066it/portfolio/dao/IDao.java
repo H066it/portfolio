@@ -15,6 +15,7 @@ public interface IDao {
 	public Dto view(String bId);
 	public void update(String bId, String bWriter, String bTitle, String bContent);
 	public void countUpdate(String bId);
-	public ArrayList<Dto> searchList(@Param("searchType")String searchType, @Param("keyword")String keyword);
+	public ArrayList<Dto> searchCount(@Param("searchType")String searchType, @Param("keyword")String keyword);
+	public ArrayList<Dto> searchList(int firNum, int lstNum, @Param("searchType")String searchType, @Param("keyword")String keyword);
 	
 }

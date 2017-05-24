@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -67,20 +68,50 @@ body {
 
 		<a href="writeForm"><input class="btn" type="button" value="글쓰기" /></a><br />
 
+		<h1>
+		<script type="text/javascript">
+			var i = document.location.href.split('/')[4];
+			if(${fn:contains(i, 'search')}) {document.write('search')};
+		</script>
+		<%-- <c:out value="${pageContext.request.pathTranslated }"></c:out> --%>
+		<c:if test="${fn:contains(i, 'search')}" >search</c:if>
+		<%-- <c:if test="${fn:contains(pageContext.request.servletPath, 'list')}" >list</c:if> --%>
+		</h1>
+
 		<div class="pagination">
 			<ul>
-				<li><a href="list?page=1">&lt;&lt;</a></li>
-				<c:if test="${pageVo.firPageNum - 1 > 1}">
-					<li><a href="list?page=${pageVo.firPageNum - 1}">&lt;</a></li>
-				</c:if>
-				<c:forEach begin="${pageVo.firPageNum }" end="${pageVo.lstPageNum }" step="1" varStatus="page">
-					<li><a href="list?page=${pageVo.firPageNum -1 + page.count}">
-							${pageVo.firPageNum -1 + page.count} </a></li>
-				</c:forEach>
-				<c:if test="${pageVo.firPageNum + 10 <= pageVo.totalPageNum}">				
-					<li><a href="list?page=${pageVo.firPageNum + 10}">&gt;</a></li>
-				</c:if>
-				<li><a href="list?page=${pageVo.totalPageNum }">&gt;&gt;</a></li>
+				<%-- <c:if test="${pageContext.request.servletPath == list}"> --%>
+					<li><a href="list?page=1">&lt;&lt;</a></li>
+					<c:if test="${pageVo.firPageNum - 1 > 1}">
+						<li><a href="list?page=${pageVo.firPageNum - 1}">&lt;</a></li>
+					</c:if>
+					<c:forEach begin="${pageVo.firPageNum }"
+						end="${pageVo.lstPageNum }" step="1" varStatus="page">
+						<li><a href="list?page=${pageVo.firPageNum -1 + page.count}">
+								${pageVo.firPageNum -1 + page.count} </a></li>
+					</c:forEach>
+					<c:if test="${pageVo.firPageNum + 10 <= pageVo.totalPageNum}">
+						<li><a href="list?page=${pageVo.firPageNum + 10}">&gt;</a></li>
+					</c:if>
+					<li><a href="list?page=${pageVo.totalPageNum }">&gt;&gt;</a></li>
+				<%-- </c:if> --%>
+
+				<%-- <c:if test="${pageContext.request.servletPath == search}">
+					<li><a href="search?page=1">&lt;&lt;</a></li>
+					<c:if test="${pageVo.firPageNum - 1 > 1}">
+						<li><a href="search?page=${pageVo.firPageNum - 1}">&lt;</a></li>
+					</c:if>
+					<c:forEach begin="${pageVo.firPageNum }"
+						end="${pageVo.lstPageNum }" step="1" varStatus="page">
+						<li><a
+							href="search?page=${pageVo.firPageNum -1 + page.count}">
+								${pageVo.firPageNum -1 + page.count} </a></li>
+					</c:forEach>
+					<c:if test="${pageVo.firPageNum + 10 <= pageVo.totalPageNum}">
+						<li><a href="search?page=${pageVo.firPageNum + 10}">&gt;</a></li>
+					</c:if>
+					<li><a href="search?page=${pageVo.totalPageNum }">&gt;&gt;</a></li>
+				</c:if> --%>
 			</ul>
 		</div>
 

@@ -47,7 +47,7 @@
 		#{param1}
 	</update>
 
-	<select id="searchList" resultType="com.h066it.portfolio.dto.Dto">
+	<select id="searchCount" resultType="com.h066it.portfolio.dto.Dto" parameterType="com.h066it.portfolio.vo.PageVo">
 		SELECT * FROM freeBoard WHERE
 		<if test="searchType.equals('bTitle')">bTitle LIKE '%'||#{keyword}||'%'</if>
 		<if test="searchType.equals('bContent')">bContent LIKE '%'||#{keyword}||'%'</if>
@@ -55,6 +55,21 @@
 			'%'||#{keyword}||'%'</if>
 		<if test="searchType.equals('bWriter')">bWriter LIKE '%'||#{keyword}||'%'</if>
 		ORDER BY bId DESC
+	</select>
+
+	<select id="searchList" resultType="com.h066it.portfolio.dto.Dto" parameterType="com.h066it.portfolio.vo.PageVo">
+		SELECT S.bId, S.bWriter, S.bTitle, S.bContent, S.bDate, S.bCount
+		FROM (SELECT rownum AS rnum, F.bId, F.bWriter, F.bTitle, F.bContent, F.bDate, F.bCount
+				FROM (SELECT bId, bWriter, bTitle, bContent, bDate, bCount
+						FROM freeBoard ORDER BY bId DESC) F
+						WHERE 
+						<if test="searchType.equals('bTitle')">bTitle LIKE '%'||#{keyword}||'%'</if>
+						<if test="searchType.equals('bContent')">bContent LIKE '%'||#{keyword}||'%'</if>
+						<if test="searchType.equals('bTitle_bContent')">bTitle LIKE '%'||#{keyword}||'%' OR bContent LIKE
+						'%'||#{keyword}||'%'</if>
+						<if test="searchType.equals('bWriter')">bWriter LIKE '%'||#{keyword}||'%'</if>
+						AND rownum <![CDATA[<=]]> #{param2}) S
+		WHERE S.rnum <![CDATA[>=]]> #{param1}
 	</select>
 
 </mapper>

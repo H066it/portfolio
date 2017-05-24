@@ -115,11 +115,19 @@ public class HomeController {
 	}
 	
 	@RequestMapping("/search")
-	public String search(HttpServletRequest request, Model model) {
+	public String search(PageVo pageVo, HttpServletRequest request, Model model) {
 		
 		System.out.println("search");
 		IDao dao = sqlSession.getMapper(IDao.class);
-		model.addAttribute("list",dao.searchList(request.getParameter("searchType"), request.getParameter("keyword")));
+		
+		System.out.println("searchCount");
+		System.out.println(dao.searchCount(request.getParameter("searchType"), request.getParameter("keyword")).size());
+		pageVo.calPage(dao.searchCount(request.getParameter("searchType"), request.getParameter("keyword")).size());
+		model.addAttribute("pageVo", pageVo);
+
+		System.out.println("searchList");
+		model.addAttribute("list",dao.searchList(pageVo.getFirNum(), pageVo.getLstNum(), request.getParameter("searchType"), request.getParameter("keyword")));
+		model.addAttribute("search", "search");
 		
 		return "list";
 	}
