@@ -127,7 +127,8 @@ public class HomeController {
 
 		System.out.println("searchList");
 		model.addAttribute("list",dao.searchList(pageVo.getFirNum(), pageVo.getLstNum(), request.getParameter("searchType"), request.getParameter("keyword")));
-		model.addAttribute("search", "search");
+		model.addAttribute("searchType", request.getParameter("searchType"));
+		model.addAttribute("keyword", request.getParameter("keyword"));
 		
 		return "list";
 	}
