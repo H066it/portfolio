@@ -9,6 +9,8 @@
 <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
 <link href="css/bootstrap-responsive.css" rel="stylesheet">
 <title>freeeeeeeeeeboard</title>
+<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="js/submitRule.min.js"></script>
 </head>
 <body>
 	updateForm.jsp
@@ -21,7 +23,7 @@
 				<a class="brand" href="#">Title</a>
 				<ul class="nav">
 					<li class="divider-vertical"></li>
-					<li class="active"><a href="#">Home</a></li>
+					<li class="active"><a href="list">익명판</a></li>
 					<li class="divider-vertical"></li>
 					<li><a href="#">Link</a></li>
 					<li class="divider-vertical"></li>
@@ -56,7 +58,7 @@
 				</div>
 				<div class="control-group">
 					<div class="controls">
-						<input type="submit" class="btn" value="수정"></input> <a
+						<input type="submit" class="btn" value="수정"  onclick="return nullCheck()"></input> <a
 							href="list"><button type="button" class="btn">취소</button></a>
 					</div>
 				</div>
