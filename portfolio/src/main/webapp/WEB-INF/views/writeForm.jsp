@@ -5,22 +5,24 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<style type="text/css">
-body {
-	padding-top: 20px;
-	padding-bottom: 40px;
-	text-align: center;
-}
-
-.container-narrow {
-	max-width: 1000px;
-	margin: 0 auto;
-	margin-top: 6rem;
-}
-</style>
+<link href="css/style.min.css" rel="stylesheet" >
 <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
 <link href="css/bootstrap-responsive.css" rel="stylesheet">
 <title>freeeeeeeeeeboard</title>
+
+<!-- <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+<script type="text/javascript">
+	function nullCheck() {
+		
+		if($('.controls').value.size() == 0) {
+			alert('내용을 입력해주세요.');
+			$('.controls').bWriter.focus();
+			return;
+		} // jQuery로 필수 입력이랑 제한자 만들기.(17.05.25.에 할 것!)
+		
+	}
+</script> -->
+
 </head>
 <body>
 	writeForm.jsp

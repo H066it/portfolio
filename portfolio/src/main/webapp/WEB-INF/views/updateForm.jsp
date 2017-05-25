@@ -5,19 +5,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<style type="text/css">
-body {
-	padding-top: 20px;
-	padding-bottom: 40px;
-	text-align: center;
-}
-
-.container-narrow {
-	max-width: 1000px;
-	margin: 0 auto;
-	margin-top: 6rem;
-}
-</style>
+<link href="css/style.min.css" rel="stylesheet" >
 <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
 <link href="css/bootstrap-responsive.css" rel="stylesheet">
 <title>freeeeeeeeeeboard</title>

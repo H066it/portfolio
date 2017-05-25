@@ -1,0 +1,11 @@
+body {
+	padding-top: 20px;
+	padding-bottom: 40px;
+	text-align: center;
+}
+
+.container-narrow {
+	max-width: 1000px;
+	margin: 0 auto;
+	margin-top: 6rem;
+}
