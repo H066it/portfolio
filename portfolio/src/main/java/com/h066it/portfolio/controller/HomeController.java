@@ -9,6 +9,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.h066it.portfolio.dao.IDao;
+import com.h066it.portfolio.dto.Dto;
+import com.h066it.portfolio.fileUtil.FileUtil;
 import com.h066it.portfolio.vo.PageVo;
 
 /**
@@ -19,28 +21,6 @@ public class HomeController {
 
 	@Autowired
 	private SqlSession sqlSession;
-
-	/*
-	 * private static final Logger logger =
-	 * LoggerFactory.getLogger(HomeController.class);
-	 * 
-	 *//**
-		 * Simply selects the home view to render by returning its name.
-		 *//*
-		 * @RequestMapping(value = "/", method = RequestMethod.GET) public
-		 * String home(Locale locale, Model model) {
-		 * logger.info("Welcome home! The client locale is {}.", locale);
-		 * 
-		 * Date date = new Date(); DateFormat dateFormat =
-		 * DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG,
-		 * locale);
-		 * 
-		 * String formattedDate = dateFormat.format(date);
-		 * 
-		 * model.addAttribute("serverTime", formattedDate );
-		 * 
-		 * return "home"; }
-		 */
 
 	@RequestMapping("/list")
 	public String list(PageVo pageVo, Model model) {
@@ -66,8 +46,12 @@ public class HomeController {
 	}
 
 	@RequestMapping("/write")
-	public String write(HttpServletRequest request, Model model) {
+	public String write(HttpServletRequest request, Dto dto, Model model) {
 
+		System.out.println("dto.getUpFile()");
+		FileUtil fu = new FileUtil();
+		fu.saveFiles(dto.getUpFile());
+		
 		System.out.println("write");
 		IDao dao = sqlSession.getMapper(IDao.class);
 		dao.write(request.getParameter("bWriter"), request.getParameter("bTitle"), request.getParameter("bContent"));

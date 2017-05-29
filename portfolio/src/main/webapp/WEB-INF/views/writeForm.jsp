@@ -32,7 +32,7 @@
 			</div>
 		</div>
 
-		<form action="write" method="post" class="form-horizontal">
+		<form action="write" method="post" class="form-horizontal" enctype="multipart/form-data">
 			<div class="form-horizontal">
 				<div class="control-group">
 					<label class="control-label">작성자</label>
@@ -51,6 +51,12 @@
 					<div class="controls">
 						<textarea name="bContent" cols="30" rows="10"
 							style="resize: none; width: 90%;"></textarea>
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label">파일</label>
+					<div class="controls">
+						<input type="file" name="upFile" style="width: 90%;">
 					</div>
 				</div>
 				<div class="control-group">

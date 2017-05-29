@@ -21,7 +21,7 @@ public class PageVo {
 		System.out.println("page : " + page);
 				
 		setFirPageNum(1);
-		if(page > 10 && page % 10 != 0) setFirPageNum(page / 10 * 10 + 1);
+		if(page > 10) setFirPageNum((page -1 )/ 10 * 10 + 1);
 		System.out.println("firPageNum : " + firPageNum);
 		
 		setLstPageNum(firPageNum + 9);

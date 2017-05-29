@@ -1,16 +1,20 @@
 package com.h066it.portfolio.dto;
 
 import java.sql.Timestamp;
+import java.util.List;
+
+import org.springframework.web.multipart.MultipartFile;
 
 public class Dto {
 
-	private int gId; // 그룹 게시판 번호
-	private int bId; // 게시판 번호
+	private int gId; // 게시판 그룹 번호
+	private int bId; // 게시글 번호
 	private String bWriter; // 작성자
 	private String bTitle; // 제목
 	private String bContent; // 내용
 	private Timestamp bDate; // 작성일
 	private int bCount; // 조회수
+	private List<MultipartFile> upFile;	// 연결된 파일 목록
 
 	public int getgId() {
 		return gId;
@@ -68,4 +72,12 @@ public class Dto {
 		this.bCount = bCount;
 	}
 
+	public List<MultipartFile> getUpFile() {
+		return upFile;
+	}
+	
+	public void setUpFile(List<MultipartFile> upFile) {
+		this.upFile = upFile;
+	}
+	
 }
