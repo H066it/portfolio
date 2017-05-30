@@ -17,5 +17,6 @@ public interface IDao {
 	public void countUpdate(String bId);
 	public ArrayList<Dto> searchCount(@Param("searchType")String searchType, @Param("keyword")String keyword);
 	public ArrayList<Dto> searchList(int firNum, int lstNum, @Param("searchType")String searchType, @Param("keyword")String keyword);
+	public void fileWrite(@Param("fName")String fName, @Param("rName")String rName, @Param("fSize")double fSize);
 	
 }

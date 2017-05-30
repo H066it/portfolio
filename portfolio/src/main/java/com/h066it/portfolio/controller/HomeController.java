@@ -1,5 +1,7 @@
 package com.h066it.portfolio.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.ibatis.session.SqlSession;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.h066it.portfolio.dao.IDao;
 import com.h066it.portfolio.dto.Dto;
+import com.h066it.portfolio.dto.FileDto;
 import com.h066it.portfolio.fileUtil.FileUtil;
 import com.h066it.portfolio.vo.PageVo;
 
@@ -48,14 +51,24 @@ public class HomeController {
 	@RequestMapping("/write")
 	public String write(HttpServletRequest request, Dto dto, Model model) {
 
-		System.out.println("dto.getUpFile()");
-		FileUtil fu = new FileUtil();
-		fu.saveFiles(dto.getUpFile());
-		
 		System.out.println("write");
 		IDao dao = sqlSession.getMapper(IDao.class);
 		dao.write(request.getParameter("bWriter"), request.getParameter("bTitle"), request.getParameter("bContent"));
 
+		System.out.println("dto.getUpFile()");
+		FileUtil fu = new FileUtil();
+		List<FileDto> fileList = fu.saveFiles(dto.getUpFile());
+
+		System.out.println("fileList : " + fileList);
+		for(FileDto file : fileList) {	// DB에 저장되는거 만들기.
+	
+			System.out.println("file.getfName() : " + file.getfName());
+			System.out.println("file.getrName() : " + file.getrName());
+			System.out.println("file.getfSize() : " + file.getfSize());
+			
+			dao.fileWrite(file.getfName(), file.getrName(), file.getfSize());
+		}
+		
 		return "redirect:list";
 	}
 

@@ -71,5 +71,13 @@
 						AND rownum <![CDATA[<=]]> #{param2}) S
 		WHERE S.rnum <![CDATA[>=]]> #{param1}
 	</select>
+	
+	<insert id="fileWrite" parameterType="com.h066it.portfolio.dto.Dto">
+		<selectKey keyProperty="bId" resultType="Integer" order="BEFORE">
+			SELECT MAX(bId) FROM freeBoard
+		</selectKey>
+		INSERT INTO freeboard_file (fId, gId, bId, fName, rName, fSize)
+		VALUES (freeboard_file_seq.nextval, 1, #{bId} , #{fName}, #{rName}, #{fSize})
+	</insert>
 
 </mapper>

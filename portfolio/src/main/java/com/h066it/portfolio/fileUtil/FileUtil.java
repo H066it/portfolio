@@ -1,8 +1,12 @@
 package com.h066it.portfolio.fileUtil;
 
 import java.io.File;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import org.springframework.web.multipart.MultipartFile;
 
@@ -17,11 +21,13 @@ public class FileUtil {
 		
 		for(MultipartFile upFile : upFiles) {
 			
-			saveFileRepository(upFile, path);	// 암호화해야함.
+			String encName = encryptName(upFile.getOriginalFilename());
+			
+			saveFileRepository(upFile, path, encName);
 			
 			FileDto fDto = new FileDto();
-			fDto.setfName(upFile.getName());	// 암호화해야함.
-			System.out.println("upFile.getName() : " + upFile.getName());
+			fDto.setfName(encName);
+			System.out.println("encName : " + encName);
 			fDto.setrName(upFile.getOriginalFilename());
 			System.out.println("upFile.getOriginalFilename() : " + upFile.getOriginalFilename());
 			fDto.setfSize(upFile.getSize());
@@ -33,14 +39,23 @@ public class FileUtil {
 		return fileList;
 	}
 
-	private void saveFileRepository(MultipartFile upFile, String path) {
+	private String encryptName(String originalFilename) {
+		
+		DateFormat dateFormatformat = new SimpleDateFormat("yyyyMMddHHssSSS", Locale.KOREA);
+		System.out.println("dateFormatformat : " + dateFormatformat.format(new Date()));
+		String encName = originalFilename + dateFormatformat.format(new Date()) + (int)(Math.random()*10000000);
+		
+		return encName;
+	}
+
+	private void saveFileRepository(MultipartFile upFile, String path, String encName) {
 		// TODO Auto-generated method stub
 		File fileRepository = new File(path);
 		if(!fileRepository.exists()) {	// 폴더 없을시 생성
 			fileRepository.mkdirs();
 		}
 		
-		File file = new File(path + "/" + upFile.getOriginalFilename());	// 이름 암호화 해야함.
+		File file = new File(path + "/" + encName);
 
 		try {
 			upFile.transferTo(file);

@@ -9,10 +9,6 @@ public class FileDto {
 	private String rName;	// 실제 파일 이름
 	private double fSize;	// 파일 크기
 	
-	public void sizeCalculation() {
-		// 크기 계산하는 알고리즘 만들 것.
-	}
-
 	public int getfId() {
 		return fId;
 	}

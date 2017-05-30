@@ -56,7 +56,7 @@
 				<div class="control-group">
 					<label class="control-label">파일</label>
 					<div class="controls">
-						<input type="file" name="upFile" style="width: 90%;">
+						<input type="file" name="upFile" style="width: 90%;" multiple>
 					</div>
 				</div>
 				<div class="control-group">
