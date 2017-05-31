@@ -18,33 +18,31 @@
 		FROM (SELECT rownum AS rnum, F.bId, F.bWriter, F.bTitle, F.bContent, F.bDate, F.bCount
 				FROM (SELECT bId, bWriter, bTitle, bContent, bDate, bCount
 						FROM freeBoard ORDER BY bId DESC) F
-						WHERE rownum <![CDATA[<=]]> #{param2}) S
-		WHERE S.rnum <![CDATA[>=]]> #{param1}		
+						WHERE rownum <![CDATA[<=]]> #{lstNum}) S
+		WHERE S.rnum <![CDATA[>=]]> #{firNum}		
 	</select>
 
 	<insert id="write">
-		INSERT INTO freeBoard (gId, bId, bWriter, bTitle,
-		bContent, bCount) VALUES (1, freeBoard_seq.nextval, #{param1},
-		#{param2}, #{param3}, 0)
+		INSERT INTO freeBoard (gId, bId, bWriter, bTitle, bContent, bCount)
+		VALUES (1, freeBoard_seq.nextval, #{bWriter}, #{bTitle}, #{bContent}, 0)
 	</insert>
 
 	<select id="view" resultType="com.h066it.portfolio.dto.Dto">
-		SELECT * FROM freeBoard WHERE bId =
-		#{param1}
+		SELECT * FROM freeBoard WHERE bId =	#{bId}
 	</select>
 
 	<delete id="delete">
-		DELETE FROM freeBoard WHERE bId = #{param1}
+		DELETE FROM freeBoard WHERE bId = #{bId}
 	</delete>
 
 	<update id="update">
-		UPDATE freeBoard SET bWriter = #{param2}, bTitle =
-		#{param3}, bContent = #{param4} WHERE bId = #{param1}
+		UPDATE freeBoard
+		SET bWriter = #{bWriter}, bTitle = #{bTitle}, bContent = #{bContent}
+		WHERE bId = #{bId}
 	</update>
 
 	<update id="countUpdate">
-		UPDATE freeBoard SET bCount = bCount + 1 WHERE bId =
-		#{param1}
+		UPDATE freeBoard SET bCount = bCount + 1 WHERE bId = #{bId}
 	</update>
 
 	<select id="searchCount" resultType="com.h066it.portfolio.dto.Dto" parameterType="com.h066it.portfolio.vo.PageVo">
@@ -68,8 +66,8 @@
 						<if test="searchType.equals('bTitle_bContent')">bTitle LIKE '%'||#{keyword}||'%' OR bContent LIKE
 						'%'||#{keyword}||'%'</if>
 						<if test="searchType.equals('bWriter')">bWriter LIKE '%'||#{keyword}||'%'</if>
-						AND rownum <![CDATA[<=]]> #{param2}) S
-		WHERE S.rnum <![CDATA[>=]]> #{param1}
+						AND rownum <![CDATA[<=]]> #{lstNum}) S
+		WHERE S.rnum <![CDATA[>=]]> #{firNum}
 	</select>
 	
 	<insert id="fileWrite" parameterType="com.h066it.portfolio.dto.Dto">
@@ -79,5 +77,9 @@
 		INSERT INTO freeboard_file (fId, gId, bId, fName, rName, fSize)
 		VALUES (freeboard_file_seq.nextval, 1, #{bId} , #{fName}, #{rName}, #{fSize})
 	</insert>
+
+	<select id="fileView" resultType="com.h066it.portfolio.dto.FileDto" parameterType="String">
+		SELECT * FROM freeBoard_file WHERE bId = #{bId}
+	</select>
 
 </mapper>
