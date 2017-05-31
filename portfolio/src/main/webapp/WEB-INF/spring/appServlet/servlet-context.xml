@@ -48,4 +48,11 @@
 		<beans:property name="defaultEncoding" value="UTF-8"></beans:property>
 	</beans:bean>
 	
+	<beans:bean name="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+  		<beans:property name="dataSource" ref="dataSource" />
+	</beans:bean>
+	
+	<beans:bean name="service" class="com.h066it.portfolio.service.ServiceModel">
+	</beans:bean>
+	
 </beans:beans>
