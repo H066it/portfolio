@@ -20,20 +20,21 @@ public class FileUtil {
 		List<FileDto> fileList = new ArrayList<FileDto>();
 		
 		for(MultipartFile upFile : upFiles) {
+			if(!upFile.getOriginalFilename().isEmpty() && upFile.getSize() != 0) {
+				String encName = encryptName(upFile.getOriginalFilename());
 			
-			String encName = encryptName(upFile.getOriginalFilename());
-			
-			saveFileRepository(upFile, path, encName);
-			
-			FileDto fDto = new FileDto();
-			fDto.setfName(encName);
-			System.out.println("encName : " + encName);
-			fDto.setrName(upFile.getOriginalFilename());
-			System.out.println("upFile.getOriginalFilename() : " + upFile.getOriginalFilename());
-			fDto.setfSize(upFile.getSize());
-			System.out.println("upFile.getSize() : " + upFile.getSize());
-			
-			fileList.add(fDto);
+				saveFileRepository(upFile, path, encName);
+				
+				FileDto fDto = new FileDto();
+				fDto.setfName(encName);
+				System.out.println("encName : " + encName);
+				fDto.setrName(upFile.getOriginalFilename());
+				System.out.println("upFile.getOriginalFilename() : " + upFile.getOriginalFilename());
+				fDto.setfSize(upFile.getSize());
+				System.out.println("upFile.getSize() : " + upFile.getSize());
+					
+				fileList.add(fDto);
+			}
 		}
 		
 		return fileList;

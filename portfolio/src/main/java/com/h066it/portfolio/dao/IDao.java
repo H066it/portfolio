@@ -1,6 +1,7 @@
 package com.h066it.portfolio.dao;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
@@ -22,5 +23,6 @@ public interface IDao {
 			@Param("searchType")String searchType, @Param("keyword")String keyword);
 	public void fileWrite(@Param("fName")String fName, @Param("rName")String rName, @Param("fSize")double fSize);
 	public ArrayList<FileDto> fileView(@Param("bId")String bId);
+	public void writeWithFile(@Param("dto")Dto dto, @Param("fileList")List<FileDto> fileList);
 	
 }

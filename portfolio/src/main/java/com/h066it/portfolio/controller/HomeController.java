@@ -48,21 +48,10 @@ public class HomeController {
 	@RequestMapping("/write")
 	public String write(HttpServletRequest request, Dto dto, Model model) {
 
-		System.out.println("write");
-		service.write(request.getParameter("bWriter"), request.getParameter("bTitle"), request.getParameter("bContent"));
-
 		FileUtil fu = new FileUtil();
-		List<FileDto> fileList = fu.saveFiles(dto.getUpFile());
+		List<FileDto> fileList = fu.saveFiles(dto.getUpFile());	// 실제 저장은 트랜잭션이랑 상관없음.(DB 무결성이 중요)
 
-		System.out.println("fileList : " + fileList);
-		for(FileDto file : fileList) {	// DB에 저장되는거 만들기.
-	
-			System.out.println("file.getfName() : " + file.getfName());
-			System.out.println("file.getrName() : " + file.getrName());
-			System.out.println("file.getfSize() : " + file.getfSize());
-			
-			service.fileWrite(file.getfName(), file.getrName(), file.getfSize());
-		}
+		service.writeWithFile(dto, fileList);
 		
 		return "redirect:list";
 	}
