@@ -1,8 +1,14 @@
 package com.h066it.portfolio.controller;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -109,4 +115,13 @@ public class HomeController {
 		
 		return "list";
 	}
+	
+	@RequestMapping("/fileDownload")
+	public void fileDownload(HttpServletRequest request, HttpServletResponse response) {
+		
+		System.out.println("fileDownload");
+		service.fileDownload(request, response);	
+	
+	}
+	
 }

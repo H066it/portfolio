@@ -1,7 +1,16 @@
 package com.h066it.portfolio.service;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -118,7 +127,6 @@ public class ServiceModel implements IDao {
 
 	@Override
 	public void writeWithFile(final Dto dto, final List<FileDto> fileList) {
-		// TODO Auto-generated method stub
 		
 		TransactionTemplate.execute(new TransactionCallbackWithoutResult() {
 			
@@ -140,6 +148,63 @@ public class ServiceModel implements IDao {
 				}
 			}
 		});
+		
+	}
+
+	@Override
+	public void fileDownload(HttpServletRequest request, HttpServletResponse response) {
+
+		String path = "C:\\Users\\tosh\\git\\portfolio\\portfolio\\fileRepository";
+		String fName = request.getParameter("fName");
+		String filePath = path + "\\" + fName.substring(1, fName.length() - 1);
+
+		String rName = null;
+		
+		String header = request.getHeader("User-Agent");
+		
+		if (header.indexOf("MSIE") != -1 || header.indexOf("Trident") != -1) {	// IE 다운로드 수정해야함.
+			System.out.println("0");
+			try {
+				System.out.println("1");
+				rName = URLEncoder.encode(request.getParameter("rName"), "utf-8").replaceAll("\\+", "%20");
+				System.out.println("2");
+				System.out.println("rName : " + rName);
+				response.setHeader("content-disposition", "attachment; filename=\"" + rName.substring(3, rName.length() - 3) + "\"");
+				response.setHeader("content-type", "application/octet-stream; charset=utf-8");
+			} catch (UnsupportedEncodingException e) {
+				System.out.println(e.getMessage());
+			}
+		} else {
+			try {
+				rName = new String(request.getParameter("rName").getBytes("UTF-8"), "ISO-8859-1");	// 파일 이름 한글 인코딩.
+				System.out.println("rName : " + rName);
+				response.setHeader("content-disposition", "attachment; filename=\"" + rName.substring(1, rName.length() - 1) + "\"");
+				response.setHeader("content-type", "application/octet-stream; charset=utf-8");
+			} catch (UnsupportedEncodingException e) {
+			}
+		}
+		
+		System.out.println("request.getParameter(\"rName\") : " + rName.substring(1, rName.length() - 1));
+		System.out.println("filePath : " + filePath);
+/*		response.setHeader("content-disposition", "attachment; filename=\"" + rName.substring(1, rName.length() - 1) + "\"");*/
+		// 다운시 파일 이름.
+		/*response.setHeader("content-type", "application/octet-stream; charset=utf-8");	// 다운시 알림창.
+*/
+		try {
+			FileInputStream input = new FileInputStream(filePath);
+			OutputStream output = response.getOutputStream();
+			
+			int read = 0;
+            byte[] byteStream = new byte[10485760];	// bufferSize 10MB 제한.
+
+            while ((read = input.read(byteStream)) != -1 ) {
+                output.write(byteStream, 0, read);
+            }			
+            output.close();
+            input.close();
+		} catch (FileNotFoundException e) {
+		} catch (IOException e) {
+		}
 		
 	}
 

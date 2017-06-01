@@ -59,7 +59,7 @@
 					<label class="control-label">파일</label>
 					<div class="controls" align="left">
 						<c:forEach items="${files }" var="file">
-							<a href="list" style="width: 90%;">${file.rName }</a> (${file.sizeCalculation(file.fSize) }) 
+							<a href="fileDownload?fName='${file.fName }'&rName='${file.rName }'" style="width: 90%;">${file.rName }</a> (${file.sizeCalculation(file.fSize) }) 
 						</c:forEach>
 					</div>
 				</div>
