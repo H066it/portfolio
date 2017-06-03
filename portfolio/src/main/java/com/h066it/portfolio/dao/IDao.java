@@ -30,8 +30,10 @@ public interface IDao {
 	
 	/*file 관련*/
 	public void fileWrite(@Param("fName")String fName, @Param("rName")String rName, @Param("fSize")double fSize);
+	public void fileDelete(@Param("fId")String fId);
 	public ArrayList<FileDto> fileView(@Param("bId")String bId);
-	public void writeWithFile(@Param("dto")Dto dto, @Param("fileList")List<FileDto> fileList);	// ServiceModel만 쓸거면 없어도 무방.
 	public void fileDownload(HttpServletRequest request, HttpServletResponse response);	// ServiceModel만 쓸거면 없어도 무방.
+	public void writeWithFile(@Param("dto")Dto dto, @Param("fileList")List<FileDto> fileList);	// ServiceModel만 쓸거면 없어도 무방.
+	public void deleteWithFile(@Param("bId")String bId , @Param("fileList")List<FileDto> fileList); // ServiceModel만 쓸거면 없어도 무방.
 	
 }

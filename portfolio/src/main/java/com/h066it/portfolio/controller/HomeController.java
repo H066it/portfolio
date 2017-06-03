@@ -66,6 +66,17 @@ public class HomeController {
 		return "redirect:list";
 	}
 
+	@RequestMapping("/delete")
+	public String delete(HttpServletRequest request, Model model) {
+
+		String bId = request.getParameter("bId");
+		
+		List<FileDto> fileList = service.fileView(bId);
+		service.deleteWithFile(bId, fileList);
+
+		return "redirect:list";
+	}
+	
 	@RequestMapping("/view")
 	public String view(HttpServletRequest request, Model model) {
 
@@ -88,15 +99,6 @@ public class HomeController {
 		List<FileDto> fileList = fu.saveFiles(dto.getUpFile());	// 실제 저장은 트랜잭션이랑 상관없음.(DB 무결성이 중요)
 
 		service.updateeWithFile(dto, fileList);*/
-
-		return "redirect:list";
-	}
-
-	@RequestMapping("/delete")
-	public String delete(HttpServletRequest request, Model model) {
-
-		System.out.println("delete");
-		service.delete(request.getParameter("bId"));
 
 		return "redirect:list";
 	}

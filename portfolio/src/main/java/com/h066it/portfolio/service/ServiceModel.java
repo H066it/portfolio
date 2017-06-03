@@ -116,6 +116,15 @@ public class ServiceModel implements IDao {
 		dao.fileWrite(fName, rName, fSize);
 		
 	}
+	
+	@Override
+	public void fileDelete(String fId) {
+	
+		IDao dao = sqlSession.getMapper(IDao.class);
+		
+		dao.fileDelete(fId);
+		
+	}
 
 	@Override
 	public ArrayList<FileDto> fileView(String bId) {
@@ -123,32 +132,6 @@ public class ServiceModel implements IDao {
 		IDao dao = sqlSession.getMapper(IDao.class);
 		
 		return dao.fileView(bId);
-	}
-
-	@Override
-	public void writeWithFile(final Dto dto, final List<FileDto> fileList) {
-		
-		TransactionTemplate.execute(new TransactionCallbackWithoutResult() {
-			
-			@Override
-			protected void doInTransactionWithoutResult(TransactionStatus status) {
-				
-				System.out.println("write");
-				write(dto.getbWriter(), dto.getbTitle(), dto.getbContent());
-
-				if(!fileList.isEmpty()) {
-					for(FileDto file : fileList) {	// DB에 file들 정보 저장.
-					
-						System.out.println("file.getfName() : " + file.getfName());
-						System.out.println("file.getrName() : " + file.getrName());
-						System.out.println("file.getfSize() : " + file.getfSize());
-					
-						fileWrite(file.getfName(), file.getrName(), file.getfSize());
-					}
-				}
-			}
-		});
-		
 	}
 
 	@Override
@@ -207,4 +190,55 @@ public class ServiceModel implements IDao {
 		
 	}
 
+	@Override
+	public void writeWithFile(final Dto dto, final List<FileDto> fileList) {
+		
+		TransactionTemplate.execute(new TransactionCallbackWithoutResult() {
+			
+			@Override
+			protected void doInTransactionWithoutResult(TransactionStatus status) {
+				
+				System.out.println("write");
+				write(dto.getbWriter(), dto.getbTitle(), dto.getbContent());
+				
+				if(!fileList.isEmpty()) {
+					for(FileDto file : fileList) {	// DB에 file들 정보 저장.
+						
+						System.out.println("file.getfName() : " + file.getfName());
+						System.out.println("file.getrName() : " + file.getrName());
+						System.out.println("file.getfSize() : " + file.getfSize());
+						
+						fileWrite(file.getfName(), file.getrName(), file.getfSize());
+					}
+				}
+			}
+		});
+		
+	}
+	
+	@Override
+	public void deleteWithFile(final String bId, final List<FileDto> fileList) {
+		
+		TransactionTemplate.execute(new TransactionCallbackWithoutResult() {
+			
+			@Override
+			protected void doInTransactionWithoutResult(TransactionStatus status) {
+				
+				System.out.println("delete");
+				delete(bId);
+
+				if(!fileList.isEmpty()) {
+					for(FileDto file : fileList) {	// DB에 file들 정보 저장.
+					
+						System.out.println("file.getfId() : " + file.getfId());
+					
+						String fId = Integer.toString(file.getfId());
+						fileDelete(fId);
+					}
+				}
+			}
+		});
+		
+	}	
+	
 }
