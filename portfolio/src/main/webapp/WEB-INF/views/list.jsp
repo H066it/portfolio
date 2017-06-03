@@ -54,7 +54,7 @@
 			</c:forEach>
 		</table>
 
-		<a href="writeForm"><input class="btn" type="button" value="글쓰기" /></a><br />
+		<a href="form"><input class="btn" type="button" value="글쓰기" /></a><br />
 
 		<div class="pagination">
 			<ul>

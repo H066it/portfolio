@@ -31,7 +31,7 @@
 			</div>
 		</div>
 
-		<form action="updateForm" method="post" class="form-horizontal">
+		<form action="form" method="post" class="form-horizontal">
 			<div class="form-horizontal">
 				<input type="hidden" name="bId" value="${param.bId }" />
 				<div class="control-group">
@@ -59,7 +59,8 @@
 					<label class="control-label">파일</label>
 					<div class="controls" align="left">
 						<c:forEach items="${files }" var="file">
-							<a href="fileDownload?fName='${file.fName }'&rName='${file.rName }'" style="width: 90%;">${file.rName }</a> (${file.sizeCalculation(file.fSize) }) 
+							<a href="fileDownload?fName='${file.fName }'&rName='${file.rName }'" style="width: 90%;">
+							${file.rName }</a> (${file.sizeCalculation(file.fSize) }) 
 						</c:forEach>
 					</div>
 				</div>

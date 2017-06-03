@@ -1,10 +1,5 @@
 package com.h066it.portfolio.controller;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.OutputStream;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -43,12 +38,21 @@ public class HomeController {
 		return "list";
 	}
 
-	@RequestMapping("/writeForm")
-	public String writeForm(HttpServletRequest request, Model model) {
+	@RequestMapping("/form")
+	public String form(HttpServletRequest request, Model model) {
 
-		System.out.println("writeForm");
+		String bId = request.getParameter("bId");
 		
-		return "writeForm";
+		if(bId == null || bId.equals("null") || bId.equals("")) {
+			System.out.println("writeForm");
+		} else {
+			System.out.println("updateForm");
+			List<FileDto> fileList = service.fileView(bId);
+			model.addAttribute("files", fileList);
+		}
+		model.addAttribute("bId", request.getParameter("bId"));
+		
+		return "form";
 	}
 
 	@RequestMapping("/write")
@@ -73,20 +77,17 @@ public class HomeController {
 		return "view";
 	}
 
-	@RequestMapping("/updateForm")
-	public String updateForm(HttpServletRequest request, Model model) {
-
-		System.out.println("updateForm");
-
-		return "updateForm";
-	}
-
 	@RequestMapping("/update")
-	public String update(HttpServletRequest request, Model model) {
+	public String update(HttpServletRequest request, Dto dto, Model model) {
 
 		System.out.println("update");
 		service.update(request.getParameter("bId"), request.getParameter("bWriter"), request.getParameter("bTitle"),
 				request.getParameter("bContent"));
+		
+		/*FileUtil fu = new FileUtil();
+		List<FileDto> fileList = fu.saveFiles(dto.getUpFile());	// 실제 저장은 트랜잭션이랑 상관없음.(DB 무결성이 중요)
+
+		service.updateeWithFile(dto, fileList);*/
 
 		return "redirect:list";
 	}

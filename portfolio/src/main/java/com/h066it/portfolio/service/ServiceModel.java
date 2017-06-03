@@ -162,12 +162,11 @@ public class ServiceModel implements IDao {
 		
 		String header = request.getHeader("User-Agent");
 		
+		System.out.println("header : " + header);
+		
 		if (header.indexOf("MSIE") != -1 || header.indexOf("Trident") != -1) {	// IE 다운로드 수정해야함.
-			System.out.println("0");
 			try {
-				System.out.println("1");
 				rName = URLEncoder.encode(request.getParameter("rName"), "utf-8").replaceAll("\\+", "%20");
-				System.out.println("2");
 				System.out.println("rName : " + rName);
 				response.setHeader("content-disposition", "attachment; filename=\"" + rName.substring(3, rName.length() - 3) + "\"");
 				response.setHeader("content-type", "application/octet-stream; charset=utf-8");
