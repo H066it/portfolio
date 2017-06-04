@@ -11,7 +11,7 @@
 <link href="css/bootstrap-responsive.css" rel="stylesheet">
 <title>freeeeeeeeeeboard</title>
 <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
-<script type="text/javascript" src="js/submitRule.min.js"></script>
+<script type="text/javascript" src="js/submitRule.js"></script>
 </head>
 <body>
 	form.jsp
@@ -61,7 +61,7 @@
 						<div class="control-group">
 							<label class="control-label">파일</label>
 							<div class="controls">
-								<input type="file" name="upFile" style="width: 90%;" multiple>
+								<input type="file" name="upFile" style="width: 90%;" multiple> (10MB 제한)
 							</div>
 						</div>
 						<div class="control-group">
@@ -107,9 +107,9 @@
 									<a
 										href="fileDownload?fName='${file.fName }'&rName='${file.rName }'"
 										style="width: 90%;">${file.rName }</a> (${file.sizeCalculation(file.fSize) }) 
-									<a href="fileDelete?fId='${file.fId }'"><i class="icon-trash"></i></a>
+									<i class="icon-trash"></i><input type="checkbox" name="fId" value="${file.fId }"/>
 								</c:forEach>
-								<input type="file" name="upFile" style="width: 90%;" multiple>
+								<input type="file" name="upFile" style="width: 90%;" multiple> (10MB 제한)
 							</div>
 						</div>
 						<div class="control-group">

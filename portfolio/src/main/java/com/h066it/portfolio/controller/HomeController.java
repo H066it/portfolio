@@ -90,15 +90,13 @@ public class HomeController {
 
 	@RequestMapping("/update")
 	public String update(HttpServletRequest request, Dto dto, Model model) {
-
-		System.out.println("update");
-		service.update(request.getParameter("bId"), request.getParameter("bWriter"), request.getParameter("bTitle"),
-				request.getParameter("bContent"));
 		
-		/*FileUtil fu = new FileUtil();
+		FileUtil fu = new FileUtil();
 		List<FileDto> fileList = fu.saveFiles(dto.getUpFile());	// 실제 저장은 트랜잭션이랑 상관없음.(DB 무결성이 중요)
 
-		service.updateeWithFile(dto, fileList);*/
+		String[] fIds = request.getParameterValues("fId");
+		
+		service.updateeWithFile(dto, fileList, fIds);
 
 		return "redirect:list";
 	}

@@ -239,6 +239,43 @@ public class ServiceModel implements IDao {
 			}
 		});
 		
+	}
+
+	@Override
+	public void updateeWithFile(final Dto dto, final List<FileDto> fileList, final String[] fIds) {
+		
+		TransactionTemplate.execute(new TransactionCallbackWithoutResult() {
+			
+			@Override
+			protected void doInTransactionWithoutResult(TransactionStatus status) {
+				
+				System.out.println("update");
+				
+				String bId = Integer.toString(dto.getbId());
+				update(bId, dto.getbWriter(), dto.getbTitle(),	dto.getbContent());
+
+				if(!fileList.isEmpty()) {
+					for(FileDto file : fileList) {	// DB에 file들 정보 저장.
+						
+						System.out.println("file.getfName() : " + file.getfName());
+						System.out.println("file.getrName() : " + file.getrName());
+						System.out.println("file.getfSize() : " + file.getfSize());
+						
+						fileWrite(file.getfName(), file.getrName(), file.getfSize());
+					}
+				}
+				
+				if(fIds != null) {
+					for(String fId : fIds) {
+						
+						System.out.println("fileDelete fId : " + fId);
+						fileDelete(fId);
+						
+					}
+				}
+			}
+		});
+		
 	}	
 	
 }
