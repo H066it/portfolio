@@ -15,6 +15,7 @@ public class Dto {
 	private Timestamp bDate; // 작성일
 	private int bCount; // 조회수
 	private List<MultipartFile> upFile;	// 연결된 파일 목록
+	private int fileCheck;	// 파일 유무 확인 (0 = 무, 1 = 유)
 
 	public int getgId() {
 		return gId;
@@ -78,6 +79,14 @@ public class Dto {
 	
 	public void setUpFile(List<MultipartFile> upFile) {
 		this.upFile = upFile;
+	}
+	
+	public int getFileCheck() {
+		return fileCheck;
+	}
+
+	public void setFileCheck(int fileCheck) {
+		this.fileCheck = fileCheck;
 	}
 	
 }

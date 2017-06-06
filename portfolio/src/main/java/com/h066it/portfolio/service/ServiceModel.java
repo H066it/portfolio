@@ -49,11 +49,11 @@ public class ServiceModel implements IDao {
 	}
 
 	@Override
-	public void write(String bWriter, String bTitle, String bContent) {
+	public void write(String bWriter, String bTitle, String bContent, int fileCheck) {
 
 		IDao dao = sqlSession.getMapper(IDao.class);
 
-		dao.write(bWriter, bTitle, bContent);
+		dao.write(bWriter, bTitle, bContent, fileCheck);
 		
 	}
 
@@ -75,11 +75,11 @@ public class ServiceModel implements IDao {
 	}
 
 	@Override
-	public void update(String bId, String bWriter, String bTitle, String bContent) {
+	public void update(String bId, String bWriter, String bTitle, String bContent, int fileCheck) {
 		
 		IDao dao = sqlSession.getMapper(IDao.class);
 		
-		dao.update(bId, bWriter, bTitle, bContent);
+		dao.update(bId, bWriter, bTitle, bContent, fileCheck);
 		
 	}
 
@@ -134,6 +134,15 @@ public class ServiceModel implements IDao {
 		return dao.fileView(bId);
 	}
 
+	@Override
+	public void fileUpdate(int bId, String fName, String rName, double fSize) {
+		
+		IDao dao = sqlSession.getMapper(IDao.class);
+		
+		dao.fileUpdate(bId, fName, rName, fSize);
+		
+	}	
+	
 	@Override
 	public void fileDownload(HttpServletRequest request, HttpServletResponse response) {
 
@@ -199,7 +208,7 @@ public class ServiceModel implements IDao {
 			protected void doInTransactionWithoutResult(TransactionStatus status) {
 				
 				System.out.println("write");
-				write(dto.getbWriter(), dto.getbTitle(), dto.getbContent());
+				write(dto.getbWriter(), dto.getbTitle(), dto.getbContent(), dto.getFileCheck());
 				
 				if(!fileList.isEmpty()) {
 					for(FileDto file : fileList) {	// DB에 file들 정보 저장.
@@ -252,7 +261,7 @@ public class ServiceModel implements IDao {
 				System.out.println("update");
 				
 				String bId = Integer.toString(dto.getbId());
-				update(bId, dto.getbWriter(), dto.getbTitle(),	dto.getbContent());
+				update(bId, dto.getbWriter(), dto.getbTitle(),	dto.getbContent(), dto.getFileCheck());
 
 				if(!fileList.isEmpty()) {
 					for(FileDto file : fileList) {	// DB에 file들 정보 저장.
@@ -261,7 +270,7 @@ public class ServiceModel implements IDao {
 						System.out.println("file.getrName() : " + file.getrName());
 						System.out.println("file.getfSize() : " + file.getfSize());
 						
-						fileWrite(file.getfName(), file.getrName(), file.getfSize());
+						fileUpdate(dto.getbId(), file.getfName(), file.getrName(), file.getfSize());
 					}
 				}
 				
@@ -276,6 +285,6 @@ public class ServiceModel implements IDao {
 			}
 		});
 		
-	}	
+	}
 	
 }

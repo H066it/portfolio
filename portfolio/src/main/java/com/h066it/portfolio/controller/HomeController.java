@@ -50,7 +50,7 @@ public class HomeController {
 			List<FileDto> fileList = service.fileView(bId);
 			model.addAttribute("files", fileList);
 		}
-		model.addAttribute("bId", request.getParameter("bId"));
+		model.addAttribute("bId", bId);
 		
 		return "form";
 	}
@@ -61,6 +61,12 @@ public class HomeController {
 		FileUtil fu = new FileUtil();
 		List<FileDto> fileList = fu.saveFiles(dto.getUpFile());	// 실제 저장은 트랜잭션이랑 상관없음.(DB 무결성이 중요)
 
+		if(fileList.size() == 0) {	// file 유, 무 체크
+			dto.setFileCheck(0);
+		} else {
+			dto.setFileCheck(1);
+		}
+		
 		service.writeWithFile(dto, fileList);
 		
 		return "redirect:list";
@@ -94,6 +100,12 @@ public class HomeController {
 		FileUtil fu = new FileUtil();
 		List<FileDto> fileList = fu.saveFiles(dto.getUpFile());	// 실제 저장은 트랜잭션이랑 상관없음.(DB 무결성이 중요)
 
+		if(fileList.size() == 0) {	// file 유, 무 체크
+			dto.setFileCheck(0);
+		} else {
+			dto.setFileCheck(1);
+		}
+		
 		String[] fIds = request.getParameterValues("fId");
 		
 		service.updateeWithFile(dto, fileList, fIds);

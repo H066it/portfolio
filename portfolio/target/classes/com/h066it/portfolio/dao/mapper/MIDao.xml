@@ -14,17 +14,20 @@
 
 	<select id="list" resultType="com.h066it.portfolio.dto.Dto"
 		parameterType="com.h066it.portfolio.vo.PageVo">
-		SELECT S.bId, S.bWriter, S.bTitle, S.bContent, S.bDate, S.bCount
-		FROM (SELECT rownum AS rnum, F.bId, F.bWriter, F.bTitle, F.bContent, F.bDate, F.bCount
-				FROM (SELECT bId, bWriter, bTitle, bContent, bDate, bCount
+		SELECT S.bId, S.bWriter, S.bTitle, S.bContent, S.bDate, S.bCount, S.fileCheck
+		FROM (SELECT rownum AS rnum, F.bId, F.bWriter, F.bTitle, F.bContent, F.bDate, F.bCount, F.fileCheck
+				FROM (SELECT bId, bWriter, bTitle, bContent, bDate, bCount, fileCheck
 						FROM freeBoard ORDER BY bId DESC) F
 						WHERE rownum <![CDATA[<=]]> #{lstNum}) S
 		WHERE S.rnum <![CDATA[>=]]> #{firNum}		
 	</select>
 
 	<insert id="write">
-		INSERT INTO freeBoard (gId, bId, bWriter, bTitle, bContent, bCount)
-		VALUES (1, freeBoard_seq.nextval, #{bWriter}, #{bTitle}, #{bContent}, 0)
+		INSERT INTO freeBoard (gId, bId, bWriter, bTitle, bContent, bCount, fileCheck)
+		VALUES (1, freeBoard_seq.nextval, #{bWriter}, #{bTitle}, #{bContent}, 0,
+		<if test="fileCheck == 0">0</if>
+		<if test="fileCheck == 1">1</if>
+		)
 	</insert>
 
 	<delete id="delete">
@@ -37,7 +40,9 @@
 
 	<update id="update">
 		UPDATE freeBoard
-		SET bWriter = #{bWriter}, bTitle = #{bTitle}, bContent = #{bContent}
+		SET bWriter = #{bWriter}, bTitle = #{bTitle}, bContent = #{bContent}, fileCheck = 
+		<if test="fileCheck == 0">0</if>
+		<if test="fileCheck == 1">1</if>
 		WHERE bId = #{bId}
 	</update>
 
@@ -50,22 +55,20 @@
 		SELECT * FROM freeBoard WHERE
 		<if test="searchType.equals('bTitle')">bTitle LIKE '%'||#{keyword}||'%'</if>
 		<if test="searchType.equals('bContent')">bContent LIKE '%'||#{keyword}||'%'</if>
-		<if test="searchType.equals('bTitle_bContent')">bTitle LIKE '%'||#{keyword}||'%' OR bContent LIKE
-			'%'||#{keyword}||'%'</if>
+		<if test="searchType.equals('bTitle_bContent')">bTitle||bContent LIKE '%'||#{keyword}||'%'</if>
 		<if test="searchType.equals('bWriter')">bWriter LIKE '%'||#{keyword}||'%'</if>
 		ORDER BY bId DESC
 	</select>
 
 	<select id="searchList" resultType="com.h066it.portfolio.dto.Dto" parameterType="com.h066it.portfolio.vo.PageVo">
-		SELECT S.bId, S.bWriter, S.bTitle, S.bContent, S.bDate, S.bCount
-		FROM (SELECT rownum AS rnum, F.bId, F.bWriter, F.bTitle, F.bContent, F.bDate, F.bCount
-				FROM (SELECT bId, bWriter, bTitle, bContent, bDate, bCount
+		SELECT S.bId, S.bWriter, S.bTitle, S.bContent, S.bDate, S.bCount, S.fileCheck
+		FROM (SELECT rownum AS rnum, F.bId, F.bWriter, F.bTitle, F.bContent, F.bDate, F.bCount, F.fileCheck
+				FROM (SELECT bId, bWriter, bTitle, bContent, bDate, bCount, fileCheck
 						FROM freeBoard ORDER BY bId DESC) F
 						WHERE 
 						<if test="searchType.equals('bTitle')">bTitle LIKE '%'||#{keyword}||'%'</if>
 						<if test="searchType.equals('bContent')">bContent LIKE '%'||#{keyword}||'%'</if>
-						<if test="searchType.equals('bTitle_bContent')">bTitle LIKE '%'||#{keyword}||'%' OR bContent LIKE
-						'%'||#{keyword}||'%'</if>
+						<if test="searchType.equals('bTitle_bContent')">bTitle||bContent LIKE '%'||#{keyword}||'%'</if>
 						<if test="searchType.equals('bWriter')">bWriter LIKE '%'||#{keyword}||'%'</if>
 						AND rownum <![CDATA[<=]]> #{lstNum}) S
 		WHERE S.rnum <![CDATA[>=]]> #{firNum}
@@ -87,5 +90,10 @@
 	<select id="fileView" resultType="com.h066it.portfolio.dto.FileDto" parameterType="String">
 		SELECT * FROM freeBoard_file WHERE bId = #{bId}
 	</select>
+
+	<insert id="fileUpdate" parameterType="com.h066it.portfolio.dto.Dto">
+		INSERT INTO freeBoard_file (fId, gId, bId, fName, rName, fSize)
+		VALUES (freeboard_file_seq.nextval, 1, #{bId} , #{fName}, #{rName}, #{fSize})
+	</insert>
 
 </mapper>

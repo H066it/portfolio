@@ -44,7 +44,10 @@
 			<c:forEach items="${list }" var="dto">
 				<tr>
 					<td>${dto.bId }</td>
-					<td><a href="view?bId=${dto.bId }" style="color: black;">${dto.bTitle }</a></td>
+					<td><a href="view?bId=${dto.bId }" style="color: black;">
+						${dto.bTitle }
+						<c:if test="${dto.fileCheck == 1 }"><i class="icon-film"></i></c:if>
+					</a></td>
 					<td>${dto.bWriter }</td>
 					<td>${dto.bDate }</td>
 					<td>${dto.bCount }</td>
