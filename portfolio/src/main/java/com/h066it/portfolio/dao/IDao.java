@@ -41,4 +41,5 @@ public interface IDao {
 	public void deleteWithFile(@Param("bId")String bId , @Param("fileList")List<FileDto> fileList);
 	public void updateeWithFile(@Param("dto")Dto dto, @Param("fileList")List<FileDto> fileList, @Param("fIds")String[] fIds);
 	// <- ServiceModel만 쓸거면 없어도 무방.
+	
 }

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.h066it.portfolio.dto.Dto;
 import com.h066it.portfolio.dto.FileDto;
+import com.h066it.portfolio.dto.ReplyDto;
 import com.h066it.portfolio.fileUtil.FileUtil;
 import com.h066it.portfolio.service.ServiceModel;
 import com.h066it.portfolio.vo.PageVo;
@@ -87,10 +88,16 @@ public class HomeController {
 	public String view(HttpServletRequest request, Model model) {
 
 		System.out.println("view");
-		service.countUpdate(request.getParameter("bId"));		// 조회수
-		model.addAttribute("dto", service.view(request.getParameter("bId")));
-		model.addAttribute("files", service.fileView(request.getParameter("bId")));
+		
+		String bId = request.getParameter("bId");
+		
+		service.countUpdate(bId);		// 조회수
+		model.addAttribute("dto", service.view(bId));
+		model.addAttribute("files", service.fileView(bId));
 
+		List<ReplyDto> replyList = service.replyView(bId);
+		model.addAttribute("replys", replyList);
+		
 		return "view";
 	}
 

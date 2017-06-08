@@ -20,17 +20,21 @@ import org.springframework.transaction.support.TransactionCallbackWithoutResult;
 import org.springframework.transaction.support.TransactionTemplate;
 
 import com.h066it.portfolio.dao.IDao;
+import com.h066it.portfolio.dao.ReplyIDao;
 import com.h066it.portfolio.dto.Dto;
 import com.h066it.portfolio.dto.FileDto;
+import com.h066it.portfolio.dto.ReplyDto;
 
 @Service
-public class ServiceModel implements IDao {
+public class ServiceModel implements IDao, ReplyIDao {
 
 	@Autowired
 	private SqlSession sqlSession;
 	
 	@Autowired
 	private TransactionTemplate TransactionTemplate; 
+	
+	/*-------------- CRUD 包访 --------------*/
 	
 	@Override
 	public ArrayList<Dto> count() {
@@ -91,6 +95,8 @@ public class ServiceModel implements IDao {
 		dao.countUpdate(bId);
 		
 	}
+	
+	/*-------------- Search 包访 --------------*/
 
 	@Override
 	public ArrayList<Dto> searchCount(String searchType, String keyword) {
@@ -107,7 +113,9 @@ public class ServiceModel implements IDao {
 		
 		return dao.searchList(firNum, lstNum, searchType, keyword);
 	}
-
+	
+	/*-------------- File 包访 --------------*/
+	
 	@Override
 	public void fileWrite(String fName, String rName, double fSize) {
 		
@@ -286,5 +294,49 @@ public class ServiceModel implements IDao {
 		});
 		
 	}
+
+	/*-------------- Reply 包访 --------------*/
+	
+	@Override
+	public void replyWrite(ReplyDto rDto) {
+				
+		System.out.println("≮rDto.getrId() : " + rDto.getrId());
+		if(rDto.getrId() == 0) {
+			System.out.println("replyWriteOnBoard");
+			rDto.setrIndent(0);
+			
+			int order = lastReplyOrder(rDto.getbId());
+			
+			System.out.println("≮order : " + order);
+			
+			replyWriteOnBoard(rDto.getbId(), rDto.getrWriter(), rDto.getrPassword(), rDto.getrContent(), order);
+		}		
+	
+	}
+
+	@Override
+	public void replyWriteOnBoard(int bId, String rWriter, String rPassword, String rContent, int lstReplyOrder) {
+	
+		ReplyIDao rDao = sqlSession.getMapper(ReplyIDao.class);
+		
+		rDao.replyWriteOnBoard(bId, rWriter, rPassword, rContent, lstReplyOrder);
+		
+	}
+
+	@Override
+	public int lastReplyOrder(int bId) {
+		
+		ReplyIDao rDao = sqlSession.getMapper(ReplyIDao.class);
+				
+		return rDao.lastReplyOrder(bId);
+	}
+
+	@Override
+	public ArrayList<ReplyDto> replyView(String bId) {
+
+		ReplyIDao rDao = sqlSession.getMapper(ReplyIDao.class);
+		
+		return rDao.replyView(bId);
+	}	
 	
 }

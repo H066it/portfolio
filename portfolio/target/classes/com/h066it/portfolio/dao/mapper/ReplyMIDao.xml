@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.h066it.portfolio.dao.ReplyIDao">
+
+	<!-- freeBoard #1 nav -->
+
+	<insert id="replyWriteOnBoard" parameterType="com.h066it.portfolio.dto.FileDto">
+		INSERT INTO freeBoard_reply (gId, bId, rId, rWriter, rPassword, rContent, rDelete, rIndent, rOrder)
+		VALUES (1, #{bId}, freeBoard_reply_seq.nextval, #{rWriter}, #{rPassword}, #{rContent}, 0, 0, #{lstReplyOrder})
+	</insert>
+	
+	<select id="lastReplyOrder" resultType="Integer" parameterType="Integer">
+		SELECT NVL(MAX(rOrder + 1), 0) FROM freeBoard_reply WHERE bId = #{bId}
+	</select>
+
+	<select id="replyView" resultType="com.h066it.portfolio.dto.ReplyDto" parameterType="String">
+		SELECT * FROM freeBoard_reply WHERE bId = #{bId}
+	</select>
+
+</mapper>

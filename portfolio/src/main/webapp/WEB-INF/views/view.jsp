@@ -69,10 +69,68 @@
 						<input type="submit" class="btn" value="수정"></input> <a
 							href="list"><button type="button" class="btn">목록</button></a>
 					</div>
-				</div>
-			
+				</div>			
 			</div>
 		</form>
+		
+		<div>
+			<form action="replyWrite" method="post" class="form-horizontal" style="margin-top: 100px; padding-top: 50px; padding-bottom: 50px; border-top: thin dashed #778899;">
+				<input type="hidden" name="bId" value="${param.bId }" />
+				<div class="control-group">
+					<label class="control-label">작성자</label>
+						<div class="controls">
+				    		<input type="text" name="rWriter" style="width: 90%;">
+				 		</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label">비밀번호</label>
+				    	<div class="controls">
+				      		<input type="password" name="rPassword" style="width: 90%;">
+				   		</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label">내용</label>
+				    	<div class="controls">
+					    	<textarea name="rContent" cols="30" rows="5"
+					    	 placeholder="리플을 입력해주세요." style="resize: none; width: 90%;"></textarea>
+				   		</div>
+				</div>
+				<div class="control-group">
+					<div class="controls">
+						<input type="submit" class="btn" value="작성"></input>
+					</div>
+				</div>			
+			</form>
+		</div>
+		
+		<div style="text-align: left;">
+			<c:forEach items="${replys }" var="reply">
+			<form action="replyUpdate" method="post" class="form-horizontal">
+				<input type="hidden" name="bId" value="${reply.bId }" />
+				<div class="control-group">
+					<label class="control-label">작성자</label>
+						<div class="controls">
+				    		${reply.rWriter }
+				 		</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label">내용</label>
+				    	<div class="controls">
+					    	${reply.rContent }
+					    	<div>
+						    	<input type="submit" class="btn" value="수정"></input>
+								<input type="submit" class="btn" value="답글"></input>
+								<input type="submit" class="btn" value="삭제"></input>
+				   			</div>
+				   		</div>
+						
+				</div>
+				<div class="control-group">
+				</div>			
+			</form>
+			</c:forEach>
+		</div>
+		
 	</div>
 </body>
 </html>
