@@ -16,3 +16,24 @@ input[disabled], select[disabled], textarea[disabled], input[readonly], select[r
     cursor: default !important;
     background-color: white !important;
 }
+
+#replyWrite {
+	margin-top: 100px;
+	padding-top: 50px;
+	padding-bottom: 50px;
+	border-top: thin dashed #778899;
+}
+
+#replys {
+	text-align: left;
+}
+
+#replysTop {
+	padding-top: 20px;
+	padding-bottom: 20px;
+	border-top: thin dashed #778899;
+}
+
+#replyButton {
+	text-align: right;
+}

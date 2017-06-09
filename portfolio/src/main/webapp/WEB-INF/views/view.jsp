@@ -6,10 +6,12 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link href="css/style.min.css" rel="stylesheet" >
+<link href="css/styleMin.css" rel="stylesheet">
 <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
 <link href="css/bootstrap-responsive.css" rel="stylesheet">
 <title>freeeeeeeeeeboard</title>
+<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="js/replyButton.js"></script>
 </head>
 <body>
 	view.jsp
@@ -59,8 +61,9 @@
 					<label class="control-label">파일</label>
 					<div class="controls" align="left">
 						<c:forEach items="${files }" var="file">
-							<a href="fileDownload?fName='${file.fName }'&rName='${file.rName }'" style="width: 90%;">
-							${file.rName }</a> (${file.sizeCalculation(file.fSize) }) 
+							<a
+								href="fileDownload?fName='${file.fName }'&rName='${file.rName }'"
+								style="width: 90%;"> ${file.rName }</a> (${file.sizeCalculation(file.fSize) }) 
 						</c:forEach>
 					</div>
 				</div>
@@ -69,68 +72,74 @@
 						<input type="submit" class="btn" value="수정"></input> <a
 							href="list"><button type="button" class="btn">목록</button></a>
 					</div>
-				</div>			
+				</div>
 			</div>
 		</form>
-		
-		<div>
-			<form action="replyWrite" method="post" class="form-horizontal" style="margin-top: 100px; padding-top: 50px; padding-bottom: 50px; border-top: thin dashed #778899;">
+
+		<div id="replyWrite">
+			<form action="replyWrite" method="post" class="form-horizontal">
 				<input type="hidden" name="bId" value="${param.bId }" />
 				<div class="control-group">
 					<label class="control-label">작성자</label>
-						<div class="controls">
-				    		<input type="text" name="rWriter" style="width: 90%;">
-				 		</div>
+					<div class="controls">
+						<input type="text" name="rWriter" style="width: 90%;">
+					</div>
 				</div>
 				<div class="control-group">
 					<label class="control-label">비밀번호</label>
-				    	<div class="controls">
-				      		<input type="password" name="rPassword" style="width: 90%;">
-				   		</div>
+					<div class="controls">
+						<input type="password" name="rPassword" style="width: 90%;">
+					</div>
 				</div>
 				<div class="control-group">
 					<label class="control-label">내용</label>
-				    	<div class="controls">
-					    	<textarea name="rContent" cols="30" rows="5"
-					    	 placeholder="리플을 입력해주세요." style="resize: none; width: 90%;"></textarea>
-				   		</div>
+					<div class="controls">
+						<textarea name="rContent" cols="30" rows="5"
+							placeholder="리플을 입력해주세요." style="resize: none; width: 90%;"></textarea>
+					</div>
 				</div>
 				<div class="control-group">
 					<div class="controls">
 						<input type="submit" class="btn" value="작성"></input>
 					</div>
-				</div>			
+				</div>
 			</form>
 		</div>
-		
-		<div style="text-align: left;">
+
+		<div id="replys">
 			<c:forEach items="${replys }" var="reply">
-			<form action="replyUpdate" method="post" class="form-horizontal">
-				<input type="hidden" name="bId" value="${reply.bId }" />
-				<div class="control-group">
-					<label class="control-label">작성자</label>
-						<div class="controls">
-				    		${reply.rWriter }
-				 		</div>
-				</div>
-				<div class="control-group">
-					<label class="control-label">내용</label>
-				    	<div class="controls">
-					    	${reply.rContent }
-					    	<div>
-						    	<input type="submit" class="btn" value="수정"></input>
-								<input type="submit" class="btn" value="답글"></input>
-								<input type="submit" class="btn" value="삭제"></input>
-				   			</div>
-				   		</div>
-						
-				</div>
-				<div class="control-group">
-				</div>			
-			</form>
+				<form action="" method="post" class="form-horizontal">
+					<!-- action 추가해줘야함. -->
+					<input type="hidden" name="bId" value="${reply.bId }" /> <input
+						type="hidden" name="rId" value="${reply.rId }" />
+					<div class="control-group">
+						<div class="row-fluid" id="replysTop">
+							<div class="span10">
+								<label class="control-label">작성자</label>
+								<div class="controls">${reply.rWriter }</div>
+							</div>
+							<div class="span2" id="replyButton">
+								<button type="button" class="btn" onclick="replyWriteOnReply()">
+									<i class="icon-pencil"></i>
+								</button>
+								<button type="button" class="btn" onclick="replyUpdate()">
+									<i class="icon-wrench"></i>
+								</button>
+								<button type="button" class="btn" onclick="replyDelete()">
+									<i class="icon-trash"></i>
+								</button>
+							</div>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label">내용</label>
+						<div class="controls">${reply.rContent }</div>
+					</div>
+					<div class="control-group"></div>
+				</form>
 			</c:forEach>
-		</div>
-		
+		</div>	
+
 	</div>
 </body>
 </html>

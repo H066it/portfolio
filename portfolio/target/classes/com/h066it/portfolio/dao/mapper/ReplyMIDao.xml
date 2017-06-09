@@ -17,7 +17,7 @@
 	</select>
 
 	<select id="replyView" resultType="com.h066it.portfolio.dto.ReplyDto" parameterType="String">
-		SELECT * FROM freeBoard_reply WHERE bId = #{bId}
+		SELECT * FROM freeBoard_reply WHERE bId = #{bId} ORDER BY rOrder
 	</select>
 
 </mapper>
