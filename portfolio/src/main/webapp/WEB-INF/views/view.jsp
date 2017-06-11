@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ include file="/resources/assets/jsp/modal.jsp" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -12,6 +13,8 @@
 <title>freeeeeeeeeeboard</title>
 <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
 <script type="text/javascript" src="js/replyButton.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+
 </head>
 <body>
 	view.jsp
@@ -119,15 +122,12 @@
 								<div class="controls">${reply.rWriter }</div>
 							</div>
 							<div class="span2" id="replyButton">
-								<button type="button" class="btn" onclick="replyWriteOnReply()">
-									<i class="icon-pencil"></i>
-								</button>
-								<button type="button" class="btn" onclick="replyUpdate()">
-									<i class="icon-wrench"></i>
-								</button>
-								<button type="button" class="btn" onclick="replyDelete()">
-									<i class="icon-trash"></i>
-								</button>
+								<a href="#replyWriteOnReply" role="button" class="btn" data-toggle="modal"><i
+									class="icon-pencil"></i></a>
+								<a href="#replyUpdate" role="button" class="btn" data-toggle="modal"><i
+									class="icon-wrench"></i></a>
+								<a href="#replyDelete" role="button" class="btn" data-toggle="modal"><i
+									class="icon-trash"></i></a>
 							</div>
 						</div>
 					</div>
@@ -138,7 +138,7 @@
 					<div class="control-group"></div>
 				</form>
 			</c:forEach>
-		</div>	
+		</div>		
 
 	</div>
 </body>

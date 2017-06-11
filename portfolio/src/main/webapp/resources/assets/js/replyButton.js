@@ -9,3 +9,7 @@
 	replyDelete = function() {
 		alert('3');
 	}
+	
+	/*$(function() {			// $(document).ready(function() {
+				
+	});*/
