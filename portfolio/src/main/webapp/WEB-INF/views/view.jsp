@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ include file="/resources/assets/jsp/modal.jsp" %>
+<%-- <%@ include file="/resources/assets/jsp/modal.jsp" %> --%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -14,6 +14,7 @@
 <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
 <script type="text/javascript" src="js/replyButton.js"></script>
 <script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/replySubmitRule.js"></script>
 
 </head>
 <body>
@@ -85,60 +86,63 @@
 				<div class="control-group">
 					<label class="control-label">작성자</label>
 					<div class="controls">
-						<input type="text" name="rWriter" style="width: 90%;">
+						<input type="text" id="rWriter" name="rWriter" style="width: 90%;">
 					</div>
 				</div>
 				<div class="control-group">
 					<label class="control-label">비밀번호</label>
 					<div class="controls">
-						<input type="password" name="rPassword" style="width: 90%;">
+						<input type="password" id="rPassword" name="rPassword"
+							style="width: 90%;">
 					</div>
 				</div>
 				<div class="control-group">
 					<label class="control-label">내용</label>
 					<div class="controls">
 						<textarea name="rContent" cols="30" rows="5"
-							placeholder="리플을 입력해주세요." style="resize: none; width: 90%;"></textarea>
+							placeholder="리플을 입력해주세요." id="rContent"
+							style="resize: none; width: 90%;"></textarea>
 					</div>
 				</div>
 				<div class="control-group">
 					<div class="controls">
-						<input type="submit" class="btn" value="작성"></input>
+						<input type="submit" class="btn" value="작성"
+							onclick="return replyNullCheck()"></input>
 					</div>
 				</div>
 			</form>
 		</div>
 
 		<div id="replys">
-			<c:forEach items="${replys }" var="reply">
-				<form action="" method="post" class="form-horizontal">
-					<!-- action 추가해줘야함. -->
-					<input type="hidden" name="bId" value="${reply.bId }" /> <input
-						type="hidden" name="rId" value="${reply.rId }" />
+			<c:forEach items="${replys }" var="reply">				
+					${reply.bId },${reply.rId }				<!-- 테스트용 -->		
 					<div class="control-group">
-						<div class="row-fluid" id="replysTop">
-							<div class="span10">
-								<label class="control-label">작성자</label>
-								<div class="controls">${reply.rWriter }</div>
-							</div>
-							<div class="span2" id="replyButton">
-								<a href="#replyWriteOnReply" role="button" class="btn" data-toggle="modal"><i
-									class="icon-pencil"></i></a>
-								<a href="#replyUpdate" role="button" class="btn" data-toggle="modal"><i
-									class="icon-wrench"></i></a>
-								<a href="#replyDelete" role="button" class="btn" data-toggle="modal"><i
-									class="icon-trash"></i></a>
-							</div>
+					<div class="row-fluid" id="replysTop">
+						<div class="span10">
+							<label class="control-label">작성자</label>
+							<div class="controls">${reply.rWriter }</div>
+						</div>
+						<div class="span2" id="replyButton">
+							<jsp:include page="/resources/assets/jsp/modal.jsp">
+								<jsp:param name="rId" value="${reply.rId }" />
+							</jsp:include>
+							<a href="#replyWriteOnReply" role="button" class="btn"
+								data-toggle="modal"><i class="icon-pencil"
+								onclick="transferRId(${reply.rId })"></i></a>
+							<a href="#replyUpdate" role="button" class="btn"
+								data-toggle="modal"><i class="icon-wrench"></i></a> <a
+								href="#replyDelete" role="button" class="btn"
+								data-toggle="modal"><i class="icon-trash"></i></a>
 						</div>
 					</div>
-					<div class="control-group">
-						<label class="control-label">내용</label>
-						<div class="controls">${reply.rContent }</div>
-					</div>
-					<div class="control-group"></div>
-				</form>
+				</div>
+				<div class="control-group">
+					<label class="control-label">내용</label>
+					<div class="controls">${reply.rContent }</div>
+				</div>
+				<div class="control-group"></div>
 			</c:forEach>
-		</div>		
+		</div>
 
 	</div>
 </body>
