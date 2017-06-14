@@ -1,13 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%-- <%@ include file="/resources/assets/jsp/modal.jsp" %> --%>
+<%@ include file="/resources/assets/jsp/modal.jsp"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link href="css/styleMin.css" rel="stylesheet">
+<link href="css/style.css" rel="stylesheet">
 <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
 <link href="css/bootstrap-responsive.css" rel="stylesheet">
 <title>freeeeeeeeeeboard</title>
@@ -114,33 +114,42 @@
 		</div>
 
 		<div id="replys">
-			<c:forEach items="${replys }" var="reply">				
-					${reply.bId },${reply.rId }				<!-- 테스트용 -->		
+			<c:forEach items="${replys }" var="reply">
+				<div id="reply">
 					<div class="control-group">
-					<div class="row-fluid" id="replysTop">
-						<div class="span10">
-							<label class="control-label">작성자</label>
-							<div class="controls">${reply.rWriter }</div>
-						</div>
-						<div class="span2" id="replyButton">
-							<jsp:include page="/resources/assets/jsp/modal.jsp">
-								<jsp:param name="rId" value="${reply.rId }" />
-							</jsp:include>
-							<a href="#replyWriteOnReply" role="button" class="btn"
-								data-toggle="modal"><i class="icon-pencil"
-								onclick="transferRId(${reply.rId })"></i></a>
-							<a href="#replyUpdate" role="button" class="btn"
-								data-toggle="modal"><i class="icon-wrench"></i></a> <a
-								href="#replyDelete" role="button" class="btn"
-								data-toggle="modal"><i class="icon-trash"></i></a>
+						<div class="row-fluid" id="replysTop">
+							<div class="span10">
+								<label class="control-label">
+									<c:if test="${reply.rIndent > 0 }">
+										<c:forEach items="${replys }" begin="1" end="${reply.rIndent }">
+											&nbsp;&nbsp;&nbsp;&nbsp;
+										</c:forEach>└>Re:
+									</c:if>
+									${reply.rWriter }
+								</label>
+							</div>
+							<div class="span2" id="replyButton">
+								 ${reply.rDate }
+								<a href="#replyWriteOnReply" role="button" class="btn"
+									data-toggle="modal" onclick="transferRId(${reply.rId })"><i
+									class="icon-pencil"></i></a> <a href="#replyUpdate" role="button"
+									class="btn" data-toggle="modal"><i class="icon-wrench"></i></a>
+								<a href="#replyDelete" role="button" class="btn"
+									data-toggle="modal"><i class="icon-trash"></i></a>
+							</div>
 						</div>
 					</div>
+					<div class="control-group">
+						<label class="control-label" id="replyBottom">
+							<c:if test="${reply.rIndent > 0 }">
+								<c:forEach items="${replys }" begin="1" end="${reply.rIndent }">
+									&nbsp;&nbsp;&nbsp;&nbsp;
+								</c:forEach>└>Re:
+							</c:if> ${reply.rContent }
+						</label>
+					</div>
+					<div class="control-group"></div>
 				</div>
-				<div class="control-group">
-					<label class="control-label">내용</label>
-					<div class="controls">${reply.rContent }</div>
-				</div>
-				<div class="control-group"></div>
 			</c:forEach>
 		</div>
 

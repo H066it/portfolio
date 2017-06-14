@@ -310,7 +310,21 @@ public class ServiceModel implements IDao, ReplyIDao {
 			System.out.println("★order : " + order);
 			
 			replyWriteOnBoard(rDto.getbId(), rDto.getrWriter(), rDto.getrPassword(), rDto.getrContent(), order);
-		}		
+		} else {
+			System.out.println("rDto.getrId() : " + rDto.getrId());
+			
+			int indent = getIndent(rDto.getbId(), rDto.getrId()) + 1;
+			int order = getOrder(rDto.getbId(), rDto.getrId()) + 1;
+			
+			System.out.println("indent + 1 : " + indent);
+			System.out.println("order + 1 : " + order);
+			
+			orderSort(rDto.getbId(), order);	// 중간 삽입시 나머지 rOrder들에게 + 1 씩 해주는 것
+			
+			replyWriteOnReply(rDto.getbId(), rDto.getrWriter(), rDto.getrPassword(), rDto.getrContent(),
+					indent, order);
+			
+		}
 	
 	}
 
@@ -321,7 +335,7 @@ public class ServiceModel implements IDao, ReplyIDao {
 		
 		rDao.replyWriteOnBoard(bId, rWriter, rPassword, rContent, lstReplyOrder);
 		
-	}
+	}	
 
 	@Override
 	public int lastReplyOrder(int bId) {
@@ -337,6 +351,42 @@ public class ServiceModel implements IDao, ReplyIDao {
 		ReplyIDao rDao = sqlSession.getMapper(ReplyIDao.class);
 		
 		return rDao.replyView(bId);
+	}
+
+	
+	@Override
+	public int getIndent(int bId, int rId) {
+
+		ReplyIDao rDao = sqlSession.getMapper(ReplyIDao.class);
+		
+		return rDao.getIndent(bId, rId);
+	}
+
+	@Override
+	public int getOrder(int bId, int rId) {
+
+		ReplyIDao rDao = sqlSession.getMapper(ReplyIDao.class);
+		
+		return rDao.getOrder(bId, rId);
+	}
+
+	@Override
+	public void orderSort(int bId, int order) {
+		
+		ReplyIDao rDao = sqlSession.getMapper(ReplyIDao.class);
+		
+		rDao.orderSort(bId, order);
+		
 	}	
+	
+	@Override
+	public void replyWriteOnReply(int bId, String rWriter, String rPassword, String rContent, int rIndent,
+			int rOrder) {
+
+		ReplyIDao rDao = sqlSession.getMapper(ReplyIDao.class);
+		
+		rDao.replyWriteOnReply(bId, rWriter, rPassword, rContent, rIndent, rOrder);
+		
+	}
 	
 }

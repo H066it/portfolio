@@ -19,21 +19,32 @@ input[disabled], select[disabled], textarea[disabled], input[readonly], select[r
 
 #replyWrite {
 	margin-top: 100px;
+	margin-bottom: 30px;
 	padding-top: 50px;
 	padding-bottom: 50px;
-	border-top: thin dashed #778899;
+	border-top: thin dashed #778899;	
+	border-bottom: thin dashed #778899;
+	background-color: beige;
 }
 
 #replys {
 	text-align: left;
 }
 
+#reply {
+	background-color: beige;
+}
+
 #replysTop {
-	padding-top: 20px;
-	padding-bottom: 20px;
+	padding-top: 10px;
 	border-top: thin dashed #778899;
 }
 
 #replyButton {
 	text-align: right;
+}
+
+#replyBottom {
+	padding-bottom: 10px;
+	border-bottom: thin dashed #778899;
 }

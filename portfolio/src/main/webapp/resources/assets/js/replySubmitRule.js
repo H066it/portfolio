@@ -64,30 +64,9 @@
 		}
 	}
 	
-	function transferRId(value) {
-		alert(value);
-		$("#replyWriteOnReply").on('submit', function() {		
-			var path = $(pageContext.request.contextPath);	// 없으면 에러남.
-			$.ajax( {
-				url : path + "/test123",
-				type : "POST",
-				datatype : "json",
-				data : {
-					"bId" : $("#bIdOnReply").val(), "rId" : value,
-					"rWriter" : $("#rWriterOnReply").val(),
-					"rPassword" : $("#rPasswordOnReply").val(), "rContent" : $("#rContentOnReply").val()
-				},
-				success: function(response){ 
-	              alert('success!');
-		        },
-		        error:function(request,status,e){
-		             alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+e);
-		             alert($("#bIdOnReply").val());
-		             alert($("#rIdOnReply").val());
-		             alert($("#rWriterOnReply").val());
-		             alert($("#rPasswordOnReply").val());
-		             alert($("#rContentOnReply").val());
-		        }
-			})	
-		});
+	function transferRId(rId) {		
+		$("#rIdOnReply").val(rId);
 	}
+	
+	 
+		 

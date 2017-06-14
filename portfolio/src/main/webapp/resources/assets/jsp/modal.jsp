@@ -18,14 +18,12 @@
 				aria-hidden="true">x</button>
 			<h3 id="myModalLabel">답글</h3>
 		</div>
-		<form action="test123" method="post" class="form-horizontal">
+		<form action="replyWrite" method="post" class="form-horizontal">
 			<div class="modal-body">
 				<input type="hidden" id="bIdOnReply" name="bId" value="${param.bId }" />
-				<input type="hidden" id="rIdOnReply" name="rId" valye="${param.rId }"/>
+				<input type="hidden" id="rIdOnReply" name="rId" value="${param.rId }"/>
 				<div class="control-group">
-					<label class="control-label">작성자</label>
-					${param.bId },${param.rId },<%=request.getParameter("rId") %>|
-				<c:forEach items="${replys }" var="reply">${reply.rId }</c:forEach>
+					<label class="control-label">작성자</label>				
 					<div class="controls">
 						<input type="text" id="rWriterOnReply" name="rWriter"
 							style="width: 90%;">
@@ -47,9 +45,8 @@
 				</div>
 			</div>
 			<div class="modal-footer">
-				<!-- <button class="btn btn-primary"
-					onclick="return replyOnReplyNullCheck();">작성</button> -->
-				<input type="submit" class="btn btn-primary" value="작성" onclick="return replyOnReplyNullCheck()"></input>
+				<button class="btn btn-primary"
+					onclick="return replyOnReplyNullCheck();">작성</button>
 				<button class="btn" data-dismiss="modal" aria-hidden="true">취소</button>
 			</div>
 		</form>
