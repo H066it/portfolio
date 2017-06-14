@@ -57,7 +57,7 @@ public class HomeController {
 	}
 
 	@RequestMapping("/write")
-	public String write(HttpServletRequest request, Dto dto, Model model) {
+	public String write(Dto dto, Model model) {
 
 		FileUtil fu = new FileUtil();
 		List<FileDto> fileList = fu.saveFiles(dto.getUpFile());	// 실제 저장은 트랜잭션이랑 상관없음.(DB 무결성이 중요)
