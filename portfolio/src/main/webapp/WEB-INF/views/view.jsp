@@ -12,7 +12,7 @@
 <link href="css/bootstrap-responsive.css" rel="stylesheet">
 <title>freeeeeeeeeeboard</title>
 <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
-<script type="text/javascript" src="js/replyButton.js"></script>
+<script type="text/javascript" src="js/replyButtonRoles.js"></script>
 <script type="text/javascript" src="js/bootstrap.min.js"></script>
 <script type="text/javascript" src="js/replySubmitRule.js"></script>
 
@@ -128,15 +128,20 @@
 									${reply.rWriter }
 								</label>
 							</div>
-							<div class="span2" id="replyButton">
-								 ${reply.rDate }
-								<a href="#replyWriteOnReply" role="button" class="btn"
-									data-toggle="modal" onclick="transferRId(${reply.rId }, ${reply.rGroup })"><i
-									class="icon-pencil"></i></a> <a href="#replyUpdate" role="button"
-									class="btn" data-toggle="modal"><i class="icon-wrench"></i></a>
-								<a href="#replyDelete" role="button" class="btn"
-									data-toggle="modal"><i class="icon-trash"></i></a>
-							</div>
+							<c:if test="${reply.rDelete != 1 }">
+								<div class="span2" id="replyButton">
+									 ${reply.rDate }
+									<a href="#replyWriteOnReply" role="button" class="btn"
+										data-toggle="modal" onclick="transferRId(${reply.rId}, ${reply.rGroup })">
+									<i class="icon-pencil"></i></a>
+									<a href="#replyUpdateOnReply" role="button" class="btn"
+										data-toggle="modal" onclick="transferRIdUpd(${reply.rId }, ${reply.rGroup })">
+									<i class="icon-wrench"></i></a>
+									<a href="#replyDeleteOnReply" role="button" class="btn"
+										data-toggle="modal" onclick="transferRIdDel(${reply.rId }, ${reply.rGroup })">
+									<i class="icon-trash"></i></a>
+								</div>
+							</c:if>
 						</div>
 					</div>
 					<div class="control-group">
@@ -145,12 +150,33 @@
 								<c:forEach items="${replys }" begin="1" end="${reply.rIndent }">
 									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 								</c:forEach>&nbsp;&nbsp;&nbsp;
-							</c:if> ${reply.rContent }
+							</c:if>
+							<c:choose>
+								<c:when test="${reply.rDelete == 1}">
+									삭제된 댓글 입니다.
+								</c:when>
+								<c:otherwise>
+									${reply.rContent }
+								</c:otherwise>
+							</c:choose>
 						</label>
 					</div>
 					<div class="control-group"></div>
 				</div>
 			</c:forEach>
+		</div>
+
+		<div>
+			<script type="text/javascript">
+				var pwdChk = ${param.pwdChk};
+				console.log(pwdChk);
+				
+				if(pwdChk == false) {
+					alert("비밀번호가 다릅니다.")
+				}
+				delete ${param.pwdChk};
+				
+			</script>			
 		</div>
 
 	</div>

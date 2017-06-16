@@ -47,6 +47,18 @@
 		INSERT INTO freeBoard_reply (gId, bId, rId, rWriter, rPassword, rContent, rDelete, rGroup, rDepth, rIndent)
 		VALUES (1, #{bId}, freeBoard_reply_seq.nextval, #{rWriter}, #{rPassword},
 		 #{rContent}, 0, #{rGroup}, #{rDepth}, #{rIndent})
-	</insert>	
+	</insert>
+	
+	<update id="replyUpdate">
+		UPDATE freeBoard_reply
+		SET rWriter = #{rWriter}, rContent = #{rContent}
+		WHERE bId = #{bId} AND rId = #{rId} AND rPassword = #{rPassword}
+	</update>
+	
+	<update id="replyDelete">
+		UPDATE freeBoard_reply
+		SET rDelete = 1
+		WHERE bId = #{bId} AND rId = #{rId} AND rPassword = #{rPassword}
+	</update>
 	
 </mapper>

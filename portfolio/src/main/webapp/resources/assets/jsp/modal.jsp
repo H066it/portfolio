@@ -14,8 +14,7 @@
 	<div id="replyWriteOnReply" class="modal hide fade" tabindex="-1"
 		role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 		<div class="modal-header">
-			<button type="button" class="close" data-dismiss="modal"
-				aria-hidden="true">x</button>
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
 			<h3 id="myModalLabel">답글</h3>
 		</div>
 		<form action="replyWrite" method="post" class="form-horizontal">
@@ -41,13 +40,12 @@
 					<label class="control-label">내용</label>
 					<div class="controls">
 						<textarea id="rContentOnReply" name="rContent" cols="30" rows="5"
-							style="resize: none; width: 90%;"></textarea>
+							placeholder="답글 내용을 입력해주세요." style="resize: none; width: 90%;"></textarea>
 					</div>
 				</div>
 			</div>
 			<div class="modal-footer">
-				<button class="btn btn-primary"
-					onclick="return replyOnReplyNullCheck();">작성</button>
+				<button class="btn btn-primary"	onclick="return replyOnReplyNullCheck()">작성</button>
 				<button class="btn" data-dismiss="modal" aria-hidden="true">취소</button>
 			</div>
 		</form>
@@ -57,39 +55,39 @@
 
 	<!-- Reply Update -->
 
-	<div id="replyUpdate" class="modal hide fade" tabindex="-1"
+	<div id="replyUpdateOnReply" class="modal hide fade" tabindex="-1"
 		role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 		<div class="modal-header">
-			<button type="button" class="close" data-dismiss="modal"
-				aria-hidden="true">x</button>
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
 			<h3 id="myModalLabel">수정</h3>
 		</div>
-		<form action="replyWrite" method="post" class="form-horizontal">
+		<form action="replyUpdate" method="post" class="form-horizontal">
 			<div class="modal-body">
-				<input type="hidden" name="bId" value="${param.bId }" /> <input
-					type="hidden" name="rId" value="${param.rId }" />
+				<input type="hidden" id="bIdOnUpdate" name="bId" value="${param.bId }" />
+				<input type="hidden" id="rIdOnUpdate" name="rId" value="${param.rId }"/>
+				<input type="hidden" id="rGroupOnUpdate" name="rGroup" value="${param.rGroup }"/>
 				<div class="control-group">
 					<label class="control-label">작성자</label>
 					<div class="controls">
-						<input type="text" name="rWriter" style="width: 90%;">
+						<input type="text" id="rWriterOnUpdate" name="rWriter" style="width: 90%;">
 					</div>
 				</div>
 				<div class="control-group">
 					<label class="control-label">비밀번호</label>
 					<div class="controls">
-						<input type="password" name="rPassword" style="width: 90%;">
+						<input type="password" id="rPasswordOnUpdate" name="rPassword" style="width: 90%;">
 					</div>
 				</div>
 				<div class="control-group">
 					<label class="control-label">내용</label>
 					<div class="controls">
-						<textarea name="rContent" cols="30" rows="5"
-							style="resize: none; width: 90%;"></textarea>
+						<textarea id="rContentOnUpdate" name="rContent" cols="30" rows="5"
+							placeholder="수정 내용을 입력해주세요." style="resize: none; width: 90%;"></textarea>
 					</div>
 				</div>
 			</div>
 			<div class="modal-footer">
-				<button class="btn btn-primary">수정</button>
+				<button class="btn btn-primary" onclick="return replyOnUpdateNullCheck()">수정</button>
 				<button class="btn" data-dismiss="modal" aria-hidden="true">취소</button>
 			</div>
 		</form>
@@ -98,26 +96,27 @@
 
 	<!-- Reply Delete -->
 
-	<div id="replyDelete" class="modal hide fade" tabindex="-1"
+	<div id="replyDeleteOnReply" class="modal hide fade" tabindex="-1"
 		role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 		<div class="modal-header">
-			<button type="button" class="close" data-dismiss="modal"
-				aria-hidden="true">x</button>
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
 			<h3 id="myModalLabel">삭제</h3>
 		</div>
-		<form action="replyWrite" method="post" class="form-horizontal">
+		<form action="replyDelete" method="post" class="form-horizontal">
 			<div class="modal-body">
-				<input type="hidden" name="bId" value="${param.bId }" /> <input
-					type="hidden" name="rId" value="${param.rId }" />
+				<input type="hidden" id="bIdOnDelete" name="bId" value="${param.bId }" />
+				<input type="hidden" id="rIdOnDelete" name="rId" value="${param.rId }"/>
+				<input type="hidden" id="rGroupOnDelete" name="rGroup" value="${param.rGroup }"/>
 				<div class="control-group">
 					<label class="control-label">비밀번호</label>
 					<div class="controls">
-						<input type="password" name="rPassword" style="width: 90%;">
+						<input type="password" id="rPasswordOnDelete" name="rPassword"
+							placeholder="비밀번호를 입력해주세요." style="width: 90%;">
 					</div>
 				</div>
 			</div>
 			<div class="modal-footer">
-				<button class="btn btn-primary">확인</button>
+				<button class="btn btn-primary" onclick="return replyOnDeleteNullCheck()">확인</button>
 				<button class="btn" data-dismiss="modal" aria-hidden="true">취소</button>
 			</div>
 		</form>

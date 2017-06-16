@@ -359,6 +359,14 @@ public class ServiceModel implements IDao, ReplyIDao {
 
 	
 	@Override
+	public int getDepth(int bId, int rId) {
+		
+		ReplyIDao rDao = sqlSession.getMapper(ReplyIDao.class);
+		
+		return rDao.getDepth(bId, rId);
+	}
+	
+	@Override
 	public int getIndent(int bId, int rId) {
 
 		ReplyIDao rDao = sqlSession.getMapper(ReplyIDao.class);
@@ -366,13 +374,14 @@ public class ServiceModel implements IDao, ReplyIDao {
 		return rDao.getIndent(bId, rId);
 	}
 
-	@Override
-	public int getDepth(int bId, int rId) {
 
+	@Override
+	public int depthDown(int bId, int rGroup) {
+		
 		ReplyIDao rDao = sqlSession.getMapper(ReplyIDao.class);
 		
-		return rDao.getDepth(bId, rId);
-	}
+		return rDao.depthDown(bId, rGroup);
+	}	
 
 	@Override
 	public void depthSort(int bId, int rId, int rGroup, int depth) {
@@ -394,13 +403,20 @@ public class ServiceModel implements IDao, ReplyIDao {
 	}
 
 	@Override
-	public int depthDown(int bId, int rGroup) {
-
-		ReplyIDao rDao = sqlSession.getMapper(ReplyIDao.class);
+	public boolean replyUpdate(int bId, int rId, String rWriter, String rPassword, String rContent) {
 		
-		return rDao.depthDown(bId, rGroup);
+		ReplyIDao rDao = sqlSession.getMapper(ReplyIDao.class);
+				
+		return (boolean)rDao.replyUpdate(bId, rId, rWriter, rPassword, rContent);
+		
+	}
+
+	@Override
+	public boolean replyDelete(int bId, int rId, String rPassword) {
+		
+		ReplyIDao rDao = sqlSession.getMapper(ReplyIDao.class);
+				
+		return (boolean)rDao.replyDelete(bId, rId, rPassword);
 	}	
-	
-	
 	
 }

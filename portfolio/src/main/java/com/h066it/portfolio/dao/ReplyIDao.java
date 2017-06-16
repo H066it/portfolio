@@ -24,4 +24,8 @@ public interface ReplyIDao {
 			@Param("rPassword")String rPassword, @Param("rContent")String rContent,
 			@Param("rGroup")int rGroup,	@Param("rDepth")int rDepth, @Param("rIndent")int rIndent);
 	
+	public boolean replyUpdate(@Param("bId")int bId, @Param("rId")int rId,
+			@Param("rWriter")String rWriter, @Param("rPassword")String rPassword, @Param("rContent")String rContent);
+	public boolean replyDelete(@Param("bId")int bId, @Param("rId")int rId,	@Param("rPassword")String rPassword);
+	
 }
