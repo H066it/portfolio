@@ -11,14 +11,17 @@ public interface ReplyIDao {
 	/*리플 관련*/
 	public void replyWrite(@Param("rDto")ReplyDto rDto);
 	public void replyWriteOnBoard(@Param("bId")int bId, @Param("rWriter")String rWriter,
-			@Param("rPassword")String rPassword, @Param("rContent")String rContent, @Param("lstReplyOrder")int lstReplyOrder);
-	public int lastReplyOrder(@Param("bId")int bId);
+			@Param("rPassword")String rPassword, @Param("rContent")String rContent);
+	public int replyDepthChk(@Param("bId")int bId, @Param("rGroup")int rGroup,
+			@Param("rDepth")int rDepth, @Param("rIndent")int rIndent);
 	public ArrayList<ReplyDto> replyView(@Param("bId")String bId);
 	
 	public int getIndent(@Param("bId")int bId, @Param("rId")int rId);
-	public int getOrder(@Param("bId")int bId, @Param("rId")int rId);
-	public void orderSort(@Param("bId")int bId, @Param("order")int order);
+	public int getDepth(@Param("bId")int bId, @Param("rId")int rId);
+	public int depthDown(@Param("bId")int bId, @Param("rGroup")int rGroup);
+	public void depthSort(@Param("bId")int bId, @Param("rId")int rId, @Param("rGroup")int rGroup, @Param("rDepth")int rDepth);
 	public void replyWriteOnReply(@Param("bId")int bId, @Param("rWriter")String rWriter,
 			@Param("rPassword")String rPassword, @Param("rContent")String rContent,
-			@Param("rIndent")int rIndent, @Param("rOrder")int rOrder);
+			@Param("rGroup")int rGroup,	@Param("rDepth")int rDepth, @Param("rIndent")int rIndent);
+	
 }

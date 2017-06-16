@@ -300,49 +300,53 @@ public class ServiceModel implements IDao, ReplyIDao {
 	@Override
 	public void replyWrite(ReplyDto rDto) {
 				
-		System.out.println("★rDto.getrId() : " + rDto.getrId());
+		System.out.println("rDto.getrId() : " + rDto.getrId());
+		
 		if(rDto.getrId() == 0) {
-			System.out.println("replyWriteOnBoard");
-			rDto.setrIndent(0);
 			
-			int order = lastReplyOrder(rDto.getbId());
+			System.out.println("replyWriteOnBoard");						
+			replyWriteOnBoard(rDto.getbId(), rDto.getrWriter(), rDto.getrPassword(), rDto.getrContent());
 			
-			System.out.println("★order : " + order);
-			
-			replyWriteOnBoard(rDto.getbId(), rDto.getrWriter(), rDto.getrPassword(), rDto.getrContent(), order);
 		} else {
-			System.out.println("rDto.getrId() : " + rDto.getrId());
+						
+			System.out.println("replyWriteOnReply");						
+			int depth = getDepth(rDto.getbId(), rDto.getrId());
+			int indent = getIndent(rDto.getbId(), rDto.getrId());
+						
+			depth = replyDepthChk(rDto.getbId(), rDto.getrGroup(), depth, indent);	// depth와 indent로 넣을 depth 위치 찾음.
 			
-			int indent = getIndent(rDto.getbId(), rDto.getrId()) + 1;
-			int order = getOrder(rDto.getbId(), rDto.getrId()) + 1;
+			System.out.println("depth : " + depth);
 			
-			System.out.println("indent + 1 : " + indent);
-			System.out.println("order + 1 : " + order);
+			if(depth == -1) {	// -1이면 맨 밑으로 가고, 아니면 중간에 끼어 듬.
+				depth = depthDown(rDto.getbId(), rDto.getrGroup());
+			} else {
+				depthSort(rDto.getbId(), rDto.getrId(), rDto.getrGroup(), depth);
+			}
 			
-			orderSort(rDto.getbId(), order);	// 중간 삽입시 나머지 rOrder들에게 + 1 씩 해주는 것
+			indent = getIndent(rDto.getbId(), rDto.getrId()) + 1;			
 			
 			replyWriteOnReply(rDto.getbId(), rDto.getrWriter(), rDto.getrPassword(), rDto.getrContent(),
-					indent, order);
+					rDto.getrGroup(), depth, indent);
 			
 		}
 	
 	}
 
 	@Override
-	public void replyWriteOnBoard(int bId, String rWriter, String rPassword, String rContent, int lstReplyOrder) {
+	public void replyWriteOnBoard(int bId, String rWriter, String rPassword, String rContent) {
 	
 		ReplyIDao rDao = sqlSession.getMapper(ReplyIDao.class);
 		
-		rDao.replyWriteOnBoard(bId, rWriter, rPassword, rContent, lstReplyOrder);
+		rDao.replyWriteOnBoard(bId, rWriter, rPassword, rContent);
 		
 	}	
 
 	@Override
-	public int lastReplyOrder(int bId) {
+	public int replyDepthChk(int bId, int rGroup, int rDepth, int rIndent) {
 		
 		ReplyIDao rDao = sqlSession.getMapper(ReplyIDao.class);
 				
-		return rDao.lastReplyOrder(bId);
+		return rDao.replyDepthChk(bId, rGroup, rDepth, rIndent);
 	}
 
 	@Override
@@ -363,30 +367,40 @@ public class ServiceModel implements IDao, ReplyIDao {
 	}
 
 	@Override
-	public int getOrder(int bId, int rId) {
+	public int getDepth(int bId, int rId) {
 
 		ReplyIDao rDao = sqlSession.getMapper(ReplyIDao.class);
 		
-		return rDao.getOrder(bId, rId);
+		return rDao.getDepth(bId, rId);
 	}
 
 	@Override
-	public void orderSort(int bId, int order) {
+	public void depthSort(int bId, int rId, int rGroup, int depth) {
 		
 		ReplyIDao rDao = sqlSession.getMapper(ReplyIDao.class);
 		
-		rDao.orderSort(bId, order);
+		rDao.depthSort(bId, rId, rGroup, depth);
 		
+	}
+
+	@Override
+	public void replyWriteOnReply(int bId, String rWriter, String rPassword, String rContent, int rGroup,
+			int rDepth, int rIndent) {
+
+		ReplyIDao rDao = sqlSession.getMapper(ReplyIDao.class);
+		
+		rDao.replyWriteOnReply(bId, rWriter, rPassword, rContent, rGroup, rDepth, rIndent);
+		
+	}
+
+	@Override
+	public int depthDown(int bId, int rGroup) {
+
+		ReplyIDao rDao = sqlSession.getMapper(ReplyIDao.class);
+		
+		return rDao.depthDown(bId, rGroup);
 	}	
 	
-	@Override
-	public void replyWriteOnReply(int bId, String rWriter, String rPassword, String rContent, int rIndent,
-			int rOrder) {
-
-		ReplyIDao rDao = sqlSession.getMapper(ReplyIDao.class);
-		
-		rDao.replyWriteOnReply(bId, rWriter, rPassword, rContent, rIndent, rOrder);
-		
-	}
+	
 	
 }

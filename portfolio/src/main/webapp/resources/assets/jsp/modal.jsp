@@ -22,6 +22,7 @@
 			<div class="modal-body">
 				<input type="hidden" id="bIdOnReply" name="bId" value="${param.bId }" />
 				<input type="hidden" id="rIdOnReply" name="rId" value="${param.rId }"/>
+				<input type="hidden" id="rGroupOnReply" name="rGroup" value="${param.rGroup }"/>
 				<div class="control-group">
 					<label class="control-label">작성자</label>				
 					<div class="controls">

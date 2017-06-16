@@ -122,8 +122,8 @@
 								<label class="control-label">
 									<c:if test="${reply.rIndent > 0 }">
 										<c:forEach items="${replys }" begin="1" end="${reply.rIndent }">
-											&nbsp;&nbsp;&nbsp;&nbsp;
-										</c:forEach>└>Re:
+											&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+										</c:forEach>└ Re :
 									</c:if>
 									${reply.rWriter }
 								</label>
@@ -131,7 +131,7 @@
 							<div class="span2" id="replyButton">
 								 ${reply.rDate }
 								<a href="#replyWriteOnReply" role="button" class="btn"
-									data-toggle="modal" onclick="transferRId(${reply.rId })"><i
+									data-toggle="modal" onclick="transferRId(${reply.rId }, ${reply.rGroup })"><i
 									class="icon-pencil"></i></a> <a href="#replyUpdate" role="button"
 									class="btn" data-toggle="modal"><i class="icon-wrench"></i></a>
 								<a href="#replyDelete" role="button" class="btn"
@@ -143,8 +143,8 @@
 						<label class="control-label" id="replyBottom">
 							<c:if test="${reply.rIndent > 0 }">
 								<c:forEach items="${replys }" begin="1" end="${reply.rIndent }">
-									&nbsp;&nbsp;&nbsp;&nbsp;
-								</c:forEach>└>Re:
+									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+								</c:forEach>&nbsp;&nbsp;&nbsp;
 							</c:if> ${reply.rContent }
 						</label>
 					</div>

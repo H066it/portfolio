@@ -64,8 +64,9 @@
 		}
 	}
 	
-	function transferRId(rId) {		
+	function transferRId(rId, rGroup) {		
 		$("#rIdOnReply").val(rId);
+		$("#rGroupOnReply").val(rGroup);
 	}
 	
 	 

@@ -24,7 +24,7 @@ input[disabled], select[disabled], textarea[disabled], input[readonly], select[r
 	padding-bottom: 50px;
 	border-top: thin dashed #778899;	
 	border-bottom: thin dashed #778899;
-	background-color: beige;
+	background-color: rgb(234, 234, 234);
 }
 
 #replys {
@@ -32,7 +32,7 @@ input[disabled], select[disabled], textarea[disabled], input[readonly], select[r
 }
 
 #reply {
-	background-color: beige;
+	background-color: rgb(234, 234, 234);
 }
 
 #replysTop {

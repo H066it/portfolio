@@ -7,13 +7,14 @@ public class ReplyDto {
 	private int gId; // 게시판 그룹 번호
 	private int bId; // 게시글 번호
 	private int rId; // 리플 번호
-	private String rWriter;	// 리플 작성자
+	private String rWriter; // 리플 작성자
 	private String rPassword; // 리플 비밀번호
 	private String rContent; // 리플 내용
 	private Timestamp rDate; // 리플 작성일
 	private int rDelete; // 리플 삭제 유무 확인(0 = 무, 1 = 유)
+	private int rGroup; // 리플 정렬용 묶음
+	private int rDepth; // 리플 깊이
 	private int rIndent; // 리플 들여 쓰기
-	private int rOrder; // 리플 순서
 
 	public int getgId() {
 		return gId;
@@ -79,6 +80,22 @@ public class ReplyDto {
 		this.rDelete = rDelete;
 	}
 
+	public int getrGroup() {
+		return rGroup;
+	}
+
+	public void setrGroup(int rGroup) {
+		this.rGroup = rGroup;
+	}
+
+	public int getrDepth() {
+		return rDepth;
+	}
+
+	public void setrDepth(int rDepth) {
+		this.rDepth = rDepth;
+	}
+
 	public int getrIndent() {
 		return rIndent;
 	}
@@ -87,12 +104,4 @@ public class ReplyDto {
 		this.rIndent = rIndent;
 	}
 
-	public int getrOrder() {
-		return rOrder;
-	}
-
-	public void setrOrder(int rOrder) {
-		this.rOrder = rOrder;
-	}
-	
 }
