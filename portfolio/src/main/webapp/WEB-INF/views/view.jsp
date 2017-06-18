@@ -165,20 +165,11 @@
 				</div>
 			</c:forEach>
 		</div>
-
-		<div>
-			<script type="text/javascript">
-				var pwdChk = ${param.pwdChk};
-				console.log(pwdChk);
-				
-				if(pwdChk == false) {
-					alert("비밀번호가 다릅니다.")
-				}
-				delete ${param.pwdChk};
-				
-			</script>			
-		</div>
-
 	</div>
+	
+	<script>		
+		var pwdChk = ${param.pwdChk};
+	</script>
+	
 </body>
 </html>
