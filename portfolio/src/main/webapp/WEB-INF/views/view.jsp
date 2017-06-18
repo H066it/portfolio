@@ -165,10 +165,10 @@
 				</div>
 			</c:forEach>
 		</div>
-	</div>
+	</div>	
 	
 	<script>		
-		var pwdChk = ${param.pwdChk};
+		var pwdChk = "." + ${param.pwdChk} + ".";
 	</script>
 	
 </body>
