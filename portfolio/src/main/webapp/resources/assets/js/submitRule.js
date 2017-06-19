@@ -4,6 +4,11 @@
 			$('input[name=bWriter]').focus();
 			return false;
 		}
+		if($('input[name=bPassword]').val().length < 4) {
+			alert('비밀번호를 4자 이상 입력해주세요.');
+			$('input[name=bPassword]').focus();
+			return false;
+		}
 		if($('input[name=bTitle]').val().length < 2) {
 			alert('제목을 2자 이상 입력해주세요.');
 			$('input[name=bTitle]').focus();
@@ -17,6 +22,11 @@
 		if($('input[name=bWriter]').val().length > 15) {
 			alert('작성자 명을 15자 이하로 입력해주십시오.');
 			$('input[name=bWriter]').focus();
+			return false;
+		}
+		if($('input[name=bPassword]').val().length > 20) {
+			alert('비밀번호를 20자 이하로 입력해주십시오.');
+			$('input[name=bPassword]').focus();
 			return false;
 		}
 		if($('input[name=bTitle]').val().length > 40) {

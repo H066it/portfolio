@@ -53,11 +53,11 @@ public class ServiceModel implements IDao, ReplyIDao {
 	}
 
 	@Override
-	public void write(String bWriter, String bTitle, String bContent, int fileCheck) {
+	public void write(String bWriter, String bPassword, String bTitle, String bContent, int fileCheck) {
 
 		IDao dao = sqlSession.getMapper(IDao.class);
 
-		dao.write(bWriter, bTitle, bContent, fileCheck);
+		dao.write(bWriter, bPassword, bTitle, bContent, fileCheck);
 		
 	}
 
@@ -216,7 +216,7 @@ public class ServiceModel implements IDao, ReplyIDao {
 			protected void doInTransactionWithoutResult(TransactionStatus status) {
 				
 				System.out.println("write");
-				write(dto.getbWriter(), dto.getbTitle(), dto.getbContent(), dto.getFileCheck());
+				write(dto.getbWriter(), dto.getbPassword(), dto.getbTitle(), dto.getbContent(), dto.getFileCheck());
 				
 				if(!fileList.isEmpty()) {
 					for(FileDto file : fileList) {	// DB에 file들 정보 저장.

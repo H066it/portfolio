@@ -46,6 +46,12 @@
 							</div>
 						</div>
 						<div class="control-group">
+							<label class="control-label">비밀번호</label>
+							<div class="controls">
+								<input type="password" name="bPassword" style="width: 90%;">
+							</div>
+						</div>
+						<div class="control-group">
 							<label class="control-label">제목</label>
 							<div class="controls">
 								<input type="text" name="bTitle" style="width: 90%;">

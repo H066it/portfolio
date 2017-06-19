@@ -10,12 +10,13 @@ public class Dto {
 	private int gId; // 게시판 그룹 번호
 	private int bId; // 게시글 번호
 	private String bWriter; // 작성자
+	private String bPassword; // 비밀번호
 	private String bTitle; // 제목
 	private String bContent; // 내용
 	private Timestamp bDate; // 작성일
 	private int bCount; // 조회수
-	private List<MultipartFile> upFile;	// 연결된 파일 목록
-	private int fileCheck;	// 파일 유무 확인 (0 = 무, 1 = 유)
+	private List<MultipartFile> upFile; // 연결된 파일 목록
+	private int fileCheck; // 파일 유무 확인 (0 = 무, 1 = 유)
 
 	public int getgId() {
 		return gId;
@@ -41,6 +42,14 @@ public class Dto {
 		this.bWriter = bWriter;
 	}
 
+	public String getbPassword() {
+		return bPassword;
+	}
+
+	public void setbPassword(String bPassword) {
+		this.bPassword = bPassword;
+	}
+
 	public String getbTitle() {
 		return bTitle;
 	}
@@ -63,7 +72,7 @@ public class Dto {
 
 	public void setbDate(Timestamp bDate) {
 		this.bDate = bDate;
-	}	
+	}
 
 	public int getbCount() {
 		return bCount;
@@ -76,11 +85,11 @@ public class Dto {
 	public List<MultipartFile> getUpFile() {
 		return upFile;
 	}
-	
+
 	public void setUpFile(List<MultipartFile> upFile) {
 		this.upFile = upFile;
 	}
-	
+
 	public int getFileCheck() {
 		return fileCheck;
 	}
@@ -88,5 +97,5 @@ public class Dto {
 	public void setFileCheck(int fileCheck) {
 		this.fileCheck = fileCheck;
 	}
-	
+
 }

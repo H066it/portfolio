@@ -23,8 +23,8 @@
 	</select>
 
 	<insert id="write">
-		INSERT INTO freeBoard (gId, bId, bWriter, bTitle, bContent, bCount, fileCheck)
-		VALUES (1, freeBoard_seq.nextval, #{bWriter}, #{bTitle}, #{bContent}, 0,
+		INSERT INTO freeBoard (gId, bId, bWriter, bPassword, bTitle, bContent, bCount, fileCheck)
+		VALUES (1, freeBoard_seq.nextval, #{bWriter}, #{bPassword}, #{bTitle}, #{bContent}, 0,
 		<if test="fileCheck == 0">0</if>
 		<if test="fileCheck == 1">1</if>
 		)

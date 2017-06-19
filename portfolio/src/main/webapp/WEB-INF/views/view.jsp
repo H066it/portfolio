@@ -15,6 +15,7 @@
 <script type="text/javascript" src="js/replyButtonRoles.js"></script>
 <script type="text/javascript" src="js/bootstrap.min.js"></script>
 <script type="text/javascript" src="js/replySubmitRule.js"></script>
+<script type="text/javascript" src="js/boardPwdChk.js"></script>
 
 </head>
 <body>
@@ -73,8 +74,9 @@
 				</div>
 				<div class="control-group">
 					<div class="controls">
-						<input type="submit" class="btn" value="수정"></input> <a
-							href="list"><button type="button" class="btn">목록</button></a>
+						<a href="#modifyPwdChk" role="button" class="btn" data-toggle="modal" id="modifyBtn">수정</a>
+						<input type="submit" class="btn" value="수정"></input>
+						<a href="list"><button type="button" class="btn">목록</button></a>
 					</div>
 				</div>
 			</div>

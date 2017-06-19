@@ -16,8 +16,8 @@ public interface IDao {
 	/*CRUD 관련*/
 	public ArrayList<Dto> count();	// 전체 게시글 수
 	public ArrayList<Dto> list(@Param("firNum")int firNum, @Param("lstNum")int lstNum);
-	public void write(@Param("bWriter")String bWriter, @Param("bTitle")String bTitle,
-			@Param("bContent")String bContent, @Param("fileCheck")int fileCheck);
+	public void write(@Param("bWriter")String bWriter, @Param("bPassword")String bPassword,
+			@Param("bTitle")String bTitle, @Param("bContent")String bContent, @Param("fileCheck")int fileCheck);
 	public void delete(@Param("bId")String bId);
 	public Dto view(@Param("bId")String bId);
 	public void update(@Param("bId")String bId, @Param("bWriter")String bWriter,
