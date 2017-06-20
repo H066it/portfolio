@@ -13,23 +13,21 @@
 		role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
-			<h3 id="myModalLabel">삭제</h3>
+			<h3 id="myModalLabel">수정</h3>
 		</div>
-		<form action="replyDelete" method="post" class="form-horizontal">
+		<form action="pwdChk?mod=mod" method="post" class="form-horizontal">
 			<div class="modal-body">
-				<input type="hidden" id="bIdOnDelete" name="bId" value="${param.bId }" />
-				<input type="hidden" id="rIdOnDelete" name="rId" value="${param.rId }"/>
-				<input type="hidden" id="rGroupOnDelete" name="rGroup" value="${param.rGroup }"/>
+				<input type="hidden" id="bIdForModify" name="bId" value="${param.bId }" />
 				<div class="control-group">
 					<label class="control-label">비밀번호</label>
 					<div class="controls">
-						<input type="password" id="rPasswordOnDelete" name="rPassword"
+						<input type="password" id="bPasswordForModify" name="bPassword"
 							placeholder="비밀번호를 입력해주세요." style="width: 90%;">
 					</div>
 				</div>
 			</div>
 			<div class="modal-footer">
-				<button class="btn btn-primary" onclick="return replyOnDeleteNullCheck()">확인</button>
+				<button class="btn btn-primary" onclick="return modifyNullCheck()">확인</button>
 				<button class="btn" data-dismiss="modal" aria-hidden="true">취소</button>
 			</div>
 		</form>
@@ -44,21 +42,19 @@
 			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
 			<h3 id="myModalLabel">삭제</h3>
 		</div>
-		<form action="replyDelete" method="post" class="form-horizontal">
+		<form action="pwdChk?mod=del" method="post" class="form-horizontal">
 			<div class="modal-body">
-				<input type="hidden" id="bIdOnDelete" name="bId" value="${param.bId }" />
-				<input type="hidden" id="rIdOnDelete" name="rId" value="${param.rId }"/>
-				<input type="hidden" id="rGroupOnDelete" name="rGroup" value="${param.rGroup }"/>
+				<input type="hidden" id="bIdForDelete" name="bId" value="${param.bId }" />
 				<div class="control-group">
 					<label class="control-label">비밀번호</label>
 					<div class="controls">
-						<input type="password" id="rPasswordOnDelete" name="rPassword"
+						<input type="password" id="bPasswordForDelete" name="bPassword"
 							placeholder="비밀번호를 입력해주세요." style="width: 90%;">
 					</div>
 				</div>
 			</div>
 			<div class="modal-footer">
-				<button class="btn btn-primary" onclick="return replyOnDeleteNullCheck()">확인</button>
+				<button class="btn btn-primary" onclick="return deleteNullCheck()">확인</button>
 				<button class="btn" data-dismiss="modal" aria-hidden="true">취소</button>
 			</div>
 		</form>

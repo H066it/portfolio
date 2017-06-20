@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ include file="/resources/assets/jsp/modal.jsp"%>
+<%@ include file="/resources/assets/jsp/modalPwdChk.jsp"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -14,8 +15,9 @@
 <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
 <script type="text/javascript" src="js/replyButtonRoles.js"></script>
 <script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/submitRule.js"></script>
 <script type="text/javascript" src="js/replySubmitRule.js"></script>
-<script type="text/javascript" src="js/boardPwdChk.js"></script>
+<script type="text/javascript" src="js/pwdChk.js"></script>
 
 </head>
 <body>
@@ -75,7 +77,6 @@
 				<div class="control-group">
 					<div class="controls">
 						<a href="#modifyPwdChk" role="button" class="btn" data-toggle="modal" id="modifyBtn">수정</a>
-						<input type="submit" class="btn" value="수정"></input>
 						<a href="list"><button type="button" class="btn">목록</button></a>
 					</div>
 				</div>

@@ -417,6 +417,14 @@ public class ServiceModel implements IDao, ReplyIDao {
 		ReplyIDao rDao = sqlSession.getMapper(ReplyIDao.class);
 				
 		return (boolean)rDao.replyDelete(bId, rId, rPassword);
-	}	
+	}
+	
+	@Override
+	public String pwdChk(int gId, int bId) {
+		
+		IDao dao = sqlSession.getMapper(IDao.class);
+		
+		return dao.pwdChk(gId + 1 , bId);
+	}
 	
 }

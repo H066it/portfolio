@@ -95,5 +95,12 @@
 		INSERT INTO freeBoard_file (fId, gId, bId, fName, rName, fSize)
 		VALUES (freeboard_file_seq.nextval, 1, #{bId} , #{fName}, #{rName}, #{fSize})
 	</insert>
+	
+	
+	<select id="pwdChk" resultType="String" parameterType="com.h066it.portfolio.dto.Dto">
+		SELECT bPassword
+		FROM freeBoard
+		WHERE gId = #{gId} AND bId = #{bId}
+	</select>
 
 </mapper>

@@ -42,4 +42,7 @@ public interface IDao {
 	public void updateeWithFile(@Param("dto")Dto dto, @Param("fileList")List<FileDto> fileList, @Param("fIds")String[] fIds);
 	// <- ServiceModel만 쓸거면 없어도 무방.
 	
+	/*게시글 수정, 삭제시 비밀번호 확인*/
+	public String pwdChk(@Param("gId")int gId, @Param("bId")int bId);
+	
 }

@@ -144,4 +144,34 @@ public class HomeController {
 	
 	}
 	
+	@RequestMapping("/pwdChk")
+	public String pwdChk(HttpServletRequest request, Dto dto, Model model) {
+		
+		System.out.println("pwdChk");
+		String mod = request.getParameter("mod");
+		System.out.println("mod :" + mod);
+
+		String pwd = service.pwdChk(dto.getgId(), dto.getbId());
+				
+		boolean rst = dto.getbPassword().equals(pwd);
+		model.addAttribute("bId", dto.getbId());
+				
+		if(rst == true) {
+			System.out.println("true");
+			
+			if(mod.equals("mod")) {
+				return "redirect:form";
+			}
+			return "redirect:delete";
+		}
+		
+		System.out.println("false");
+		model.addAttribute("pwdChk", rst);
+		
+		if(mod.equals("mod")) {
+			return "redirect:view";
+		}
+		return "redirect:list";
+	}	
+	
 }

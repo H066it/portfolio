@@ -69,3 +69,33 @@
 			
 		}
 	}
+	
+	function modifyNullCheck() {		
+		if($('input[id=bPasswordForModify]').val().length < 4) {
+			alert('비밀번호를 4자 이상 입력해주세요.');
+			$('input[id=bPasswordForModify]').focus();
+			return false;
+		}
+		if($('input[id=bPasswordForModify]').val().length > 20) {
+			alert('비밀번호를 20자 이하로 입력해주십시오.');
+			$('input[id=bPasswordForModify]').focus();
+			return false;
+		}		
+	}
+	
+	function deleteNullCheck() {		
+		if($('input[id=bPasswordForDelete]').val().length < 4) {
+			alert('비밀번호를 4자 이상 입력해주세요.');
+			$('input[id=bPasswordForDelete]').focus();
+			return false;
+		}
+		if($('input[id=bPasswordForDelete]').val().length > 20) {
+			alert('비밀번호를 20자 이하로 입력해주십시오.');
+			$('input[id=bPasswordForDelete]').focus();
+			return false;
+		}		
+	}	
+	
+	transferRIdOnly = function(rId) {
+		$("#bIdForDelete").val(rId);
+	}
