@@ -18,12 +18,10 @@
 <script type="text/javascript" src="js/submitRule.js"></script>
 <script type="text/javascript" src="js/replySubmitRule.js"></script>
 <script type="text/javascript" src="js/pwdChk.js"></script>
-
 </head>
 <body>
-	view.jsp
-
-	<h1>게시판</h1>
+	
+	<img src="/portfolio/img/귤은 귤귤하고 웁니다.png" class="img-circle" width="200px">
 
 	<div class="container-narrow">
 		<div class="navbar">

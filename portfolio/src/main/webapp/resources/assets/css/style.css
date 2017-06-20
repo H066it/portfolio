@@ -1,15 +1,18 @@
 body {
 	padding-top: 20px;
 	padding-bottom: 40px;
-	text-align: center;	
+	text-align: center;
+	background-image: url("/portfolio/img/wood-white-black-amp-white-landscapes.jpg");
 }
 
 .container-narrow {
 	max-width: 1000px;
 	margin: 0 auto;
-	margin-top: 6rem;
-	font-size: 12px;
-	font-family: Arial, Gulim, Verdana;
+	margin-top: 1rem;
+	font-size: 13px;
+	font-family: '±¼¸²', Gulim;
+	background-color: white;
+	padding: 30px;
 }
 
 input[disabled], select[disabled], textarea[disabled], input[readonly], select[readonly], textarea[readonly] {

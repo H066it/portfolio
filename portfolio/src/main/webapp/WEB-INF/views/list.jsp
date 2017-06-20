@@ -18,9 +18,8 @@
 <script type="text/javascript" src="js/pwdChk.js"></script>
 </head>
 <body>
-	list.jsp
 
-	<h1>게시판</h1>
+	<img src="/portfolio/img/귤은 귤귤하고 웁니다.png" class="img-circle" width="200px">
 
 	<div class="container-narrow">
 		<div class="navbar">
@@ -116,8 +115,7 @@
 						<option value="bContent">내용</option>
 						<option value="bTitle_bContent">제목+내용</option>
 						<option value="bWriter">작성자</option>
-						<option>댓글</option>
-						<!-- 댓글 기능 완성후 만들기 -->
+						<option>댓글</option> 	<!-- 댓글 기능 완성후 만들기 -->
 					</select>
 				</div>
 				<input type="text" name="keyword" style="width: 146px;">
