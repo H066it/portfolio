@@ -114,6 +114,22 @@ public class ServiceModel implements IDao, ReplyIDao {
 		return dao.searchList(firNum, lstNum, searchType, keyword);
 	}
 	
+	@Override
+	public ArrayList<Dto> searchReplyBIdCount(String searchType, String keyword) {
+		
+		IDao dao = sqlSession.getMapper(IDao.class);
+		
+		return dao.searchReplyBIdCount(searchType, keyword);
+	}
+
+	@Override
+	public Dto searchReplyBIdList(int bIds) {
+
+		IDao dao = sqlSession.getMapper(IDao.class);
+		
+		return dao.searchReplyBIdList(bIds);
+	}
+	
 	/*-------------- File ฐüทร --------------*/
 	
 	@Override

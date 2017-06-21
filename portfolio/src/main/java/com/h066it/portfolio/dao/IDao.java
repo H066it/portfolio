@@ -28,6 +28,8 @@ public interface IDao {
 	public ArrayList<Dto> searchCount(@Param("searchType")String searchType, @Param("keyword")String keyword); // 검색된 게시글 수
 	public ArrayList<Dto> searchList(@Param("firNum")int firNum, @Param("lstNum")int lstNum,
 			@Param("searchType")String searchType, @Param("keyword")String keyword);
+	public ArrayList<Dto> searchReplyBIdCount(@Param("searchType")String searchType, @Param("keyword")String keyword);
+	public Dto searchReplyBIdList(@Param("bIds")int bIds);
 	
 	/*file 관련*/
 	public void fileWrite(@Param("fName")String fName, @Param("rName")String rName,	@Param("fSize")double fSize);

@@ -1,5 +1,6 @@
 package com.h066it.portfolio.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -123,16 +124,39 @@ public class HomeController {
 	@RequestMapping("/search")
 	public String search(PageVo pageVo, HttpServletRequest request, Model model) {
 		
-		System.out.println("searchCount");
-		System.out.println(service.searchCount(request.getParameter("searchType"), request.getParameter("keyword")).size());
-		pageVo.calPage(service.searchCount(request.getParameter("searchType"), request.getParameter("keyword")).size());
-		model.addAttribute("pageVo", pageVo);
-
-		System.out.println("searchList");
-		model.addAttribute("list",service.searchList(pageVo.getFirNum(), pageVo.getLstNum(), request.getParameter("searchType"), request.getParameter("keyword")));
-		model.addAttribute("searchType", request.getParameter("searchType"));
-		model.addAttribute("keyword", request.getParameter("keyword"));
+		String searchType = request.getParameter("searchType");
+		String keyword = request.getParameter("keyword");
 		
+		System.out.println("searchCount");
+		
+		if(searchType.equals("rContent")) {		// 리플 검색
+			ArrayList<Dto> bIds = service.searchReplyBIdCount(searchType, keyword);	// 해당 리플이 있는 DISTINCT(bId) 검색
+			System.out.println(bIds.size());
+			pageVo.calPage(bIds.size());
+			model.addAttribute("pageVo", pageVo);
+			
+			ArrayList<Dto> dtos = new ArrayList<Dto>();	// 생성자 없으면 NullPointerException 발생하니 주의.			
+			
+			System.out.println("searchReplyBIdList");
+			for(int i = pageVo.getFirNum() - 1 ; i < pageVo.getLstNum() ; i++) {				
+				Dto dto = service.searchReplyBIdList(bIds.get(i).getbId());
+				dtos.add(dto);
+			}
+			
+			model.addAttribute("list", dtos);
+			
+		} else {								// 그 외 모든 검색
+			System.out.println(service.searchCount(searchType, keyword).size());
+			pageVo.calPage(service.searchCount(searchType, keyword).size());
+			model.addAttribute("pageVo", pageVo);
+	
+			System.out.println("searchList");
+			model.addAttribute("list",service.searchList(pageVo.getFirNum(), pageVo.getLstNum(), searchType, keyword));
+		}
+		
+		model.addAttribute("searchType", searchType);
+		model.addAttribute("keyword", keyword);
+
 		return "list";
 	}
 	

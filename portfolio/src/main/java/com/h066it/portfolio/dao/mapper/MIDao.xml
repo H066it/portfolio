@@ -51,7 +51,7 @@
 	</update>
 
 
-	<select id="searchCount" resultType="com.h066it.portfolio.dto.Dto" parameterType="com.h066it.portfolio.vo.PageVo">
+	<select id="searchCount" resultType="com.h066it.portfolio.dto.Dto" parameterType="String">
 		SELECT * FROM freeBoard WHERE
 		<if test="searchType.equals('bTitle')">bTitle LIKE '%'||#{keyword}||'%'</if>
 		<if test="searchType.equals('bContent')">bContent LIKE '%'||#{keyword}||'%'</if>
@@ -60,7 +60,7 @@
 		ORDER BY bId DESC
 	</select>
 
-	<select id="searchList" resultType="com.h066it.portfolio.dto.Dto" parameterType="com.h066it.portfolio.vo.PageVo">
+	<select id="searchList" resultType="com.h066it.portfolio.dto.Dto" parameterType="String">
 		SELECT S.bId, S.bWriter, S.bTitle, S.bContent, S.bDate, S.bCount, S.fileCheck
 		FROM (SELECT rownum AS rnum, F.bId, F.bWriter, F.bTitle, F.bContent, F.bDate, F.bCount, F.fileCheck
 				FROM (SELECT bId, bWriter, bTitle, bContent, bDate, bCount, fileCheck
@@ -73,6 +73,16 @@
 						AND rownum <![CDATA[<=]]> #{lstNum}) S
 		WHERE S.rnum <![CDATA[>=]]> #{firNum}
 	</select>
+	
+	<select id="searchReplyBIdCount" resultType="com.h066it.portfolio.dto.Dto" parameterType="String">
+		SELECT DISTINCT(bId) FROM freeBoard_reply WHERE
+		<if test="searchType.equals('rContent')">rContent LIKE '%'||#{keyword}||'%'</if>		
+		ORDER BY bId DESC
+	</select>
+	
+	<select id="searchReplyBIdList" resultType="com.h066it.portfolio.dto.Dto" parameterType="Integer">		
+		SELECT * FROM freeBoard WHERE bId = #{bIds}
+	</select>	
 	
 	
 	<insert id="fileWrite" parameterType="com.h066it.portfolio.dto.Dto">
@@ -101,6 +111,6 @@
 		SELECT bPassword
 		FROM freeBoard
 		WHERE gId = #{gId} AND bId = #{bId}
-	</select>
+	</select>	
 
 </mapper>

@@ -115,7 +115,7 @@
 						<option value="bContent">내용</option>
 						<option value="bTitle_bContent">제목+내용</option>
 						<option value="bWriter">작성자</option>
-						<option>댓글</option> 	<!-- 댓글 기능 완성후 만들기 -->
+						<option value="rContent">댓글</option> 	<!-- 댓글 기능 완성후 만들기 -->
 					</select>
 				</div>
 				<input type="text" name="keyword" style="width: 146px;">
