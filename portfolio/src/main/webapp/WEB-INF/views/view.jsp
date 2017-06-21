@@ -119,19 +119,20 @@
 				<div id="reply">
 					<div class="control-group">
 						<div class="row-fluid" id="replysTop">
-							<div class="span10">
+							<div class="span9">
 								<label class="control-label">
 									<c:if test="${reply.rIndent > 0 }">
-										<c:forEach items="${replys }" begin="1" end="${reply.rIndent }">
-											&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-										</c:forEach>└ Re :
+										<c:forEach items="${replys }" begin="1" end="${reply.rIndent % 5 }">
+											&nbsp;&nbsp;&nbsp;
+										</c:forEach>└
+										<c:forEach items="${replys }" begin="0" end="${reply.rIndent / 5 }">Re</c:forEach> :
 									</c:if>
 									${reply.rWriter }
 								</label>
 							</div>
 							<c:if test="${reply.rDelete != 1 }">
-								<div class="span2" id="replyButton">
-									 ${reply.rDate }
+								<div class="span3" id="replyButton">
+									<p>${reply.rDate }</p>
 									<a href="#replyWriteOnReply" role="button" class="btn"
 										data-toggle="modal" onclick="transferRId(${reply.rId}, ${reply.rGroup })">
 									<i class="icon-pencil"></i></a>
@@ -148,8 +149,8 @@
 					<div class="control-group">
 						<label class="control-label" id="replyBottom">
 							<c:if test="${reply.rIndent > 0 }">
-								<c:forEach items="${replys }" begin="1" end="${reply.rIndent }">
-									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+								<c:forEach items="${replys }" begin="1" end="${reply.rIndent % 5 }">
+									&nbsp;&nbsp;&nbsp;
 								</c:forEach>&nbsp;&nbsp;&nbsp;
 							</c:if>
 							<c:choose>
