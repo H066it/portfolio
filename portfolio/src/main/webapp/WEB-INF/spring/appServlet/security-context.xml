@@ -14,7 +14,8 @@
 
 	<http auto-config="true">
 		<form-login login-page="/login" authentication-failure-url="/login?pChk" default-target-url="/list"/>
-		<intercept-url pattern="/list*" access="hasRole('ROLE_USER')"/>
+		<intercept-url pattern="/form*" access="hasRole('ROLE_USER')"/>
+		<intercept-url pattern="/**/*" access="permitAll"/>
 	</http>
 
 	<authentication-manager>

@@ -99,3 +99,16 @@
 	transferRIdOnly = function(rId) {
 		$("#bIdForDelete").val(rId);
 	}
+	
+	function loginNullCheck() {		
+		if($('#sId').val().length < 1) {
+			alert('ID를 입력해주세요.');			
+			$('#sId').focus();
+			return false;
+		}
+		if($('#sPw').val().length < 1) {
+			alert('비밀번호를 입력해주세요.');
+			$('#sPw').focus();
+			return false;
+		}
+	}	

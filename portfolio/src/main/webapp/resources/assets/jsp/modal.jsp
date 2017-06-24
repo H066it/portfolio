@@ -17,6 +17,7 @@
 			<h3 id="myModalLabel">답글</h3>
 		</div>
 		<form action="replyWrite" method="post" class="form-horizontal">
+			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 			<div class="modal-body">
 				<input type="hidden" id="bIdOnReply" name="bId" value="${param.bId }" />
 				<input type="hidden" id="rIdOnReply" name="rId" value="${param.rId }"/>
@@ -61,6 +62,7 @@
 			<h3 id="myModalLabel">수정</h3>
 		</div>
 		<form action="replyUpdate" method="post" class="form-horizontal">
+			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 			<div class="modal-body">
 				<input type="hidden" id="bIdOnUpdate" name="bId" value="${param.bId }" />
 				<input type="hidden" id="rIdOnUpdate" name="rId" value="${param.rId }"/>
@@ -102,6 +104,7 @@
 			<h3 id="myModalLabel">삭제</h3>
 		</div>
 		<form action="replyDelete" method="post" class="form-horizontal">
+			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 			<div class="modal-body">
 				<input type="hidden" id="bIdOnDelete" name="bId" value="${param.bId }" />
 				<input type="hidden" id="rIdOnDelete" name="rId" value="${param.rId }"/>

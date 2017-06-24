@@ -39,6 +39,7 @@
 		</div>
 
 		<form action="form" method="post" class="form-horizontal">
+			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 			<div class="form-horizontal">
 				<input type="hidden" name="bId" value="${param.bId }" />
 				<div class="control-group">
@@ -83,6 +84,7 @@
 
 		<div id="replyWrite">
 			<form action="replyWrite" method="post" class="form-horizontal">
+				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 				<input type="hidden" name="bId" value="${param.bId }" />
 				<div class="control-group">
 					<label class="control-label">작성자</label>

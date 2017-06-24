@@ -35,8 +35,8 @@
 		<c:choose>
 		
 			<c:when test="${bId == null}">
-				<form action="write" method="post" class="form-horizontal"
-					enctype="multipart/form-data">
+				<form action="write?${_csrf.parameterName}=${_csrf.token}"
+				 method="post" class="form-horizontal" enctype="multipart/form-data">
 					<div class="form-horizontal">
 						<div class="control-group">
 							<label class="control-label">작성자</label>
@@ -81,7 +81,9 @@
 			</c:when>
 			
 			<c:when test="${bId != null}">
-				<form action="update" method="post" class="form-horizontal" enctype="multipart/form-data">
+				<form action="update?${_csrf.parameterName}=${_csrf.token}"
+				 method="post" class="form-horizontal" enctype="multipart/form-data">
+					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 					<div class="form-horizontal">
 						<input type="hidden" name="bId" value="${param.bId }" />
 						<div class="control-group">
