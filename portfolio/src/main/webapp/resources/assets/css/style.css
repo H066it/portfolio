@@ -1,53 +1,58 @@
-body {
-	padding-top: 20px;
-	padding-bottom: 40px;
-	text-align: center;
-	background-image: url("/portfolio/img/wood-white-black-amp-white-landscapes.jpg");
-}
-
-.container-narrow {
-	max-width: 1000px;
-	margin: 0 auto;
-	margin-top: 1rem;
-	font-size: 13px;
-	font-family: '±¼¸²', Gulim;
-	background-color: white;
-	padding: 30px;
-}
-
-input[disabled], select[disabled], textarea[disabled], input[readonly], select[readonly], textarea[readonly] {
-    cursor: default !important;
-    background-color: white !important;
-}
-
-#replyWrite {
-	margin-top: 100px;
-	margin-bottom: 30px;
-	padding-top: 50px;
-	padding-bottom: 50px;
-	border-top: thin dashed #778899;	
-	border-bottom: thin dashed #778899;
-	background-color: rgb(234, 234, 234);
-}
-
-#replys {
-	text-align: left;
-}
-
-#reply {
-	background-color: rgb(234, 234, 234);
-}
-
-#replysTop {
-	padding-top: 10px;
-	border-top: thin dashed #778899;
-}
-
-#replyButton {
-	text-align: right;
-}
-
-#replyBottom {
-	padding-bottom: 10px;
-	border-bottom: thin dashed #778899;
-}
+	body {
+		padding-top: 20px;
+		padding-bottom: 40px;
+		text-align: center;
+		background-image: url("/portfolio/img/wood-white-black-amp-white-landscapes.jpg");
+	}
+	
+	.container-narrow {
+		max-width: 1000px;
+		margin: 0 auto;
+		margin-top: 1rem;
+		font-size: 13px;
+		font-family: '±¼¸²', Gulim;
+		background-color: white;
+		padding: 30px;
+	}
+	
+	input[disabled], select[disabled], textarea[disabled], input[readonly], select[readonly], textarea[readonly] {
+	    cursor: default !important;
+	    background-color: white !important;
+	}
+	
+	#replyWrite {
+		margin-top: 100px;
+		margin-bottom: 30px;
+		padding-top: 50px;
+		padding-bottom: 50px;
+		border-top: thin dashed #778899;	
+		border-bottom: thin dashed #778899;
+		background-color: rgb(234, 234, 234);
+	}
+	
+	#replys {
+		text-align: left;
+	}
+	
+	#reply {
+		background-color: rgb(234, 234, 234);
+	}
+	
+	#replysTop {
+		padding-top: 10px;
+		border-top: thin dashed #778899;
+	}
+	
+	#replyButton {
+		text-align: right;
+	}
+	
+	#replyBottom {
+		padding-bottom: 10px;
+		border-bottom: thin dashed #778899;
+	}
+	
+	#signBar {
+		text-align: right;
+		padding-right: 18%;
+	}

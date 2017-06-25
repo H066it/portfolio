@@ -112,3 +112,36 @@
 			return false;
 		}
 	}	
+	
+	function signUpNullCheck() {		
+		if($('#upId').val().length < 4) {
+			alert('ID를 4자 이상 입력해주세요.');			
+			$('#upId').focus();
+			return false;
+		}
+		if($('#upId').val().length > 20) {
+			alert('ID를 20자 이하로 입력해주세요.');			
+			$('#upId').focus();
+			return false;
+		}		
+		if($('#upPw').val().length < 4) {
+			alert('비밀번호를 4자 이상 입력해주세요.');
+			$('#upPw').focus();
+			return false;
+		}
+		if($('#upPw').val().length > 20) {
+			alert('비밀번호를 20자 이하로 입력해주세요.');
+			$('#upPw').focus();
+			return false;
+		}
+		if($('#upName').val().length < 2) {
+			alert('닉네임을 2자 이상 입력해주세요.');
+			$('#upName').focus();
+			return false;
+		}
+		if($('#upName').val().length > 20) {
+			alert('닉네임을 20자 이하로 입력해주세요.');
+			$('#upName').focus();
+			return false;
+		}
+	}	

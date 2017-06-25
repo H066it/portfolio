@@ -28,7 +28,7 @@ public class HomeController {
 	private ServiceModel service;	// Model(Service)과 Controller 나눔.
 
 	@RequestMapping("/list")
-	public String list(PageVo pageVo, Model model) {
+	public String list(HttpServletRequest request, PageVo pageVo, Model model) {
 
 		System.out.println("count : " + service.count().size());
 		pageVo.calPage(service.count().size());
@@ -36,6 +36,10 @@ public class HomeController {
 		
 		System.out.println("list");
 		model.addAttribute("list", service.list(pageVo.getFirNum(), pageVo.getLstNum()));
+		
+		if(request.getParameter("signUpRst") != null) {	// 회원가입 메세지 용
+			model.addAttribute("signUpRst", request.getParameter("signUpRst"));
+		}
 		
 		return "list";
 	}

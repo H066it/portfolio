@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.h066it.portfolio.dao.SecurityIDao">
+
+	<!-- freeBoard #1 nav -->
+	
+	<select id="memberIdChk" resultType="String" parameterType="String">
+		SELECT id FROM freeBoard_member WHERE id = #{id}
+	</select>
+
+	<select id="memberNickNameChk" resultType="String" parameterType="String">
+		SELECT nickName FROM freeBoard_member WHERE nickName = #{nickName}
+	</select>
+	
+	<insert id="signUp" parameterType="com.h066it.portfolio.dto.MemberDto">
+		INSERT INTO freeBoard_member (Id, Pwd, NickName) VALUES (#{id}, #{pwd}, #{nickName})
+	</insert>
+	
+</mapper>

@@ -18,9 +18,17 @@
 <script type="text/javascript" src="js/pwdChk.js"></script>
 </head>
 <body>
-
+	
 	<img src="/portfolio/img/귤은 귤귤하고 웁니다.png" class="img-circle" width="200px">
-
+	
+	<div id="signBar">
+		<a href="login"><input type="button" class="btn btn-link btn-small" value="로그인"/></a>
+		<a href="signUpForm"><input type="button" class="btn btn-link btn-small" value="회원가입"/></a>
+		<%-- <c:if test="">
+			<a href="/security/logout">log out</a>	<!-- 로그아웃 만들 것. -->
+		</c:if> --%>
+	</div>
+	
 	<div class="container-narrow">
 		<div class="navbar">
 			<div class="navbar-inner">
@@ -34,6 +42,18 @@
 					<li><a href="#">Link</a></li>
 				</ul>
 			</div>
+		</div>
+		
+		<div>
+			<c:if test="${signUpRst == true }">
+				<div class="alert">
+	  				<button type="button" class="close" data-dismiss="alert">&times;</button>
+	 				ᕕ( ᐛ )ᕗ  회원가입을 축하드립니다.٩( ᐕ  )و
+				</div>
+				<script>
+					$(".alert").alert();
+				</script>
+			</c:if>
 		</div>
 
 		<table class="table table-striped">
@@ -115,14 +135,14 @@
 						<option value="bContent">내용</option>
 						<option value="bTitle_bContent">제목+내용</option>
 						<option value="bWriter">작성자</option>
-						<option value="rContent">댓글</option> 	<!-- 댓글 기능 완성후 만들기 -->
+						<option value="rContent">댓글</option>
 					</select>
 				</div>
 				<input type="text" name="keyword" style="width: 146px;">
 				<button type="submit" class="btn">검색</button>
 			</form>
 		</div>
-	</div>
+	</div>	
 
 	<script>		
 		var pwdChk = "." + ${param.pwdChk} + ".";

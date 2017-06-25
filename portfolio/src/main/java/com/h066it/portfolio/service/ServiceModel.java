@@ -21,12 +21,13 @@ import org.springframework.transaction.support.TransactionTemplate;
 
 import com.h066it.portfolio.dao.IDao;
 import com.h066it.portfolio.dao.ReplyIDao;
+import com.h066it.portfolio.dao.SecurityIDao;
 import com.h066it.portfolio.dto.Dto;
 import com.h066it.portfolio.dto.FileDto;
 import com.h066it.portfolio.dto.ReplyDto;
 
 @Service
-public class ServiceModel implements IDao, ReplyIDao {
+public class ServiceModel implements IDao, ReplyIDao, SecurityIDao {
 
 	@Autowired
 	private SqlSession sqlSession;
@@ -441,6 +442,42 @@ public class ServiceModel implements IDao, ReplyIDao {
 		IDao dao = sqlSession.getMapper(IDao.class);
 		
 		return dao.pwdChk(gId + 1 , bId);
+	}
+
+	/*-------------- 회원관리 관련 --------------*/
+	
+	@Override
+	public boolean signUp(String id, String pwd, String nickName) {
+
+		SecurityIDao sDao = sqlSession.getMapper(SecurityIDao.class);
+		
+		String idChk = sDao.memberIdChk(id);
+		String nickNameChk = sDao.memberNickNameChk(nickName);
+		
+		if(idChk == null && nickNameChk == null) {
+			sDao.signUp(id, pwd, nickName);
+			System.out.println("sign Up success!");
+			return true;
+		} else {			
+			System.out.println("sign Up fail!");
+			return false;
+		}
+	}
+
+	@Override
+	public String memberIdChk(String id) {
+
+		SecurityIDao sDao = sqlSession.getMapper(SecurityIDao.class);
+		
+		return sDao.memberIdChk(id);
+	}
+
+	@Override
+	public String memberNickNameChk(String nickName) {
+		
+		SecurityIDao sDao = sqlSession.getMapper(SecurityIDao.class);
+		
+		return sDao.memberNickNameChk(nickName);
 	}
 	
 }
