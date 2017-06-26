@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ include file="/resources/assets/jsp/modalPwdChk.jsp"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -22,11 +23,17 @@
 	<img src="/portfolio/img/귤은 귤귤하고 웁니다.png" class="img-circle" width="200px">
 	
 	<div id="signBar">
-		<a href="login"><input type="button" class="btn btn-link btn-small" value="로그인"/></a>
-		<a href="signUpForm"><input type="button" class="btn btn-link btn-small" value="회원가입"/></a>
-		<%-- <c:if test="">
-			<a href="/security/logout">log out</a>	<!-- 로그아웃 만들 것. -->
-		</c:if> --%>
+		<sec:authorize access="isAnonymous()">
+			<a href="login"><input type="button" class="btn btn-link btn-small" value="로그인"/></a>
+			<a href="signUpForm"><input type="button" class="btn btn-link btn-small" value="회원가입"/></a>
+		</sec:authorize>	
+
+		<sec:authorize access="hasRole('ROLE_USER')">
+			<form action="logout" method="post" style="display: inline;">
+				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+				<input type="submit" class="btn btn-link btn-small" value="로그아웃"/>
+			</form>
+		</sec:authorize>
 	</div>
 	
 	<div class="container-narrow">
@@ -49,6 +56,18 @@
 				<div class="alert">
 	  				<button type="button" class="close" data-dismiss="alert">&times;</button>
 	 				ᕕ( ᐛ )ᕗ  회원가입을 축하드립니다.٩( ᐕ  )و
+				</div>
+				<script>
+					$(".alert").alert();
+				</script>
+			</c:if>
+		</div>
+		
+		<div>
+			<c:if test="${param.logout != null }">
+				<div class="alert">
+	  				<button type="button" class="close" data-dismiss="alert">&times;</button>
+	 				ᕕ( ᐛ )ᕗ  로그아웃 되었습니다.٩( ᐕ  )و
 				</div>
 				<script>
 					$(".alert").alert();

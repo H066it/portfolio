@@ -15,15 +15,9 @@ public class SecurityContoroller {
 	private ServiceModel service;	// Model(Service)°ú Controller ³ª´®.
 	
 	@RequestMapping("/login")
-	public String login() {
-		
+	public String login(MemberDto mDto, Model model) {
+						
 		return "security/login";
-	}
-
-	@RequestMapping("/logout")	// ·Î±×¾Æ¿ô ¸¸µé °Í
-	public String logout() {
-		
-		return "security/logout";
 	}
 	
 	@RequestMapping("/signUpForm")

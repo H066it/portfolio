@@ -18,7 +18,11 @@
 		<form-login login-page="/login" authentication-failure-url="/login?pChk" default-target-url="/list"/>
 		<intercept-url pattern="/form*" access="hasRole('ROLE_USER')"/>
 		<intercept-url pattern="/**/*" access="permitAll"/>
-		<logout logout-url="/security/logout" logout-success-url="/list" delete-cookies="true" invalidate-session="true"/>
+		<logout logout-url="/logout" logout-success-url="/list?logout"
+			delete-cookies="JSESSIONID" invalidate-session="true"/>
+		<session-management>
+			<concurrency-control max-sessions="1"/>
+		</session-management>		
 	</http>
 
 	<authentication-manager>
@@ -26,7 +30,11 @@
 			<user-service>
 				<user name="test" password="1234" authorities="ROLE_USER"/>
 			</user-service>
+	<!-- 		<jdbc-user-service data-source-ref="securityServiceModel"/> -->
 		</authentication-provider>
 	</authentication-manager>
 
+	<!-- <beans:bean name="securityServiceModel" class="com.h066it.portfolio.service.SecurityServiceModel">
+	</beans:bean>
+ -->
 </beans:beans>

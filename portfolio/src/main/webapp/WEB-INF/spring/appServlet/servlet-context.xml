@@ -60,4 +60,7 @@
 	<beans:bean name="service" class="com.h066it.portfolio.service.ServiceModel">
 	</beans:bean>
 	
+	<beans:bean name="sService" class="com.h066it.portfolio.service.SecurityServiceModel">
+	</beans:bean>
+	
 </beans:beans>
