@@ -15,7 +15,6 @@ public class MemberDto implements UserDetails {
 	private String id;
 	private String pwd;
 	private String nickName;
-	private String authority;
 
 	public String getId() {
 		return id;
@@ -40,15 +39,7 @@ public class MemberDto implements UserDetails {
 	public void setNickName(String nickName) {
 		this.nickName = nickName;
 	}
-
-	public String getAuthority() {
-		return authority;
-	}
-
-	public void setAuthority(String authority) {
-		this.authority = authority;
-	}
-
+	
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		return null;

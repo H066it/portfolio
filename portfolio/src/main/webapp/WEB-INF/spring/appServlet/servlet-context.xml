@@ -34,7 +34,7 @@
 		<beans:property name="username" value="tosh"/>
 		<beans:property name="password" value="vlqkddyd"/>
 	</beans:bean>
-		
+	
 	<beans:bean name="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<beans:property name="dataSource" ref="dataSource"/>
 		<beans:property name="mapperLocations" value="classpath:com/h066it/portfolio/dao/mapper/*.xml"/>

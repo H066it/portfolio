@@ -6,13 +6,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.h066it.portfolio.dto.MemberDto;
+import com.h066it.portfolio.service.SecurityServiceModel;
 import com.h066it.portfolio.service.ServiceModel;
 
 @Controller
 public class SecurityContoroller {
 
 	@Autowired
-	private ServiceModel service;	// Model(Service)°ú Controller ³ª´®.
+	private SecurityServiceModel sService;	// Model(Service)°ú Controller ³ª´®.
 	
 	@RequestMapping("/login")
 	public String login(MemberDto mDto, Model model) {
@@ -29,13 +30,13 @@ public class SecurityContoroller {
 	@RequestMapping("/signUp")
 	public String signUp(MemberDto dto, Model model) {
 				
-		Boolean signUpRst = service.signUp(dto.getId(), dto.getPwd(), dto.getNickName());
+		Boolean signUpRst = sService.signUp(dto);
 		if(signUpRst == true) {	
 			model.addAttribute("signUpRst", signUpRst);
 			return "redirect:list";
 		} else {
 			model.addAttribute("signUpRst", signUpRst);
-			return "security/signUp";
+			return "security/signUpForm";
 		}
 	}
 	

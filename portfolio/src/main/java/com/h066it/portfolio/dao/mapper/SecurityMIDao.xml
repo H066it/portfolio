@@ -15,8 +15,12 @@
 		SELECT nickName FROM freeBoard_member WHERE nickName = #{nickName}
 	</select>
 	
-	<insert id="signUp" parameterType="com.h066it.portfolio.dto.MemberDto">
+	<insert id="signUpOnMember" parameterType="com.h066it.portfolio.dto.MemberDto">
 		INSERT INTO freeBoard_member (Id, Pwd, NickName) VALUES (#{id}, #{pwd}, #{nickName})
+	</insert>
+	
+	<insert id="signUpOnAuthorities" parameterType="com.h066it.portfolio.dto.MemberDto">
+		INSERT INTO freeBoard_authorities (Id, Authority) VALUES (#{id}, 'ROLE_USER')
 	</insert>
 	
 </mapper>
