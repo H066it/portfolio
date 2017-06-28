@@ -24,7 +24,7 @@
 			<concurrency-control max-sessions="1"/>
 		</session-management>
 		<remember-me token-validity-seconds="604800" key="rememberMeKey" remember-me-parameter="remember-me"
-		 data-source-ref="dataSource"/>
+		 data-source-ref="dataSource" remember-me-cookie="RM_CK"/>
 	</http>
 	
 	<beans:bean name="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">

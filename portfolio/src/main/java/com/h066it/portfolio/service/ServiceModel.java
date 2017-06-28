@@ -37,27 +37,27 @@ public class ServiceModel implements IDao, ReplyIDao {
 	/*-------------- CRUD 관련 --------------*/
 	
 	@Override
-	public ArrayList<Dto> count() {
+	public ArrayList<Dto> count(String gId) {
 
 		IDao dao = sqlSession.getMapper(IDao.class);
 				
-		return dao.count();
+		return dao.count(gId);
 	}
 
 	@Override
-	public ArrayList<Dto> list(int firNum, int lstNum) {
+	public ArrayList<Dto> list(String gId, int firNum, int lstNum) {
 
 		IDao dao = sqlSession.getMapper(IDao.class);
 		
-		return dao.list(firNum, lstNum);
+		return dao.list(gId, firNum, lstNum);
 	}
 
 	@Override
-	public void write(String bWriter, String bPassword, String bTitle, String bContent, int fileCheck) {
+	public void write(int gId, String bWriter, String bPassword, String bTitle, String bContent, int fileCheck) {
 
 		IDao dao = sqlSession.getMapper(IDao.class);
 
-		dao.write(bWriter, bPassword, bTitle, bContent, fileCheck);
+		dao.write(gId, bWriter, bPassword, bTitle, bContent, fileCheck);
 		
 	}
 
@@ -133,11 +133,11 @@ public class ServiceModel implements IDao, ReplyIDao {
 	/*-------------- File 관련 --------------*/
 	
 	@Override
-	public void fileWrite(String fName, String rName, double fSize) {
+	public void fileWrite(int gId, String fName, String rName, double fSize) {
 		
 		IDao dao = sqlSession.getMapper(IDao.class);
 	
-		dao.fileWrite(fName, rName, fSize);
+		dao.fileWrite(gId, fName, rName, fSize);
 		
 	}
 	
@@ -232,7 +232,8 @@ public class ServiceModel implements IDao, ReplyIDao {
 			protected void doInTransactionWithoutResult(TransactionStatus status) {
 				
 				System.out.println("write");
-				write(dto.getbWriter(), dto.getbPassword(), dto.getbTitle(), dto.getbContent(), dto.getFileCheck());
+				write(dto.getgId(), dto.getbWriter(), dto.getbPassword(), dto.getbTitle(),
+						dto.getbContent(), dto.getFileCheck());
 				
 				if(!fileList.isEmpty()) {
 					for(FileDto file : fileList) {	// DB에 file들 정보 저장.
@@ -241,7 +242,7 @@ public class ServiceModel implements IDao, ReplyIDao {
 						System.out.println("file.getrName() : " + file.getrName());
 						System.out.println("file.getfSize() : " + file.getfSize());
 						
-						fileWrite(file.getfName(), file.getrName(), file.getfSize());
+						fileWrite(dto.getgId(), file.getfName(), file.getrName(), file.getfSize());
 					}
 				}
 			}

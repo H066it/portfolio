@@ -9,22 +9,34 @@
 
 	<select id="count" resultType="com.h066it.portfolio.dto.Dto"
 		parameterType="com.h066it.portfolio.vo.PageVo">
-		SELECT * FROM freeBoard ORDER BY bId DESC
+		SELECT * FROM freeBoard WHERE gId = #{gId} ORDER BY bId DESC
 	</select>
 
 	<select id="list" resultType="com.h066it.portfolio.dto.Dto"
 		parameterType="com.h066it.portfolio.vo.PageVo">
-		SELECT S.bId, S.bWriter, S.bTitle, S.bContent, S.bDate, S.bCount, S.fileCheck
-		FROM (SELECT rownum AS rnum, F.bId, F.bWriter, F.bTitle, F.bContent, F.bDate, F.bCount, F.fileCheck
-				FROM (SELECT bId, bWriter, bTitle, bContent, bDate, bCount, fileCheck
-						FROM freeBoard ORDER BY bId DESC) F
+		SELECT S.gId, S.bId, S.bWriter, S.bTitle, S.bContent, S.bDate, S.bCount, S.fileCheck
+		FROM (SELECT rownum AS rnum, F.gId, F.bId, F.bWriter, F.bTitle, F.bContent, F.bDate, F.bCount, F.fileCheck
+				FROM (SELECT gId, bId, bWriter, bTitle, bContent, bDate, bCount, fileCheck
+						FROM freeBoard WHERE gId = #{gId} ORDER BY bId DESC) F
 						WHERE rownum <![CDATA[<=]]> #{lstNum}) S
 		WHERE S.rnum <![CDATA[>=]]> #{firNum}		
 	</select>
 
 	<insert id="write">
 		INSERT INTO freeBoard (gId, bId, bWriter, bPassword, bTitle, bContent, bCount, fileCheck)
-		VALUES (1, freeBoard_seq.nextval, #{bWriter}, #{bPassword}, #{bTitle}, #{bContent}, 0,
+		VALUES (#{gId}, 
+		<choose>
+			<when test="gId == 1">
+				freeBoard_seq.nextval
+			</when>
+			<when test="gId == 2">
+				freeBoard_seq_2.nextval
+			</when>
+			<when test="gId == 3">
+				freeBoard_seq_3.nextval
+			</when>
+		</choose>
+		, #{bWriter}, #{bPassword}, #{bTitle}, #{bContent}, 0,
 		<if test="fileCheck == 0">0</if>
 		<if test="fileCheck == 1">1</if>
 		)
@@ -90,7 +102,19 @@
 			SELECT MAX(bId) FROM freeBoard
 		</selectKey>
 		INSERT INTO freeBoard_file (fId, gId, bId, fName, rName, fSize)
-		VALUES (freeboard_file_seq.nextval, 1, #{bId} , #{fName}, #{rName}, #{fSize})
+		VALUES (
+		<choose>
+			<when test="gId == 1">
+				freeBoard_file_seq.nextval
+			</when>
+			<when test="gId == 2">
+				freeBoard_file_seq_2.nextval
+			</when>
+			<when test="gId == 3">
+				freeBoard_file_seq_3.nextval
+			</when>
+		</choose>
+		, #{gId}, #{bId} , #{fName}, #{rName}, #{fSize})
 	</insert>
 
 	<delete id="fileDelete">

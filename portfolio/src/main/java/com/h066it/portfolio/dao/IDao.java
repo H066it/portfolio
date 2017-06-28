@@ -14,9 +14,9 @@ import com.h066it.portfolio.dto.FileDto;
 public interface IDao {
 
 	/*CRUD 관련*/
-	public ArrayList<Dto> count();	// 전체 게시글 수
-	public ArrayList<Dto> list(@Param("firNum")int firNum, @Param("lstNum")int lstNum);
-	public void write(@Param("bWriter")String bWriter, @Param("bPassword")String bPassword,
+	public ArrayList<Dto> count(@Param("gId")String gId);	// 전체 게시글 수
+	public ArrayList<Dto> list(@Param("gId")String gId, @Param("firNum")int firNum, @Param("lstNum")int lstNum);
+	public void write(@Param("gId")int gId, @Param("bWriter")String bWriter, @Param("bPassword")String bPassword,
 			@Param("bTitle")String bTitle, @Param("bContent")String bContent, @Param("fileCheck")int fileCheck);
 	public void delete(@Param("bId")String bId);
 	public Dto view(@Param("bId")String bId);
@@ -32,7 +32,8 @@ public interface IDao {
 	public Dto searchReplyBIdList(@Param("bIds")int bIds);
 	
 	/*file 관련*/
-	public void fileWrite(@Param("fName")String fName, @Param("rName")String rName,	@Param("fSize")double fSize);
+	public void fileWrite(@Param("gId")int gId, @Param("fName")String fName,
+			@Param("rName")String rName, @Param("fSize")double fSize);
 	public void fileDelete(@Param("fId")String fId);
 	public ArrayList<FileDto> fileView(@Param("bId")String bId);
 	public void fileUpdate(@Param("bId")int bId, @Param("fName")String fName,

@@ -38,11 +38,11 @@
 				<a class="brand" href="#">Title</a>
 				<ul class="nav">
 					<li class="divider-vertical"></li>
-					<li class="active"><a href="list">익명판</a></li>
+					<li class="active"><a href="list?gId=1">익명판</a></li>
 					<li class="divider-vertical"></li>
-					<li><a href="#">Link</a></li>
+					<li><a href="list?gId=2">회원판</a></li>
 					<li class="divider-vertical"></li>
-					<li><a href="#">Link</a></li>
+					<li><a href="list?gId=3">건의판</a></li>
 				</ul>
 			</div>
 		</div>
@@ -53,6 +53,7 @@
 				<form action="write?${_csrf.parameterName}=${_csrf.token}"
 				 method="post" class="form-horizontal" enctype="multipart/form-data">
 					<div class="form-horizontal">
+						<input type="hidden" name="gId" value="${gId }"/>
 						<div class="control-group">
 							<label class="control-label">작성자</label>
 							<div class="controls">

@@ -48,11 +48,11 @@
 				<a class="brand" href="#">Title</a>
 				<ul class="nav">
 					<li class="divider-vertical"></li>
-					<li class="active"><a href="list">익명판</a></li>
+					<li class="active"><a href="list?gId=1">익명판</a></li>
 					<li class="divider-vertical"></li>
-					<li><a href="#">Link</a></li>
+					<li><a href="list?gId=2">회원판</a></li>
 					<li class="divider-vertical"></li>
-					<li><a href="#">Link</a></li>
+					<li><a href="list?gId=3">건의판</a></li>
 				</ul>
 			</div>
 		</div>
@@ -106,7 +106,9 @@
 			</c:forEach>
 		</table>
 
-		<a href="form"><input class="btn" type="button" value="글쓰기" /></a><br />
+		<a href="form?gId=${gId }">			
+			<input class="btn" type="button" value="글쓰기" />
+		</a><br />
 
 		<div class="pagination">
 			<ul>
@@ -154,6 +156,7 @@
 
 		<div class="input-prepend">
 			<form action="search" method="post">
+				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 				<div class="btn-group">
 					<select name="searchType" style="width: 74px;">
 						<option value="bTitle">제목</option>

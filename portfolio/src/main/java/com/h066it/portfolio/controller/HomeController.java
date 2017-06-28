@@ -33,13 +33,23 @@ public class HomeController {
 
 		if(auth != null) {
 			model.addAttribute("auth", auth.getName());
-		}		
-		System.out.println("count : " + service.count().size());
-		pageVo.calPage(service.count().size());
+		}
+		
+		String gId = request.getParameter("gId");
+		
+		if(gId == null) {
+			gId = "1";
+			model.addAttribute("gId", 1);
+		} else {
+			model.addAttribute("gId", gId);
+		}
+		
+		System.out.println("count : " + service.count(gId).size());
+		pageVo.calPage(service.count(gId).size());
 		model.addAttribute("pageVo", pageVo);
 		
 		System.out.println("list");
-		model.addAttribute("list", service.list(pageVo.getFirNum(), pageVo.getLstNum()));
+		model.addAttribute("list", service.list(gId, pageVo.getFirNum(), pageVo.getLstNum()));
 		
 		if(request.getParameter("signUpRst") != null) {	// 회원가입 메세지 용
 			model.addAttribute("signUpRst", request.getParameter("signUpRst"));
@@ -51,6 +61,7 @@ public class HomeController {
 	@RequestMapping("/form")
 	public String form(HttpServletRequest request, Model model) {
 
+		String gId = request.getParameter("gId");
 		String bId = request.getParameter("bId");
 		
 		if(bId == null || bId.equals("null") || bId.equals("")) {
@@ -60,6 +71,7 @@ public class HomeController {
 			List<FileDto> fileList = service.fileView(bId);
 			model.addAttribute("files", fileList);
 		}
+		model.addAttribute("gId", gId);
 		model.addAttribute("bId", bId);
 		
 		return "form";
