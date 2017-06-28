@@ -29,6 +29,12 @@
 		</sec:authorize>	
 
 		<sec:authorize access="hasRole('ROLE_USER')">
+			<c:out value="${auth }"/>님 환영합니다.
+			
+			<sec:authorize access="isRememberMe()">
+       			자동 로그인 되었습니다.
+ 		  	</sec:authorize>
+			
 			<form action="logout" method="post" style="display: inline;">
 				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 				<input type="submit" class="btn btn-link btn-small" value="로그아웃"/>

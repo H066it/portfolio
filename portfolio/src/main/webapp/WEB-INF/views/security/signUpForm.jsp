@@ -26,9 +26,8 @@
 			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 			<input type="text" class="input-block-level" placeholder="id" name="id" id="upId">
 			<input type="password" class="input-block-level" placeholder="password" name="pwd" id="upPw">
-			<input type="text" class="input-block-level" placeholder="nickname" name="nickName" id="upName">
 			<c:if test="${signUpRst == false}">
-				<p>중복 된 아이디 또는 닉네임입니다.</p>
+				<p>중복 된 아이디입니다.</p>
 			</c:if>
 			<button class="btn btn-large btn-primary" onclick="return signUpNullCheck()" type="submit">등록</button>
 			<a href="list"><button class="btn btn-large" type="button">취소</button></a>

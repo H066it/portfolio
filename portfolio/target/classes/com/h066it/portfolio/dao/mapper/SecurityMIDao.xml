@@ -11,16 +11,12 @@
 		SELECT id FROM freeBoard_member WHERE id = #{id}
 	</select>
 
-	<select id="memberNickNameChk" resultType="String" parameterType="String">
-		SELECT nickName FROM freeBoard_member WHERE nickName = #{nickName}
-	</select>
-	
 	<insert id="signUpOnMember" parameterType="com.h066it.portfolio.dto.MemberDto">
-		INSERT INTO freeBoard_member (Id, Pwd, NickName) VALUES (#{id}, #{pwd}, #{nickName})
+		INSERT INTO freeBoard_member (Id, Pwd) VALUES (#{id}, #{pwd})
 	</insert>
 	
 	<insert id="signUpOnAuthorities" parameterType="com.h066it.portfolio.dto.MemberDto">
 		INSERT INTO freeBoard_authorities (Id, Authority) VALUES (#{id}, 'ROLE_USER')
 	</insert>
-	
+		
 </mapper>

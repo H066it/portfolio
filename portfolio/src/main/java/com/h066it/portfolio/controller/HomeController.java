@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,8 +29,11 @@ public class HomeController {
 	private ServiceModel service;	// Model(Service)°ú Controller ³ª´®.
 
 	@RequestMapping("/list")
-	public String list(HttpServletRequest request, PageVo pageVo, Model model) {
+	public String list(HttpServletRequest request, PageVo pageVo, Model model, Authentication auth) {
 
+		if(auth != null) {
+			model.addAttribute("auth", auth.getName());
+		}		
 		System.out.println("count : " + service.count().size());
 		pageVo.calPage(service.count().size());
 		model.addAttribute("pageVo", pageVo);

@@ -32,8 +32,8 @@
 				<p>회원정보를 잘못 입력하셨습니다.</p>
 			</c:if>
 			<label class="checkbox">
-				<input type="checkbox" value="remember-me">
-				Remember me	<!-- 미구현 -->
+				<input type="checkbox" name="remember-me">
+				Remember me
 			</label>
 			<button class="btn btn-large btn-primary" onclick="return loginNullCheck()" type="submit">로그인</button>
 			<a href="list"><button class="btn btn-large" type="button">목록</button></a>

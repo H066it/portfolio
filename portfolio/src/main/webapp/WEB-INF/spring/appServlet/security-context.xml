@@ -22,15 +22,17 @@
 			delete-cookies="JSESSIONID" invalidate-session="true"/>
 		<session-management>
 			<concurrency-control max-sessions="1"/>
-		</session-management>		
+		</session-management>
+		<remember-me token-validity-seconds="604800" key="rememberMeKey" remember-me-parameter="remember-me"
+		 data-source-ref="dataSource"/>
 	</http>
-
+	
 	<beans:bean name="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<beans:property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
 		<beans:property name="url" value="jdbc:oracle:thin:@localhost:1521:oracle"/>
 		<beans:property name="username" value="tosh"/>
 		<beans:property name="password" value="vlqkddyd"/>
-	</beans:bean>
+	</beans:bean>	
 
 	<authentication-manager>
 		<authentication-provider>
