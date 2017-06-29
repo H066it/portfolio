@@ -38,11 +38,29 @@
 				<a class="brand" href="#">Title</a>
 				<ul class="nav">
 					<li class="divider-vertical"></li>
-					<li class="active"><a href="list?gId=1">익명판</a></li>
-					<li class="divider-vertical"></li>
-					<li><a href="list?gId=2">회원판</a></li>
-					<li class="divider-vertical"></li>
-					<li><a href="list?gId=3">건의판</a></li>
+					<c:choose>
+						<c:when  test="${gId == 1}">
+							<li class="active"><a href="list?gId=1">익명판</a></li>
+							<li class="divider-vertical"></li>
+							<li><a href="list?gId=2">회원판</a></li>
+							<li class="divider-vertical"></li>
+							<li><a href="list?gId=3">건의판</a></li>
+						</c:when>
+						<c:when  test="${gId == 2}">
+							<li><a href="list?gId=1">익명판</a></li>
+							<li class="divider-vertical"></li>
+							<li class="active"><a href="list?gId=2">회원판</a></li>
+							<li class="divider-vertical"></li>
+							<li><a href="list?gId=3">건의판</a></li>
+						</c:when>
+						<c:when  test="${gId == 3}">
+							<li><a href="list?gId=1">익명판</a></li>
+							<li class="divider-vertical"></li>
+							<li><a href="list?gId=2">회원판</a></li>
+							<li class="divider-vertical"></li>
+							<li class="active"><a href="list?gId=3">건의판</a></li>
+						</c:when>
+					</c:choose>
 				</ul>
 			</div>
 		</div>
@@ -88,7 +106,7 @@
 						<div class="control-group">
 							<div class="controls">
 								<input type="submit" class="btn" value="작성"
-									onclick="return nullCheck()"></input> <a href="list"><button
+									onclick="return nullCheck()"></input> <a href="list?gId=${gId }"><button
 										type="button" class="btn">취소</button></a>
 							</div>
 						</div>
@@ -101,26 +119,27 @@
 				 method="post" class="form-horizontal" enctype="multipart/form-data">
 					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 					<div class="form-horizontal">
-						<input type="hidden" name="bId" value="${param.bId }" />
+						<input type="hidden" name="gId" value="${gId }"/>
+						<input type="hidden" name="bId" value="${bId }" />
 						<div class="control-group">
 							<label class="control-label">작성자</label>
 							<div class="controls">
 								<input type="text" name="bWriter" style="width: 90%"
-									value="${param.bWriter }">
+									value="${dto.bWriter }">
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label">제목</label>
 							<div class="controls">
 								<input type="text" name="bTitle" style="width: 90%;"
-									value="${param.bTitle }">
+									value="${dto.bTitle }">
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label">내용</label>
 							<div class="controls">
 								<textarea name="bContent" cols="30" rows="10"
-									style="resize: none; width: 90%;">${param.bContent }</textarea>
+									style="resize: none; width: 90%;">${dto.bContent }</textarea>
 							</div>
 						</div>
 						<div class="control-group">
@@ -138,7 +157,7 @@
 						<div class="control-group">
 							<div class="controls">
 								<input type="submit" class="btn" value="수정"
-									onclick="return nullCheck()"></input> <a href="list"><button
+									onclick="return nullCheck()"></input> <a href="list?gId=${gId }"><button
 										type="button" class="btn">취소</button></a>
 							</div>
 						</div>

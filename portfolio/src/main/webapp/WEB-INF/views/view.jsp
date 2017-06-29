@@ -44,62 +44,77 @@
 				<a class="brand" href="#">Title</a>
 				<ul class="nav">
 					<li class="divider-vertical"></li>
-					<li class="active"><a href="list?gId=1">익명판</a></li>
-					<li class="divider-vertical"></li>
-					<li><a href="list?gId=2">회원판</a></li>
-					<li class="divider-vertical"></li>
-					<li><a href="list?gId=3">건의판</a></li>
+					<c:choose>
+						<c:when  test="${dto.gId == 1}">
+							<li class="active"><a href="list?gId=1">익명판</a></li>
+							<li class="divider-vertical"></li>
+							<li><a href="list?gId=2">회원판</a></li>
+							<li class="divider-vertical"></li>
+							<li><a href="list?gId=3">건의판</a></li>
+						</c:when>
+						<c:when  test="${dto.gId == 2}">
+							<li><a href="list?gId=1">익명판</a></li>
+							<li class="divider-vertical"></li>
+							<li class="active"><a href="list?gId=2">회원판</a></li>
+							<li class="divider-vertical"></li>
+							<li><a href="list?gId=3">건의판</a></li>
+						</c:when>
+						<c:when  test="${dto.gId == 3}">
+							<li><a href="list?gId=1">익명판</a></li>
+							<li class="divider-vertical"></li>
+							<li><a href="list?gId=2">회원판</a></li>
+							<li class="divider-vertical"></li>
+							<li class="active"><a href="list?gId=3">건의판</a></li>
+						</c:when>
+					</c:choose>
 				</ul>
 			</div>
 		</div>
 
-		<form action="form" method="post" class="form-horizontal">
-			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-			<div class="form-horizontal">
-				<input type="hidden" name="bId" value="${param.bId }" />
-				<div class="control-group">
-					<label class="control-label">작성자</label>
-					<div class="controls">
-						<input type="text" name="bWriter" value='${dto.bWriter }'
-							readonly="readonly" style="width: 90%;">
-					</div>
-				</div>
-				<div class="control-group">
-					<label class="control-label">제목</label>
-					<div class="controls">
-						<input type="text" name="bTitle" value='${dto.bTitle }'
-							readonly="readonly" style="width: 90%;">
-					</div>
-				</div>
-				<div class="control-group">
-					<label class="control-label">내용</label>
-					<div class="controls">
-						<textarea name="bContent" cols="30" rows="10"
-							style="resize: none; width: 90%;" readonly="readonly">${dto.bContent }</textarea>
-					</div>
-				</div>
-				<div class="control-group">
-					<label class="control-label">파일</label>
-					<div class="controls" align="left">
-						<c:forEach items="${files }" var="file">
-							<a
-								href="fileDownload?fName='${file.fName }'&rName='${file.rName }'"
-								style="width: 90%;"> ${file.rName }</a> (${file.sizeCalculation(file.fSize) }) 
-						</c:forEach>
-					</div>
-				</div>
-				<div class="control-group">
-					<div class="controls">
-						<a href="#modifyPwdChk" role="button" class="btn" data-toggle="modal" id="modifyBtn">수정</a>
-						<a href="list"><button type="button" class="btn">목록</button></a>
-					</div>
+		<div class="form-horizontal">
+			<input type="hidden" name="bId" value="${param.bId }" />
+			<div class="control-group">
+				<label class="control-label">작성자</label>
+				<div class="controls">
+					<input type="text" name="bWriter" value='${dto.bWriter }'
+						readonly="readonly" style="width: 90%;">
 				</div>
 			</div>
-		</form>
+			<div class="control-group">
+				<label class="control-label">제목</label>
+				<div class="controls">
+					<input type="text" name="bTitle" value='${dto.bTitle }'
+							readonly="readonly" style="width: 90%;">
+				</div>
+			</div>
+			<div class="control-group">
+				<label class="control-label">내용</label>
+				<div class="controls">
+					<textarea name="bContent" cols="30" rows="10"
+						style="resize: none; width: 90%;" readonly="readonly">${dto.bContent }</textarea>
+				</div>
+			</div>
+			<div class="control-group">
+				<label class="control-label">파일</label>
+				<div class="controls" align="left">
+					<c:forEach items="${files }" var="file">
+						<a href="fileDownload?fName='${file.fName }'&rName='${file.rName }'"
+							style="width: 90%;"> ${file.rName }</a> (${file.sizeCalculation(file.fSize) }) 
+					</c:forEach>
+				</div>
+			</div>
+			<div class="control-group">
+				<div class="controls">
+					<a href="#modifyPwdChk" role="button" class="btn" data-toggle="modal" id="modifyBtn">수정</a>
+					<a href="list"><button type="button" class="btn">목록</button></a>
+				</div>
+			</div>
+		</div>
 
 		<div id="replyWrite">
 			<form action="replyWrite" method="post" class="form-horizontal">
 				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+				<input type="hidden" name="gId" value="${param.gId }"/>
 				<input type="hidden" name="bId" value="${param.bId }" />
 				<div class="control-group">
 					<label class="control-label">작성자</label>

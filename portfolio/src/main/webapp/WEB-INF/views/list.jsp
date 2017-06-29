@@ -48,11 +48,29 @@
 				<a class="brand" href="#">Title</a>
 				<ul class="nav">
 					<li class="divider-vertical"></li>
-					<li class="active"><a href="list?gId=1">익명판</a></li>
-					<li class="divider-vertical"></li>
-					<li><a href="list?gId=2">회원판</a></li>
-					<li class="divider-vertical"></li>
-					<li><a href="list?gId=3">건의판</a></li>
+					<c:choose>
+						<c:when  test="${gId == 1}">
+							<li class="active"><a href="list?gId=1">익명판</a></li>
+							<li class="divider-vertical"></li>
+							<li><a href="list?gId=2">회원판</a></li>
+							<li class="divider-vertical"></li>
+							<li><a href="list?gId=3">건의판</a></li>
+						</c:when>
+						<c:when  test="${gId == 2}">
+							<li><a href="list?gId=1">익명판</a></li>
+							<li class="divider-vertical"></li>
+							<li class="active"><a href="list?gId=2">회원판</a></li>
+							<li class="divider-vertical"></li>
+							<li><a href="list?gId=3">건의판</a></li>
+						</c:when>
+						<c:when  test="${gId == 3}">
+							<li><a href="list?gId=1">익명판</a></li>
+							<li class="divider-vertical"></li>
+							<li><a href="list?gId=2">회원판</a></li>
+							<li class="divider-vertical"></li>
+							<li class="active"><a href="list?gId=3">건의판</a></li>
+						</c:when>
+					</c:choose>
 				</ul>
 			</div>
 		</div>
@@ -93,7 +111,7 @@
 			<c:forEach items="${list }" var="dto">
 				<tr>
 					<td>${dto.bId }</td>
-					<td><a href="view?bId=${dto.bId }" style="color: black;">
+					<td><a href="view?gId=${gId }&bId=${dto.bId }" style="color: black;">
 						${dto.bTitle }
 						<c:if test="${dto.fileCheck == 1 }"><i class="icon-film"></i></c:if>
 					</a></td>
@@ -130,24 +148,24 @@
 					</c:when>
 					
 					<c:when test="${keyword != null}">
-						<li><a
-							href="search?page=1&searchType=${searchType }&keyword=${keyword }">&lt;&lt;</a></li>
+						<li><a href="search?page=1&gId=${gId }&
+							searchType=${searchType }&keyword=${keyword }">&lt;&lt;</a></li>
 						<c:if test="${pageVo.firPageNum - 1 > 1}">
-							<li><a
-								href="search?page=${pageVo.firPageNum - 1}&searchType=${searchType }&keyword=${keyword }">&lt;</a></li>
+							<li><a href="search?page=${pageVo.firPageNum - 1}&gId=${gId }&
+							searchType=${searchType }&keyword=${keyword }">&lt;</a></li>
 						</c:if>
 						<c:forEach begin="${pageVo.firPageNum }"
 							end="${pageVo.lstPageNum }" step="1" varStatus="page">
-							<li><a
-								href="search?page=${pageVo.firPageNum -1 + page.count}&searchType=${searchType }&keyword=${keyword }">
+							<li><a href="search?page=${pageVo.firPageNum -1 + page.count}&gId=${gId }&
+								searchType=${searchType }&keyword=${keyword }">
 									${pageVo.firPageNum -1 + page.count} </a></li>
 						</c:forEach>
 						<c:if test="${pageVo.firPageNum + 10 <= pageVo.totalPageNum}">
-							<li><a
-								href="search?page=${pageVo.firPageNum + 10}&searchType=${searchType }&keyword=${keyword }">&gt;</a></li>
+							<li><a href="search?page=${pageVo.firPageNum + 10}&gId=${gId }&
+							searchType=${searchType }&keyword=${keyword }">&gt;</a></li>
 						</c:if>
-						<li><a
-							href="search?page=${pageVo.totalPageNum }&searchType=${searchType }&keyword=${keyword }">&gt;&gt;</a></li>
+						<li><a href="search?page=${pageVo.totalPageNum }&gId=${gId }&
+						searchType=${searchType }&keyword=${keyword }">&gt;&gt;</a></li>
 
 					</c:when>
 				</c:choose>				
@@ -157,6 +175,7 @@
 		<div class="input-prepend">
 			<form action="search" method="post">
 				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+				<input type="hidden" name="gId" value="${gId }"/>
 				<div class="btn-group">
 					<select name="searchType" style="width: 74px;">
 						<option value="bTitle">제목</option>

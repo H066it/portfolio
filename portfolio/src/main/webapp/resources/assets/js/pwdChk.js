@@ -6,7 +6,7 @@
 					alert("비밀번호가 틀립니다.")
 					
 					var url = $(location).attr('href');
-					var modifiedUrl = url.split('&', 1);
+					var modifiedUrl = url.split('&pwdChk', 1);
 					
 					location.replace(modifiedUrl);		
 					

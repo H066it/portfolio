@@ -62,72 +62,72 @@ public class ServiceModel implements IDao, ReplyIDao {
 	}
 
 	@Override
-	public void delete(String bId) {
+	public void delete(String gId, String bId) {
 
 		IDao dao = sqlSession.getMapper(IDao.class);
 		
-		dao.delete(bId);
+		dao.delete(gId, bId);
 		
 	}
 
 	@Override
-	public Dto view(String bId) {
+	public Dto view(String gId, String bId) {
 		
 		IDao dao = sqlSession.getMapper(IDao.class);
 		
-		return dao.view(bId);
+		return dao.view(gId, bId);
 	}
 
 	@Override
-	public void update(String bId, String bWriter, String bTitle, String bContent, int fileCheck) {
+	public void update(String gId, String bId, String bWriter, String bTitle, String bContent, int fileCheck) {
 		
 		IDao dao = sqlSession.getMapper(IDao.class);
 		
-		dao.update(bId, bWriter, bTitle, bContent, fileCheck);
+		dao.update(gId, bId, bWriter, bTitle, bContent, fileCheck);
 		
 	}
 
 	@Override
-	public void countUpdate(String bId) {
+	public void countUpdate(String gId, String bId) {
 		
 		IDao dao = sqlSession.getMapper(IDao.class);
 		
-		dao.countUpdate(bId);
+		dao.countUpdate(gId, bId);
 		
 	}
 	
 	/*-------------- Search 관련 --------------*/
 
 	@Override
-	public ArrayList<Dto> searchCount(String searchType, String keyword) {
+	public ArrayList<Dto> searchCount(String gId, String searchType, String keyword) {
 		
 		IDao dao = sqlSession.getMapper(IDao.class);
 		
-		return dao.searchCount(searchType, keyword);
+		return dao.searchCount(gId, searchType, keyword);
 	}
 
 	@Override
-	public ArrayList<Dto> searchList(int firNum, int lstNum, String searchType, String keyword) {
+	public ArrayList<Dto> searchList(String gId, int firNum, int lstNum, String searchType, String keyword) {
 		
 		IDao dao = sqlSession.getMapper(IDao.class);
 		
-		return dao.searchList(firNum, lstNum, searchType, keyword);
+		return dao.searchList(gId, firNum, lstNum, searchType, keyword);
 	}
 	
 	@Override
-	public ArrayList<Dto> searchReplyBIdCount(String searchType, String keyword) {
+	public ArrayList<Dto> searchReplyBIdCount(String gId, String searchType, String keyword) {
 		
 		IDao dao = sqlSession.getMapper(IDao.class);
 		
-		return dao.searchReplyBIdCount(searchType, keyword);
+		return dao.searchReplyBIdCount(gId, searchType, keyword);
 	}
 
 	@Override
-	public Dto searchReplyBIdList(int bIds) {
+	public Dto searchReplyBIdList(int gId, int bIds) {
 
 		IDao dao = sqlSession.getMapper(IDao.class);
 		
-		return dao.searchReplyBIdList(bIds);
+		return dao.searchReplyBIdList(gId, bIds);
 	}
 	
 	/*-------------- File 관련 --------------*/
@@ -142,28 +142,28 @@ public class ServiceModel implements IDao, ReplyIDao {
 	}
 	
 	@Override
-	public void fileDelete(String fId) {
+	public void fileDelete(String gId, String fId) {
 	
 		IDao dao = sqlSession.getMapper(IDao.class);
 		
-		dao.fileDelete(fId);
+		dao.fileDelete(gId, fId);
 		
 	}
 
 	@Override
-	public ArrayList<FileDto> fileView(String bId) {
+	public ArrayList<FileDto> fileView(String gId, String bId) {
 	
 		IDao dao = sqlSession.getMapper(IDao.class);
 		
-		return dao.fileView(bId);
+		return dao.fileView(gId, bId);
 	}
 
 	@Override
-	public void fileUpdate(int bId, String fName, String rName, double fSize) {
+	public void fileUpdate(int gId, int bId, String fName, String rName, double fSize) {
 		
 		IDao dao = sqlSession.getMapper(IDao.class);
 		
-		dao.fileUpdate(bId, fName, rName, fSize);
+		dao.fileUpdate(gId, bId, fName, rName, fSize);
 		
 	}	
 	
@@ -251,7 +251,7 @@ public class ServiceModel implements IDao, ReplyIDao {
 	}
 	
 	@Override
-	public void deleteWithFile(final String bId, final List<FileDto> fileList) {
+	public void deleteWithFile(final String gId, final String bId, final List<FileDto> fileList) {
 		
 		TransactionTemplate.execute(new TransactionCallbackWithoutResult() {
 			
@@ -259,7 +259,7 @@ public class ServiceModel implements IDao, ReplyIDao {
 			protected void doInTransactionWithoutResult(TransactionStatus status) {
 				
 				System.out.println("delete");
-				delete(bId);
+				delete(gId, bId);
 
 				if(!fileList.isEmpty()) {
 					for(FileDto file : fileList) {	// DB에 file들 정보 저장.
@@ -267,7 +267,7 @@ public class ServiceModel implements IDao, ReplyIDao {
 						System.out.println("file.getfId() : " + file.getfId());
 					
 						String fId = Integer.toString(file.getfId());
-						fileDelete(fId);
+						fileDelete(gId, fId);
 					}
 				}
 			}
@@ -285,8 +285,9 @@ public class ServiceModel implements IDao, ReplyIDao {
 				
 				System.out.println("update");
 				
+				String gId = Integer.toString(dto.getgId());
 				String bId = Integer.toString(dto.getbId());
-				update(bId, dto.getbWriter(), dto.getbTitle(),	dto.getbContent(), dto.getFileCheck());
+				update(gId, bId, dto.getbWriter(), dto.getbTitle(),	dto.getbContent(), dto.getFileCheck());
 
 				if(!fileList.isEmpty()) {
 					for(FileDto file : fileList) {	// DB에 file들 정보 저장.
@@ -295,7 +296,7 @@ public class ServiceModel implements IDao, ReplyIDao {
 						System.out.println("file.getrName() : " + file.getrName());
 						System.out.println("file.getfSize() : " + file.getfSize());
 						
-						fileUpdate(dto.getbId(), file.getfName(), file.getrName(), file.getfSize());
+						fileUpdate(dto.getgId(), dto.getbId(), file.getfName(), file.getrName(), file.getfSize());
 					}
 				}
 				
@@ -303,7 +304,7 @@ public class ServiceModel implements IDao, ReplyIDao {
 					for(String fId : fIds) {
 						
 						System.out.println("fileDelete fId : " + fId);
-						fileDelete(fId);
+						fileDelete(gId, fId);
 						
 					}
 				}
@@ -322,118 +323,119 @@ public class ServiceModel implements IDao, ReplyIDao {
 		if(rDto.getrId() == 0) {
 			
 			System.out.println("replyWriteOnBoard");						
-			replyWriteOnBoard(rDto.getbId(), rDto.getrWriter(), rDto.getrPassword(), rDto.getrContent());
+			replyWriteOnBoard(rDto.getgId(), rDto.getbId(), rDto.getrWriter(), rDto.getrPassword(), rDto.getrContent());
 			
 		} else {
 						
 			System.out.println("replyWriteOnReply");						
-			int depth = getDepth(rDto.getbId(), rDto.getrId());
-			int indent = getIndent(rDto.getbId(), rDto.getrId());
+			int depth = getDepth(rDto.getgId(), rDto.getbId(), rDto.getrId());
+			int indent = getIndent(rDto.getgId(), rDto.getbId(), rDto.getrId());
 						
-			depth = replyDepthChk(rDto.getbId(), rDto.getrGroup(), depth, indent);	// depth와 indent로 넣을 depth 위치 찾음.
+			depth = replyDepthChk(rDto.getgId(), rDto.getbId(),
+					rDto.getrGroup(), depth, indent);	// depth와 indent로 넣을 depth 위치 찾음.
 			
 			System.out.println("depth : " + depth);
 			
 			if(depth == -1) {	// -1이면 맨 밑으로 가고, 아니면 중간에 끼어 듬.
-				depth = depthDown(rDto.getbId(), rDto.getrGroup());
+				depth = depthDown(rDto.getgId(), rDto.getbId(), rDto.getrGroup());
 			} else {
-				depthSort(rDto.getbId(), rDto.getrId(), rDto.getrGroup(), depth);
+				depthSort(rDto.getgId(), rDto.getbId(), rDto.getrId(), rDto.getrGroup(), depth);
 			}
 			
-			indent = getIndent(rDto.getbId(), rDto.getrId()) + 1;			
+			indent = getIndent(rDto.getgId(), rDto.getbId(), rDto.getrId()) + 1;			
 			
-			replyWriteOnReply(rDto.getbId(), rDto.getrWriter(), rDto.getrPassword(), rDto.getrContent(),
-					rDto.getrGroup(), depth, indent);
+			replyWriteOnReply(rDto.getgId(), rDto.getbId(), rDto.getrWriter(), rDto.getrPassword(),
+					rDto.getrContent(),	rDto.getrGroup(), depth, indent);
 			
 		}
 	
 	}
 
 	@Override
-	public void replyWriteOnBoard(int bId, String rWriter, String rPassword, String rContent) {
+	public void replyWriteOnBoard(int gId, int bId, String rWriter, String rPassword, String rContent) {
 	
 		ReplyIDao rDao = sqlSession.getMapper(ReplyIDao.class);
 		
-		rDao.replyWriteOnBoard(bId, rWriter, rPassword, rContent);
+		rDao.replyWriteOnBoard(gId, bId, rWriter, rPassword, rContent);
 		
 	}	
 
 	@Override
-	public int replyDepthChk(int bId, int rGroup, int rDepth, int rIndent) {
+	public int replyDepthChk(int gId, int bId, int rGroup, int rDepth, int rIndent) {
 		
 		ReplyIDao rDao = sqlSession.getMapper(ReplyIDao.class);
 				
-		return rDao.replyDepthChk(bId, rGroup, rDepth, rIndent);
+		return rDao.replyDepthChk(gId, bId, rGroup, rDepth, rIndent);
 	}
 
 	@Override
-	public ArrayList<ReplyDto> replyView(String bId) {
+	public ArrayList<ReplyDto> replyView(String gId, String bId) {
 
 		ReplyIDao rDao = sqlSession.getMapper(ReplyIDao.class);
 		
-		return rDao.replyView(bId);
+		return rDao.replyView(gId, bId);
 	}
 
 	
 	@Override
-	public int getDepth(int bId, int rId) {
+	public int getDepth(int gId, int bId, int rId) {
 		
 		ReplyIDao rDao = sqlSession.getMapper(ReplyIDao.class);
 		
-		return rDao.getDepth(bId, rId);
+		return rDao.getDepth(gId, bId, rId);
 	}
 	
 	@Override
-	public int getIndent(int bId, int rId) {
+	public int getIndent(int gId, int bId, int rId) {
 
 		ReplyIDao rDao = sqlSession.getMapper(ReplyIDao.class);
 		
-		return rDao.getIndent(bId, rId);
+		return rDao.getIndent(gId, bId, rId);
 	}
 
 
 	@Override
-	public int depthDown(int bId, int rGroup) {
+	public int depthDown(int gId, int bId, int rGroup) {
 		
 		ReplyIDao rDao = sqlSession.getMapper(ReplyIDao.class);
 		
-		return rDao.depthDown(bId, rGroup);
+		return rDao.depthDown(gId, bId, rGroup);
 	}	
 
 	@Override
-	public void depthSort(int bId, int rId, int rGroup, int depth) {
+	public void depthSort(int gId, int bId, int rId, int rGroup, int depth) {
 		
 		ReplyIDao rDao = sqlSession.getMapper(ReplyIDao.class);
 		
-		rDao.depthSort(bId, rId, rGroup, depth);
+		rDao.depthSort(gId, bId, rId, rGroup, depth);
 		
 	}
 
 	@Override
-	public void replyWriteOnReply(int bId, String rWriter, String rPassword, String rContent, int rGroup,
-			int rDepth, int rIndent) {
+	public void replyWriteOnReply(int gId, int bId, String rWriter, String rPassword, String rContent,
+			int rGroup,	int rDepth, int rIndent) {
 
 		ReplyIDao rDao = sqlSession.getMapper(ReplyIDao.class);
 		
-		rDao.replyWriteOnReply(bId, rWriter, rPassword, rContent, rGroup, rDepth, rIndent);
+		rDao.replyWriteOnReply(gId, bId, rWriter, rPassword, rContent, rGroup, rDepth, rIndent);
 		
 	}
 
 	@Override
-	public boolean replyUpdate(int bId, int rId, String rWriter, String rPassword, String rContent) {
+	public boolean replyUpdate(int gId, int bId, int rId, String rWriter, String rPassword, String rContent) {
 		
 		ReplyIDao rDao = sqlSession.getMapper(ReplyIDao.class);
 				
-		return (boolean)rDao.replyUpdate(bId, rId, rWriter, rPassword, rContent);
+		return (boolean)rDao.replyUpdate(gId, bId, rId, rWriter, rPassword, rContent);
 		
 	}
 
 	@Override
-	public boolean replyDelete(int bId, int rId, String rPassword) {
+	public boolean replyDelete(int gId, int bId, int rId, String rPassword) {
 		
 		ReplyIDao rDao = sqlSession.getMapper(ReplyIDao.class);
 				
-		return (boolean)rDao.replyDelete(bId, rId, rPassword);
+		return (boolean)rDao.replyDelete(gId, bId, rId, rPassword);
 	}
 	
 	@Override
@@ -441,7 +443,7 @@ public class ServiceModel implements IDao, ReplyIDao {
 		
 		IDao dao = sqlSession.getMapper(IDao.class);
 		
-		return dao.pwdChk(gId + 1 , bId);
+		return dao.pwdChk(gId , bId);
 	}	
 	
 }

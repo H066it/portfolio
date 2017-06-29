@@ -11,6 +11,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.h066it.portfolio.dto.Dto;
 import com.h066it.portfolio.dto.FileDto;
@@ -31,19 +33,17 @@ public class HomeController {
 	@RequestMapping("/list")
 	public String list(HttpServletRequest request, PageVo pageVo, Model model, Authentication auth) {
 
-		if(auth != null) {
+		if(auth != null) {	// id 전송.
 			model.addAttribute("auth", auth.getName());
 		}
 		
-		String gId = request.getParameter("gId");
-		
+		String gId = request.getParameter("gId");	// gId 전송.
+	
 		if(gId == null) {
 			gId = "1";
-			model.addAttribute("gId", 1);
-		} else {
-			model.addAttribute("gId", gId);
 		}
-		
+		model.addAttribute("gId", gId);
+				
 		System.out.println("count : " + service.count(gId).size());
 		pageVo.calPage(service.count(gId).size());
 		model.addAttribute("pageVo", pageVo);
@@ -59,7 +59,7 @@ public class HomeController {
 	}
 
 	@RequestMapping("/form")
-	public String form(HttpServletRequest request, Model model) {
+	public String form(HttpServletRequest request, Dto dto, Model model) {
 
 		String gId = request.getParameter("gId");
 		String bId = request.getParameter("bId");
@@ -68,7 +68,7 @@ public class HomeController {
 			System.out.println("writeForm");
 		} else {
 			System.out.println("updateForm");
-			List<FileDto> fileList = service.fileView(bId);
+			List<FileDto> fileList = service.fileView(gId, bId);			
 			model.addAttribute("files", fileList);
 		}
 		model.addAttribute("gId", gId);
@@ -97,10 +97,11 @@ public class HomeController {
 	@RequestMapping("/delete")
 	public String delete(HttpServletRequest request, Model model) {
 
+		String gId = request.getParameter("gId");
 		String bId = request.getParameter("bId");
 		
-		List<FileDto> fileList = service.fileView(bId);
-		service.deleteWithFile(bId, fileList);
+		List<FileDto> fileList = service.fileView(gId, bId);
+		service.deleteWithFile(gId, bId, fileList);
 
 		return "redirect:list";
 	}
@@ -110,13 +111,14 @@ public class HomeController {
 
 		System.out.println("view");
 		
+		String gId = request.getParameter("gId");
 		String bId = request.getParameter("bId");
 		
-		service.countUpdate(bId);		// 조회수
-		model.addAttribute("dto", service.view(bId));
-		model.addAttribute("files", service.fileView(bId));
+		service.countUpdate(gId, bId);		// 조회수
+		model.addAttribute("dto", service.view(gId, bId));
+		model.addAttribute("files", service.fileView(gId, bId));
 
-		List<ReplyDto> replyList = service.replyView(bId);
+		List<ReplyDto> replyList = service.replyView(gId, bId);
 		model.addAttribute("replys", replyList);
 		
 		return "view";
@@ -142,15 +144,20 @@ public class HomeController {
 	}
 	
 	@RequestMapping("/search")
-	public String search(PageVo pageVo, HttpServletRequest request, Model model) {
+	public String search(PageVo pageVo, HttpServletRequest request, Model model, Authentication auth) {
 		
+		if(auth != null) {	// id 전송.
+			model.addAttribute("auth", auth.getName());
+		}
+		
+		String gId = request.getParameter("gId");
 		String searchType = request.getParameter("searchType");
 		String keyword = request.getParameter("keyword");
 		
 		System.out.println("searchCount");
 		
 		if(searchType.equals("rContent")) {		// 리플 검색
-			ArrayList<Dto> bIds = service.searchReplyBIdCount(searchType, keyword);	// 해당 리플이 있는 DISTINCT(bId) 검색
+			ArrayList<Dto> bIds = service.searchReplyBIdCount(gId, searchType, keyword);	// 해당 리플이 있는 DISTINCT(bId) 검색
 			System.out.println(bIds.size());
 			pageVo.calPage(bIds.size());
 			model.addAttribute("pageVo", pageVo);
@@ -158,22 +165,23 @@ public class HomeController {
 			ArrayList<Dto> dtos = new ArrayList<Dto>();	// 생성자 없으면 NullPointerException 발생하니 주의.			
 			
 			System.out.println("searchReplyBIdList");
-			for(int i = pageVo.getFirNum() - 1 ; i < pageVo.getLstNum() ; i++) {				
-				Dto dto = service.searchReplyBIdList(bIds.get(i).getbId());
-				dtos.add(dto);
+			if(bIds.size() != 0) {	// 리플없을 때 에러 방지.
+				for(int i = pageVo.getFirNum() - 1 ; i < pageVo.getLstNum() ; i++) {				
+					Dto dto = service.searchReplyBIdList(Integer.parseInt(gId), bIds.get(i).getbId());
+					dtos.add(dto);
+				}
 			}
-			
 			model.addAttribute("list", dtos);
 			
 		} else {								// 그 외 모든 검색
-			System.out.println(service.searchCount(searchType, keyword).size());
-			pageVo.calPage(service.searchCount(searchType, keyword).size());
+			System.out.println(service.searchCount(gId, searchType, keyword).size());
+			pageVo.calPage(service.searchCount(gId, searchType, keyword).size());
 			model.addAttribute("pageVo", pageVo);
 	
 			System.out.println("searchList");
-			model.addAttribute("list",service.searchList(pageVo.getFirNum(), pageVo.getLstNum(), searchType, keyword));
+			model.addAttribute("list",service.searchList(gId, pageVo.getFirNum(), pageVo.getLstNum(), searchType, keyword));
 		}
-		
+		model.addAttribute("gId", gId);
 		model.addAttribute("searchType", searchType);
 		model.addAttribute("keyword", keyword);
 
@@ -198,12 +206,13 @@ public class HomeController {
 		String pwd = service.pwdChk(dto.getgId(), dto.getbId());
 				
 		boolean rst = dto.getbPassword().equals(pwd);
+		model.addAttribute("gId", dto.getgId());
 		model.addAttribute("bId", dto.getbId());
 				
 		if(rst == true) {
 			System.out.println("true");
 			
-			if(mod.equals("mod")) {
+			if(mod.equals("mod")) {				
 				return "redirect:form";
 			}
 			return "redirect:delete";

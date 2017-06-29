@@ -43,11 +43,11 @@
 	</insert>
 
 	<delete id="delete">
-		DELETE FROM freeBoard WHERE bId = #{bId}
+		DELETE FROM freeBoard WHERE gId = #{gId} AND bId = #{bId}
 	</delete>
 
 	<select id="view" resultType="com.h066it.portfolio.dto.Dto">
-		SELECT * FROM freeBoard WHERE bId =	#{bId}
+		SELECT * FROM freeBoard WHERE gId = #{gId} AND bId = #{bId}
 	</select>
 
 	<update id="update">
@@ -55,16 +55,16 @@
 		SET bWriter = #{bWriter}, bTitle = #{bTitle}, bContent = #{bContent}, fileCheck = 
 		<if test="fileCheck == 0">0</if>
 		<if test="fileCheck == 1">1</if>
-		WHERE bId = #{bId}
+		WHERE gId = #{gId} AND bId = #{bId}
 	</update>
 
 	<update id="countUpdate">
-		UPDATE freeBoard SET bCount = bCount + 1 WHERE bId = #{bId}
+		UPDATE freeBoard SET bCount = bCount + 1 WHERE gId = #{gId} AND bId = #{bId}
 	</update>
 
 
 	<select id="searchCount" resultType="com.h066it.portfolio.dto.Dto" parameterType="String">
-		SELECT * FROM freeBoard WHERE
+		SELECT * FROM freeBoard WHERE gId = #{gId} AND
 		<if test="searchType.equals('bTitle')">bTitle LIKE '%'||#{keyword}||'%'</if>
 		<if test="searchType.equals('bContent')">bContent LIKE '%'||#{keyword}||'%'</if>
 		<if test="searchType.equals('bTitle_bContent')">bTitle||bContent LIKE '%'||#{keyword}||'%'</if>
@@ -73,11 +73,11 @@
 	</select>
 
 	<select id="searchList" resultType="com.h066it.portfolio.dto.Dto" parameterType="String">
-		SELECT S.bId, S.bWriter, S.bTitle, S.bContent, S.bDate, S.bCount, S.fileCheck
-		FROM (SELECT rownum AS rnum, F.bId, F.bWriter, F.bTitle, F.bContent, F.bDate, F.bCount, F.fileCheck
-				FROM (SELECT bId, bWriter, bTitle, bContent, bDate, bCount, fileCheck
+		SELECT S.gId, S.bId, S.bWriter, S.bTitle, S.bContent, S.bDate, S.bCount, S.fileCheck
+		FROM (SELECT rownum AS rnum, F.gId, F.bId, F.bWriter, F.bTitle, F.bContent, F.bDate, F.bCount, F.fileCheck
+				FROM (SELECT gId, bId, bWriter, bTitle, bContent, bDate, bCount, fileCheck
 						FROM freeBoard ORDER BY bId DESC) F
-						WHERE 
+						WHERE gId = #{gId} AND
 						<if test="searchType.equals('bTitle')">bTitle LIKE '%'||#{keyword}||'%'</if>
 						<if test="searchType.equals('bContent')">bContent LIKE '%'||#{keyword}||'%'</if>
 						<if test="searchType.equals('bTitle_bContent')">bTitle||bContent LIKE '%'||#{keyword}||'%'</if>
@@ -87,19 +87,19 @@
 	</select>
 	
 	<select id="searchReplyBIdCount" resultType="com.h066it.portfolio.dto.Dto" parameterType="String">
-		SELECT DISTINCT(bId) FROM freeBoard_reply WHERE
+		SELECT DISTINCT(bId) FROM freeBoard_reply WHERE gId = #{gId} AND
 		<if test="searchType.equals('rContent')">rContent LIKE '%'||#{keyword}||'%'</if>		
 		ORDER BY bId DESC
 	</select>
 	
 	<select id="searchReplyBIdList" resultType="com.h066it.portfolio.dto.Dto" parameterType="Integer">		
-		SELECT * FROM freeBoard WHERE bId = #{bIds}
+		SELECT * FROM freeBoard WHERE gId = #{gId} AND bId = #{bIds}
 	</select>	
 	
 	
 	<insert id="fileWrite" parameterType="com.h066it.portfolio.dto.Dto">
 		<selectKey keyProperty="bId" resultType="Integer" order="BEFORE">
-			SELECT MAX(bId) FROM freeBoard
+			SELECT MAX(bId) FROM freeBoard WHERE gId = #{gId}
 		</selectKey>
 		INSERT INTO freeBoard_file (fId, gId, bId, fName, rName, fSize)
 		VALUES (
@@ -118,16 +118,27 @@
 	</insert>
 
 	<delete id="fileDelete">
-		DELETE FROM freeBoard_file WHERE fId = #{fId}
+		DELETE FROM freeBoard_file WHERE gId = #{gId} AND fId = #{fId}
 	</delete>
 
 	<select id="fileView" resultType="com.h066it.portfolio.dto.FileDto" parameterType="String">
-		SELECT * FROM freeBoard_file WHERE bId = #{bId}
+		SELECT * FROM freeBoard_file WHERE gId = #{gId} AND bId = #{bId}
 	</select>
 
 	<insert id="fileUpdate" parameterType="com.h066it.portfolio.dto.Dto">
 		INSERT INTO freeBoard_file (fId, gId, bId, fName, rName, fSize)
-		VALUES (freeboard_file_seq.nextval, 1, #{bId} , #{fName}, #{rName}, #{fSize})
+		VALUES (
+		<choose>
+			<when test="gId == 1">
+				freeBoard_file_seq.nextval
+			</when>
+			<when test="gId == 2">
+				freeBoard_file_seq_2.nextval
+			</when>
+			<when test="gId == 3">
+				freeBoard_file_seq_3.nextval
+			</when>
+		</choose>, #{gId}, #{bId} , #{fName}, #{rName}, #{fSize})
 	</insert>
 	
 	

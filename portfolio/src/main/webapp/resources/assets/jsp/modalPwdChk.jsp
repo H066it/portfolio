@@ -17,6 +17,7 @@
 		</div>
 		<form action="pwdChk?mod=mod" method="post" class="form-horizontal">
 			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+			<input type="hidden" name="gId" value="${dto.gId }" />
 			<div class="modal-body">
 				<input type="hidden" id="bIdForModify" name="bId" value="${param.bId }" />
 				<div class="control-group">
@@ -45,6 +46,7 @@
 		</div>
 		<form action="pwdChk?mod=del" method="post" class="form-horizontal">
 			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+			<input type="hidden" name="gId" value="${gId }" />
 			<div class="modal-body">
 				<input type="hidden" id="bIdForDelete" name="bId" value="${param.bId }" />
 				<div class="control-group">

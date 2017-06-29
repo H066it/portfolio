@@ -9,56 +9,90 @@
 
 	<insert id="replyWriteOnBoard" parameterType="com.h066it.portfolio.dto.ReplyDto">
 		INSERT INTO freeBoard_reply (gId, bId, rId, rWriter, rPassword, rContent, rDelete, rGroup, rDepth, rIndent)
-		VALUES (1, #{bId}, freeBoard_reply_seq.nextval, #{rWriter},
-		 #{rPassword}, #{rContent}, 0, freeBoard_reply_seq.currval, 0, 0)
+		VALUES (#{gId}, #{bId}, 
+		<choose>
+			<when test="gId == 1">
+				freeBoard_reply_seq.nextval
+			</when>
+			<when test="gId == 2">
+				freeBoard_reply_seq_2.nextval
+			</when>
+			<when test="gId == 3">
+				freeBoard_reply_seq_3.nextval
+			</when>
+		</choose>, #{rWriter},
+		 #{rPassword}, #{rContent}, 0, 
+		 <choose>
+			<when test="gId == 1">
+				freeBoard_reply_seq.currval
+			</when>
+			<when test="gId == 2">
+				freeBoard_reply_seq_2.currval
+			</when>
+			<when test="gId == 3">
+				freeBoard_reply_seq_3.currval
+			</when>
+		</choose>, 0, 0)
 	</insert>
 	
 	<select id="replyDepthChk" resultType="Integer" parameterType="Integer">
 		SELECT NVL(MIN(rDepth), -1) FROM freeBoard_reply
-		WHERE bId = #{bId} AND rGroup = #{rGroup} AND rDepth > #{rDepth} AND rIndent <![CDATA[<=]]> #{rIndent}
+		WHERE gId = #{gId} AND bId = #{bId} AND rGroup = #{rGroup}
+		AND rDepth > #{rDepth} AND rIndent <![CDATA[<=]]> #{rIndent}
 	</select>
 
 	<select id="replyView" resultType="com.h066it.portfolio.dto.ReplyDto" parameterType="String">
-		SELECT * FROM freeBoard_reply WHERE bId = #{bId} ORDER BY rGroup, rDepth
+		SELECT * FROM freeBoard_reply WHERE gId = #{gId} AND bId = #{bId} ORDER BY rGroup, rDepth
 	</select>
 
 	
 	<select id="getDepth" resultType="Integer" parameterType="com.h066it.portfolio.dto.ReplyDto">
-		SELECT rDepth FROM freeBoard_reply WHERE bId = #{bId} AND rId = #{rId}
+		SELECT rDepth FROM freeBoard_reply WHERE gId = #{gId} AND bId = #{bId} AND rId = #{rId}
 	</select>
 	
 	<select id="getIndent" resultType="Integer" parameterType="com.h066it.portfolio.dto.ReplyDto">
-		SELECT rIndent FROM freeBoard_reply WHERE bId = #{bId} AND rId = #{rId}
+		SELECT rIndent FROM freeBoard_reply WHERE gId = #{gId} AND bId = #{bId} AND rId = #{rId}
 	</select>
 	
 
 	<select id="depthDown" resultType="Integer" parameterType="com.h066it.portfolio.dto.ReplyDto">
 		SELECT MAX(rDepth + 1) FROM freeBoard_reply
-		WHERE bId = #{bId} AND rGroup = #{rGroup}
+		WHERE gId = #{gId} AND bId = #{bId} AND rGroup = #{rGroup}
 	</select>
 
 	<update id="depthSort">
 		UPDATE freeBoard_reply
 		SET rDepth = rDepth + 1
-		WHERE bId = #{bId} AND rGroup = #{rGroup} AND rDepth <![CDATA[>=]]> #{rDepth}
+		WHERE gId = #{gId} AND bId = #{bId} AND rGroup = #{rGroup} AND rDepth <![CDATA[>=]]> #{rDepth}
 	</update>
 	
 	<insert id="replyWriteOnReply" parameterType="com.h066it.portfolio.dto.ReplyDto">
 		INSERT INTO freeBoard_reply (gId, bId, rId, rWriter, rPassword, rContent, rDelete, rGroup, rDepth, rIndent)
-		VALUES (1, #{bId}, freeBoard_reply_seq.nextval, #{rWriter}, #{rPassword},
+		VALUES (#{gId}, #{bId}, 
+		<choose>
+			<when test="gId == 1">
+				freeBoard_reply_seq.nextval
+			</when>
+			<when test="gId == 2">
+				freeBoard_reply_seq_2.nextval
+			</when>
+			<when test="gId == 3">
+				freeBoard_reply_seq_3.nextval
+			</when>
+		</choose>, #{rWriter}, #{rPassword},
 		 #{rContent}, 0, #{rGroup}, #{rDepth}, #{rIndent})
 	</insert>
 	
 	<update id="replyUpdate">
 		UPDATE freeBoard_reply
 		SET rWriter = #{rWriter}, rContent = #{rContent}
-		WHERE bId = #{bId} AND rId = #{rId} AND rPassword = #{rPassword}
+		WHERE gId = #{gId} AND bId = #{bId} AND rId = #{rId} AND rPassword = #{rPassword}
 	</update>
 	
 	<update id="replyDelete">
 		UPDATE freeBoard_reply
 		SET rDelete = 1
-		WHERE bId = #{bId} AND rId = #{rId} AND rPassword = #{rPassword}
+		WHERE gId = #{gId} AND bId = #{bId} AND rId = #{rId} AND rPassword = #{rPassword}
 	</update>
 	
 </mapper>
