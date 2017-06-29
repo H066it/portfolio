@@ -14,10 +14,12 @@
 	<http pattern="/**/*.js" security="none"></http>
 	<http pattern="/jsp/*" security="none"></http>
 
-	<http auto-config="true">
+	<http auto-config="true" request-matcher="regex">
 		<form-login login-page="/login" authentication-failure-url="/login?pChk" default-target-url="/list"/>
-		<intercept-url pattern="/form*" access="hasRole('ROLE_USER')"/>
-		<intercept-url pattern="/**/*" access="permitAll"/>
+		<intercept-url pattern="\A/list\?gId=2.*\Z" access="hasRole('ROLE_USER')"/>
+		<intercept-url pattern="\A/view\?gId=2.*\Z" access="hasRole('ROLE_USER')"/>
+		<intercept-url pattern="\A/form\?gId=2.*\Z" access="hasRole('ROLE_USER')"/>
+		<intercept-url pattern="/.*" access="permitAll"/>
 		<logout logout-url="/logout" logout-success-url="/list?logout"
 			delete-cookies="JSESSIONID" invalidate-session="true"/>
 		<session-management>
