@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -26,8 +27,14 @@
 				<div class="control-group">
 					<label class="control-label">작성자</label>				
 					<div class="controls">
-						<input type="text" id="rWriterOnReply" name="rWriter"
-							style="width: 90%;">
+						<sec:authorize access="hasRole('ROLE_USER')">
+							<input type="text" id="rWriterOnReply" name="rWriter"
+								style="width: 90%;" value="${auth }" readonly="readonly">
+						</sec:authorize>
+						<sec:authorize access="isAnonymous()">
+							<input type="text" id="rWriterOnReply" name="rWriter"
+								style="width: 90%;">
+						</sec:authorize>
 					</div>
 				</div>
 				<div class="control-group">
@@ -72,7 +79,14 @@
 				<div class="control-group">
 					<label class="control-label">작성자</label>
 					<div class="controls">
-						<input type="text" id="rWriterOnUpdate" name="rWriter" style="width: 90%;">
+						<sec:authorize access="hasRole('ROLE_USER')">
+							<input type="text" id="rWriterOnUpdate" name="rWriter"
+								style="width: 90%;" value="${auth }" readonly="readonly">
+						</sec:authorize>
+						<sec:authorize access="isAnonymous()">
+							<input type="text" id="rWriterOnUpdate" name="rWriter"
+								style="width: 90%;">
+						</sec:authorize>
 					</div>
 				</div>
 				<div class="control-group">

@@ -11,8 +11,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.h066it.portfolio.dto.Dto;
 import com.h066it.portfolio.dto.FileDto;
@@ -59,8 +57,12 @@ public class HomeController {
 	}
 
 	@RequestMapping("/form")
-	public String form(HttpServletRequest request, Dto dto, Model model) {
+	public String form(HttpServletRequest request, Dto dto, Model model, Authentication auth) {
 
+		if(auth != null) {	// id 전송.
+			model.addAttribute("auth", auth.getName());
+		}
+		
 		String gId = request.getParameter("gId");
 		String bId = request.getParameter("bId");
 		
@@ -107,8 +109,12 @@ public class HomeController {
 	}
 	
 	@RequestMapping("/view")
-	public String view(HttpServletRequest request, Model model) {
+	public String view(HttpServletRequest request, Model model, Authentication auth) {
 
+		if(auth != null) {	// id 전송.
+			model.addAttribute("auth", auth.getName());
+		}
+		
 		System.out.println("view");
 		
 		String gId = request.getParameter("gId");

@@ -119,7 +119,13 @@
 				<div class="control-group">
 					<label class="control-label">작성자</label>
 					<div class="controls">
-						<input type="text" id="rWriter" name="rWriter" style="width: 90%;">
+						<sec:authorize access="hasRole('ROLE_USER')">
+							<input type="text" id="rWriter" name="rWriter" style="width: 90%"
+								value="${auth }" readonly="readonly">
+						</sec:authorize>
+						<sec:authorize access="isAnonymous()">
+							<input type="text" id="rWriter" name="rWriter" style="width: 90%;">
+						</sec:authorize>
 					</div>
 				</div>
 				<div class="control-group">
@@ -164,15 +170,15 @@
 							</div>
 							<c:if test="${reply.rDelete != 1 }">
 								<div class="span3" id="replyButton">
-									<p>${reply.rDate }</p>
-									<a href="#replyWriteOnReply" role="button" class="btn"
-										data-toggle="modal" onclick="transferRId(${reply.rId}, ${reply.rGroup })">
+									<p>${reply.rDate }</p>																
+									<a href="#replyWriteOnReply" role="button" class="btn" data-toggle="modal"
+									 onclick="transferRId(${reply.rId}, ${reply.rGroup }, '${auth }')">
 									<i class="icon-pencil"></i></a>
-									<a href="#replyUpdateOnReply" role="button" class="btn"
-										data-toggle="modal" onclick="transferRIdUpd(${reply.rId }, ${reply.rGroup })">
+									<a href="#replyUpdateOnReply" role="button" class="btn"	data-toggle="modal"
+									 onclick="transferRIdUpd(${reply.rId }, ${reply.rGroup }, '${auth }')">
 									<i class="icon-wrench"></i></a>
-									<a href="#replyDeleteOnReply" role="button" class="btn"
-										data-toggle="modal" onclick="transferRIdDel(${reply.rId }, ${reply.rGroup })">
+									<a href="#replyDeleteOnReply" role="button" class="btn"	data-toggle="modal"
+									 onclick="transferRIdDel(${reply.rId }, ${reply.rGroup })">
 									<i class="icon-trash"></i></a>
 								</div>
 							</c:if>

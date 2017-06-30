@@ -75,7 +75,13 @@
 						<div class="control-group">
 							<label class="control-label">작성자</label>
 							<div class="controls">
-								<input type="text" name="bWriter" style="width: 90%">
+								<sec:authorize access="hasRole('ROLE_USER')">
+									<input type="text" name="bWriter" style="width: 90%"
+										value="${auth }" readonly="readonly">
+								</sec:authorize>
+								<sec:authorize access="isAnonymous()">
+									<input type="text" name="bWriter" style="width: 90%">
+								</sec:authorize>
 							</div>
 						</div>
 						<div class="control-group">
@@ -124,8 +130,12 @@
 						<div class="control-group">
 							<label class="control-label">작성자</label>
 							<div class="controls">
-								<input type="text" name="bWriter" style="width: 90%"
-									value="${dto.bWriter }">
+								<sec:authorize access="hasRole('ROLE_USER')">
+									<input type="text" name="bWriter" style="width: 90%" value="${auth }" readonly="readonly">
+								</sec:authorize>
+								<sec:authorize access="isAnonymous()">
+									<input type="text" name="bWriter" style="width: 90%">
+								</sec:authorize>
 							</div>
 						</div>
 						<div class="control-group">

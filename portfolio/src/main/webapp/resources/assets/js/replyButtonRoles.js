@@ -1,11 +1,13 @@
-	function transferRId(rId, rGroup) {		
+	function transferRId(rId, rGroup, auth) {		
 		$("#rIdOnReply").val(rId);
 		$("#rGroupOnReply").val(rGroup);
+		$("#rWriterOnReply").val(auth);
 	}
 	
-	function transferRIdUpd(rId, rGroup) {		
+	function transferRIdUpd(rId, rGroup, auth) {		
 		$("#rIdOnUpdate").val(rId);
 		$("#rGroupOnUpdate").val(rGroup);
+		$("#rWriterOnUpdate").val(auth);
 	}
 	
 	function transferRIdDel(rId, rGroup) {		
