@@ -61,6 +61,8 @@
 							<li class="active"><a href="list?gId=3">건의판</a></li>
 						</c:when>
 					</c:choose>
+					<li class="divider-vertical"></li>
+					<li><a href="map">지도</a></li>
 				</ul>
 			</div>
 		</div>

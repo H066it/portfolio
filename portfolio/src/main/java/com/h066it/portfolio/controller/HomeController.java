@@ -233,4 +233,14 @@ public class HomeController {
 		return "redirect:list";
 	}	
 	
+	@RequestMapping("/map")
+	public String map(Model model, Authentication auth) {
+		
+		if(auth != null) {	// id Àü¼Û.
+			model.addAttribute("auth", auth.getName());
+		}
+		
+		return "map";
+	}
+	
 }
