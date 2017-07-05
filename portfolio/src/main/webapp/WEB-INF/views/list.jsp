@@ -22,60 +22,11 @@
 	
 	<img src="/portfolio/img/귤은 귤귤하고 웁니다.png" class="img-circle" width="200px">
 	
-	<div id="signBar">
-		<sec:authorize access="isAnonymous()">
-			<a href="login"><input type="button" class="btn btn-link btn-small" value="로그인"/></a>
-			<a href="signUpForm"><input type="button" class="btn btn-link btn-small" value="회원가입"/></a>
-		</sec:authorize>	
-
-		<sec:authorize access="hasRole('ROLE_USER')">
-			<c:out value="${auth }"/>님 환영합니다.
-			
-			<sec:authorize access="isRememberMe()">
-       			자동 로그인 되었습니다.
- 		  	</sec:authorize>
-			
-			<form action="logout" method="post" style="display: inline;">
-				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-				<input type="submit" class="btn btn-link btn-small" value="로그아웃"/>
-			</form>
-		</sec:authorize>
-	</div>
+	<jsp:include page="/resources/assets/jsp/signBar.jsp"></jsp:include>
 	
 	<div class="container-narrow">
-		<div class="navbar">
-			<div class="navbar-inner">
-				<a class="brand" href="#">Title</a>
-				<ul class="nav">
-					<li class="divider-vertical"></li>
-					<c:choose>
-						<c:when  test="${gId == 1}">
-							<li class="active"><a href="list?gId=1">익명판</a></li>
-							<li class="divider-vertical"></li>
-							<li><a href="list?gId=2">회원판</a></li>
-							<li class="divider-vertical"></li>
-							<li><a href="list?gId=3">건의판</a></li>
-						</c:when>
-						<c:when  test="${gId == 2}">
-							<li><a href="list?gId=1">익명판</a></li>
-							<li class="divider-vertical"></li>
-							<li class="active"><a href="list?gId=2">회원판</a></li>
-							<li class="divider-vertical"></li>
-							<li><a href="list?gId=3">건의판</a></li>
-						</c:when>
-						<c:when  test="${gId == 3}">
-							<li><a href="list?gId=1">익명판</a></li>
-							<li class="divider-vertical"></li>
-							<li><a href="list?gId=2">회원판</a></li>
-							<li class="divider-vertical"></li>
-							<li class="active"><a href="list?gId=3">건의판</a></li>
-						</c:when>
-					</c:choose>
-					<li class="divider-vertical"></li>
-					<li><a href="map">지도</a></li>
-				</ul>
-			</div>
-		</div>
+	
+		<jsp:include page="/resources/assets/jsp/navbar.jsp"></jsp:include>
 		
 		<div>
 			<c:if test="${signUpRst == true }">
