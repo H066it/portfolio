@@ -119,9 +119,12 @@
 			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
 			<h3 id="myModalLabel">삭제</h3>
 		</div>
-		<form action="replyDelete" method="post" class="form-horizontal">
-			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-			<input type="hidden" name="gId" value="${dto.gId }" />
+		<form method="post" class="form-horizontal">
+			<%-- <input type="hidden" id="csrfParam" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+			 --%>
+			<input type="hidden" id="csrfParam" name="_csrf" value="${_csrf.token}"/>
+			
+			<input type="hidden" id="gIdOnDelete" name="gId" value="${dto.gId }" />
 			<div class="modal-body">
 				<input type="hidden" id="bIdOnDelete" name="bId" value="${param.bId }" />
 				<input type="hidden" id="rIdOnDelete" name="rId" value="${param.rId }"/>

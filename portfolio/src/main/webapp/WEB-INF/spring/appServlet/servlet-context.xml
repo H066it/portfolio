@@ -62,5 +62,4 @@
 	
 	<beans:bean name="sService" class="com.h066it.portfolio.service.SecurityServiceModel">
 	</beans:bean>
-	
 </beans:beans>

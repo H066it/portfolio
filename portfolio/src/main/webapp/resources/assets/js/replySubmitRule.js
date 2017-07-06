@@ -107,6 +107,36 @@
 			alert('비밀번호를 20자 이하로 입력해주십시오.');
 			$('input[id=rPasswordOnDelete]').focus();
 			return false;
-		}		
+		}
+		
+		var token = $("#csrfParam").val();
+		
+		$.ajaxSetup({
+			headers: {
+	            'X-CSRF-TOKEN': token,
+	            'Content-Type': 'application/json;charset=UTF-8'
+	        }
+	    });
+		
+		var data = {				
+				'gId' : $("#gIdOnDelete").val(),
+				'bId' : $("#bIdOnDelete").val(),
+				'rId' : $("#rIdOnDelete").val(),
+				'rGroup' : $("#rGroupOnDelete").val(),
+				'rPassword' : $("#rPasswordOnDelete").val()
+		}
+		
+		$.ajax({
+			url : 'test',
+	        method : 'POST',
+	        data : JSON.stringify(data),
+	        success : function(result){
+	        	alert("성공 : " + result);
+	        },
+	        error : function() {
+	        	alert("실패");
+	        }
+	    });
+	    return false;
 	}
 	
