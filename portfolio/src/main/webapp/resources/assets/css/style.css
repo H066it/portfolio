@@ -34,7 +34,7 @@
 		text-align: left;
 	}
 	
-	#reply {
+	.reply {
 		background-color: rgb(234, 234, 234);
 	}
 	
@@ -43,7 +43,7 @@
 		border-top: thin dashed #778899;
 	}
 	
-	#replyButton {
+	.replyButton {
 		text-align: right;
 	}
 	

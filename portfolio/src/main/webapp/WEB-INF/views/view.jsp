@@ -113,7 +113,7 @@
 
 		<div id="replys">
 			<c:forEach items="${replys }" var="reply">
-				<div id="reply">
+				<div class="reply">
 					<div class="control-group">
 						<div class="row-fluid" id="replysTop">
 							<div class="span9">
@@ -124,12 +124,14 @@
 										</c:forEach>└
 										<c:forEach items="${replys }" begin="0" end="${reply.rIndent / 5 }">Re</c:forEach> :
 									</c:if>
-									${reply.rWriter }
+									<span id="replyWriterBar${reply.gId }_${reply.bId }_${reply.rId }">
+										${reply.rWriter }
+									</span>
 								</label>
 							</div>
 							<c:if test="${reply.rDelete != 1 }">
-								<div class="span3" id="replyButton">
-									<p>${reply.rDate }</p>																
+								<div class="replyButton span3" id="replyButton${reply.gId }_${reply.bId }_${reply.rId }">
+									<p id="rDate">${reply.rDate }</p>																
 									<a href="#replyWriteOnReply" role="button" class="btn" data-toggle="modal"
 									 onclick="transferRId(${reply.rId}, ${reply.rGroup }, '${auth }')">
 									<i class="icon-pencil"></i></a>
@@ -155,7 +157,9 @@
 									삭제된 댓글 입니다.
 								</c:when>
 								<c:otherwise>
-									${reply.rContent }
+									<span id="replyContentBar${reply.gId }_${reply.bId }_${reply.rId }">
+										${reply.rContent }
+									</span>
 								</c:otherwise>
 							</c:choose>
 						</label>

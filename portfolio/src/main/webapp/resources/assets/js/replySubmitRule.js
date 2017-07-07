@@ -127,14 +127,24 @@
 		}
 		
 		$.ajax({
-			url : 'test',
+			url : 'replyDelete',
 	        method : 'POST',
 	        data : JSON.stringify(data),
-	        success : function(result){
-	        	alert("성공 : " + result);
+	        success : function(i){
+	        	if(i == true) {
+		        	var replyPath = $("#gIdOnDelete").val() + '_' + $("#bIdOnDelete").val() + '_' + $("#rIdOnDelete").val();
+		        	var replyContentBar = "replyContentBar" + replyPath;
+		        	var replyButton = "replyButton" + replyPath;
+		        	console.log("#" + replyContentBar);
+		        	$("#" + replyContentBar).text('삭제된 댓글 입니다.');
+		        	$("#" + replyButton).remove();
+		        	$('#replyDeleteOnReply').modal('hide');
+	        	} else {
+	        		alert('비밀번호가 틀립니다.');
+	        	}
 	        },
 	        error : function() {
-	        	alert("실패");
+	        	alert("서버와의 연결이 좋지않습니다.");
 	        }
 	    });
 	    return false;

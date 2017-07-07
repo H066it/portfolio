@@ -41,6 +41,8 @@ public class ReplyController {
 		return "redirect:view?gId=" + rDto.getgId() + "&bId=" + rDto.getbId();
 	}
 	
+	/* Ajax 사용전 ReplyDelete
+	 *
 	@RequestMapping("/replyDelete")
 	public String ReplyDelete(ReplyDto rDto, Model model) {
 		
@@ -51,21 +53,18 @@ public class ReplyController {
 		model.addAttribute("pwdChk", i);
 		
 		return "redirect:view?gId=" + rDto.getgId() + "&bId=" + rDto.getbId();
-	}
+	}*/
 	
-	@RequestMapping(value="/test", method=RequestMethod.POST)
+	@RequestMapping(value="/replyDelete", method=RequestMethod.POST)
 	@ResponseBody
-	public String test(@RequestBody ReplyDto rDto, HttpServletRequest request) throws Exception {
+	public boolean ReplyDelete(@RequestBody ReplyDto rDto, HttpServletRequest request) throws Exception {
 		
-		System.out.println("test");
-		
-		System.out.println("★rDto.getgId : " + rDto.getgId());
-		System.out.println("★rDto.getbId : " + rDto.getbId());
-		System.out.println("★rDto.getrId : " + rDto.getrId());
-		System.out.println("★rDto.getrGroup : " + rDto.getrGroup());
-		System.out.println("★rDto.getrPassword : " + rDto.getrPassword());
+		System.out.println("replyDelete");
+		boolean i = service.replyDelete(rDto.getgId(), rDto.getbId(), rDto.getrId(), rDto.getrPassword());
 
-		return "success~";
+		System.out.println("i : " + i);	// true = password가 같으므로 동작. false = password 다름.
+		
+		return i;
 	}
 	
 }
