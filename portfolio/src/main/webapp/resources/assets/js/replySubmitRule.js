@@ -95,6 +95,47 @@
 			$('textarea[id=rContentOnUpdate]').focus();
 			return false;
 		}
+		
+		var token = $("#csrfParam").val();
+		
+		$.ajaxSetup({
+			headers: {
+	            'X-CSRF-TOKEN': token,
+	            'Content-Type': 'application/json;charset=UTF-8'
+	        }
+	    });
+		
+		var data = {				
+				'gId' : $("#gIdOnUpdate").val(),
+				'bId' : $("#bIdOnUpdate").val(),
+				'rId' : $("#rIdOnUpdate").val(),
+				'rGroup' : $("#rGroupOnUpdate").val(),
+				'rWriter' : $("#rWriterOnUpdate").val(),
+				'rPassword' : $("#rPasswordOnUpdate").val(),
+				'rContent' : $("#rContentOnUpdate").val()
+		}
+		
+		$.ajax({
+			url : 'replyUpdate',
+	        method : 'POST',
+	        data : JSON.stringify(data),
+	        success : function(i){
+	        	if(i == true) {
+		        	var replyPath = $("#gIdOnUpdate").val() + '_' + $("#bIdOnUpdate").val() + '_' + $("#rIdOnUpdate").val();
+		        	var replyWriterBar = "replyWriterBar" + replyPath;
+		        	var replyContentBar = "replyContentBar" + replyPath;
+		        	$("#" + replyWriterBar).text($("#rWriterOnUpdate").val());
+		        	$("#" + replyContentBar).text($("#rContentOnUpdate").val());
+		        	$('#replyUpdateOnReply').modal('hide');
+	        	} else {
+	        		alert('비밀번호가 틀립니다.');
+	        	}
+	        },
+	        error : function() {
+	        	alert("서버와의 연결이 좋지않습니다.");
+	        }
+	    });
+	    return false;
 	}
 	
 	function replyOnDeleteNullCheck() {		
@@ -135,7 +176,6 @@
 		        	var replyPath = $("#gIdOnDelete").val() + '_' + $("#bIdOnDelete").val() + '_' + $("#rIdOnDelete").val();
 		        	var replyContentBar = "replyContentBar" + replyPath;
 		        	var replyButton = "replyButton" + replyPath;
-		        	console.log("#" + replyContentBar);
 		        	$("#" + replyContentBar).text('삭제된 댓글 입니다.');
 		        	$("#" + replyButton).remove();
 		        	$('#replyDeleteOnReply').modal('hide');

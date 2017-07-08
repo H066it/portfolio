@@ -1,7 +1,5 @@
 package com.h066it.portfolio.controller;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,7 +25,9 @@ public class ReplyController {
 		
 		return "redirect:view?gId=" + rDto.getgId() + "&bId=" + rDto.getbId();
 	}
-
+	
+	/* Ajax 사용전 ReplyUpdate
+	 * 
 	@RequestMapping("/replyUpdate")
 	public String ReplyUpdate(ReplyDto rDto, Model model) {
 		
@@ -39,6 +39,19 @@ public class ReplyController {
 		model.addAttribute("pwdChk", i);
 		
 		return "redirect:view?gId=" + rDto.getgId() + "&bId=" + rDto.getbId();
+	}*/
+
+	@RequestMapping(value="/replyUpdate", method=RequestMethod.POST)
+	@ResponseBody
+	public boolean ReplyUpdate(@RequestBody ReplyDto rDto)  {
+		
+		System.out.println("replyUpdate");
+		boolean i = service.replyUpdate(rDto.getgId(), rDto.getbId(), rDto.getrId(),
+				rDto.getrWriter(), rDto.getrPassword(), rDto.getrContent());
+
+		System.out.println("i : " + i);	// true = password가 같으므로 동작. false = password 다름.
+		
+		return i;		
 	}
 	
 	/* Ajax 사용전 ReplyDelete
@@ -57,7 +70,7 @@ public class ReplyController {
 	
 	@RequestMapping(value="/replyDelete", method=RequestMethod.POST)
 	@ResponseBody
-	public boolean ReplyDelete(@RequestBody ReplyDto rDto, HttpServletRequest request) throws Exception {
+	public boolean ReplyDelete(@RequestBody ReplyDto rDto) {
 		
 		System.out.println("replyDelete");
 		boolean i = service.replyDelete(rDto.getgId(), rDto.getbId(), rDto.getrId(), rDto.getrPassword());
@@ -66,5 +79,6 @@ public class ReplyController {
 		
 		return i;
 	}
+	
 	
 }
