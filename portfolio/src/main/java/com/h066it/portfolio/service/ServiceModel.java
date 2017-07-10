@@ -348,7 +348,6 @@ public class ServiceModel implements IDao, ReplyIDao {
 					rDto.getrContent(),	rDto.getrGroup(), depth, indent);
 			
 		}
-	
 	}
 
 	@Override
@@ -444,6 +443,6 @@ public class ServiceModel implements IDao, ReplyIDao {
 		IDao dao = sqlSession.getMapper(IDao.class);
 		
 		return dao.pwdChk(gId , bId);
-	}	
+	}
 	
 }

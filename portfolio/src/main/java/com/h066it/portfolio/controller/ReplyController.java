@@ -78,7 +78,6 @@ public class ReplyController {
 		System.out.println("i : " + i);	// true = password가 같으므로 동작. false = password 다름.
 		
 		return i;
-	}
-	
+	}	
 	
 }

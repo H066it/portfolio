@@ -113,7 +113,7 @@
 
 		<div id="replys">
 			<c:forEach items="${replys }" var="reply">
-				<div class="reply">
+				<div class="reply" id="reply${reply.gId }_${reply.bId }_${reply.rId }">
 					<div class="control-group">
 						<div class="row-fluid" id="replysTop">
 							<div class="span9">
@@ -169,7 +169,7 @@
 			</c:forEach>
 		</div>
 	</div>	
-	
+		
 	<script>		
 		var pwdChk = "." + ${param.pwdChk} + ".";
 	</script>

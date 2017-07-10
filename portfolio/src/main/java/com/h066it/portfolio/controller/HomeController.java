@@ -93,7 +93,7 @@ public class HomeController {
 		
 		service.writeWithFile(dto, fileList);
 		
-		return "redirect:list";
+		return "redirect:list?gId=" + dto.getgId();
 	}
 
 	@RequestMapping("/delete")
@@ -146,7 +146,7 @@ public class HomeController {
 		
 		service.updateeWithFile(dto, fileList, fIds);
 
-		return "redirect:list";
+		return "redirect:list?gId=" + dto.getgId();
 	}
 	
 	@RequestMapping("/search")

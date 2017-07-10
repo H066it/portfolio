@@ -19,7 +19,7 @@
 		</div>
 		<form action="replyWrite" method="post" class="form-horizontal">
 			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-			<input type="hidden" name="gId" value="${dto.gId }" />
+			<input type="hidden" id="gIdOnReply" name="gId" value="${dto.gId }" />
 			<div class="modal-body">
 				<input type="hidden" id="bIdOnReply" name="bId" value="${param.bId }" />
 				<input type="hidden" id="rIdOnReply" name="rId" value="${param.rId }"/>
