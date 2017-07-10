@@ -170,7 +170,7 @@ public class ServiceModel implements IDao, ReplyIDao {
 	@Override
 	public void fileDownload(HttpServletRequest request, HttpServletResponse response) {
 
-		String path = "C:\\Users\\tosh\\git\\portfolio\\portfolio\\fileRepository";
+		String path = "C:\\Users\\tosh\\git\\portfolio\\portfolio\\src\\main\\webapp\\resources\\fileRepository";
 		String fName = request.getParameter("fName");
 		String filePath = path + "\\" + fName.substring(1, fName.length() - 1);
 

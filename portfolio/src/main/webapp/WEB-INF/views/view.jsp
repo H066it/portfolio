@@ -49,6 +49,9 @@
 			<div class="control-group">
 				<label class="control-label">내용</label>
 				<div class="controls">
+					<c:forEach items="${files }" var="file">
+						<img src="/portfolio/fileRepository/${file.fName }" align="left" style="padding-left: 4%"/>
+					</c:forEach>
 					<textarea name="bContent" cols="30" rows="10"
 						style="resize: none; width: 90%;" readonly="readonly">${dto.bContent }</textarea>
 				</div>
@@ -65,7 +68,7 @@
 			<div class="control-group">
 				<div class="controls">
 					<a href="#modifyPwdChk" role="button" class="btn" data-toggle="modal" id="modifyBtn">수정</a>
-					<a href="list"><button type="button" class="btn">목록</button></a>
+					<a href="list?gId=${dto.gId }"><button type="button" class="btn">목록</button></a>
 				</div>
 			</div>
 		</div>

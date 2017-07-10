@@ -90,24 +90,25 @@
 							<label class="control-label">작성자</label>
 							<div class="controls">
 								<sec:authorize access="hasRole('ROLE_USER')">
-									<input type="text" name="bWriter" style="width: 90%" value="${auth }" readonly="readonly">
+									<input type="text" id="bWriterforUpdate" name="bWriter"
+									 style="width: 90%" value="${auth }" readonly="readonly">
 								</sec:authorize>
 								<sec:authorize access="isAnonymous()">
-									<input type="text" name="bWriter" style="width: 90%">
+									<input type="text" id="bWriterforUpdate" name="bWriter" style="width: 90%">
 								</sec:authorize>
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label">제목</label>
 							<div class="controls">
-								<input type="text" name="bTitle" style="width: 90%;"
-									value="${dto.bTitle }">
+								<input type="text" id="bTitleforUpdate" name="bTitle"
+								 style="width: 90%;" value="${dto.bTitle }">
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label">내용</label>
 							<div class="controls">
-								<textarea name="bContent" cols="30" rows="10"
+								<textarea id="bContentforUpdate" name="bContent" cols="30" rows="10"
 									style="resize: none; width: 90%;">${dto.bContent }</textarea>
 							</div>
 						</div>
@@ -115,18 +116,17 @@
 							<label class="control-label">파일</label>
 							<div class="controls" align="left">
 								<c:forEach items="${files }" var="file">
-									<a
-										href="fileDownload?fName='${file.fName }'&rName='${file.rName }'"
+									<a href="fileDownload?fName='${file.fName }'&rName='${file.rName }'"
 										style="width: 90%;">${file.rName }</a> (${file.sizeCalculation(file.fSize) }) 
 									<i class="icon-trash"></i><input type="checkbox" name="fId" value="${file.fId }"/>
 								</c:forEach>
-								<input type="file" name="upFile" style="width: 90%;" multiple> (10MB 제한)
+								<input type="file" id="upFileforUpdate" name="upFile" style="width: 90%;" multiple> (10MB 제한)
 							</div>
 						</div>
 						<div class="control-group">
 							<div class="controls">
 								<input type="submit" class="btn" value="수정"
-									onclick="return nullCheck()"></input> <a href="list?gId=${gId }"><button
+									onclick="return nullCheckforUpdate()"></input> <a href="list?gId=${gId }"><button
 										type="button" class="btn">취소</button></a>
 							</div>
 						</div>

@@ -16,7 +16,7 @@ public class FileUtil {
 
 	public List<FileDto> saveFiles(List<MultipartFile> upFiles) {	// file upload
 		
-		String path = "C:\\Users\\tosh\\git\\portfolio\\portfolio\\fileRepository";
+		String path = "C:\\Users\\tosh\\git\\portfolio\\portfolio\\src\\main\\webapp\\resources\\fileRepository";
 		List<FileDto> fileList = new ArrayList<FileDto>();
 		
 		for(MultipartFile upFile : upFiles) {

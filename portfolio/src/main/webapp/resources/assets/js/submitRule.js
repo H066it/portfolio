@@ -70,6 +70,65 @@
 		}
 	}
 	
+	function nullCheckforUpdate() {		
+		if($('#bWriterforUpdate').val().length < 2) {
+			alert('작성자를 2자 이상 입력해주세요.');
+			$('#bWriterforUpdate').focus();
+			return false;
+		}
+		if($('#bTitleforUpdate').val().length < 2) {
+			alert('제목을 2자 이상 입력해주세요.');
+			$('#bTitleforUpdate').focus();
+			return false;
+		}
+		if($('#bContentforUpdate').val().length < 2) {
+			alert('내용을 2자 이상 입력해주세요.');
+			$('#bContentforUpdate').focus();
+			return false;
+		}
+		if($('#bWriterforUpdate').val().length > 15) {
+			alert('작성자 명을 15자 이하로 입력해주십시오.');
+			$('#bWriterforUpdate').focus();
+			return false;
+		}
+		if($('#bTitleforUpdate').val().length > 40) {
+			alert('제목을 40자 이하로 입력해주십시오.');
+			$('#bTitleforUpdate').focus();
+			return false;
+		}
+		if($('#bContentforUpdate').val().length > 500) {
+			alert('내용을 500자 이하로 입력해주십시오.');
+			$('#bContentforUpdate').focus();
+			return false;
+		}
+		
+		var totalFileSize = 0;
+		
+		for(var i = 0; i < $('#upFileforUpdate')[0].files.length ; i++) {
+			
+			if($('#upFileforUpdate')[0].files[i].size > 10485760) {
+				alert('10MB가 넘는 파일은 올리실 수 없습니다.');
+				totalFileSize = 0;
+				return false;
+			}
+			
+			if($('#upFileforUpdate')[0].files[i].name.length > 50) {
+				alert('파일 명을 줄여 주십시오.');
+				totalFileSize = 0;
+				return false;
+			}
+			
+			totalFileSize += $('#upFileforUpdate')[0].files[i].size;
+			
+			if(totalFileSize > 10485760) {
+				alert('총 파일 용량은 10MB를 넘길 수 없습니다.');
+				totalFileSize = 0;
+				return false;
+			}			
+			
+		}
+	}
+	
 	function modifyNullCheck() {		
 		if($('input[id=bPasswordForModify]').val().length < 4) {
 			alert('비밀번호를 4자 이상 입력해주세요.');
