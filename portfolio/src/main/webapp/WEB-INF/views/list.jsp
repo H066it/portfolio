@@ -20,6 +20,10 @@
 </head>
 <body>
 	
+	<form action="test">		
+		<input type="submit" value="error page test"/>
+	</form>
+	
 	<img src="/portfolio/img/귤은 귤귤하고 웁니다.png" class="img-circle" width="200px">
 	
 	<jsp:include page="/resources/assets/jsp/signBar.jsp"></jsp:include>
@@ -67,6 +71,7 @@
 					<td><a href="view?gId=${gId }&bId=${dto.bId }" style="color: black;">
 						${dto.bTitle }
 						<c:if test="${dto.fileCheck == 1 }"><i class="icon-film"></i></c:if>
+						<c:if test="${dto.replyCount != 0 }">[${dto.replyCount }]</c:if>
 					</a></td>
 					<td>${dto.bWriter }</td>
 					<td>${dto.bDate }</td>

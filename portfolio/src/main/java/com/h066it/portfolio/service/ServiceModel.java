@@ -348,6 +348,7 @@ public class ServiceModel implements IDao, ReplyIDao {
 					rDto.getrContent(),	rDto.getrGroup(), depth, indent);
 			
 		}
+		replyCountUpdate(rDto.getgId(), rDto.getbId());	// 게시글 리플 작성시 증가
 	}
 
 	@Override
@@ -443,6 +444,15 @@ public class ServiceModel implements IDao, ReplyIDao {
 		IDao dao = sqlSession.getMapper(IDao.class);
 		
 		return dao.pwdChk(gId , bId);
+	}
+
+	@Override
+	public void replyCountUpdate(int gId, int bId) {
+
+		ReplyIDao rDao = sqlSession.getMapper(ReplyIDao.class);
+		
+		rDao.replyCountUpdate(gId, bId);
+		
 	}
 	
 }

@@ -17,6 +17,7 @@ public class Dto {
 	private int bCount; // 조회수
 	private List<MultipartFile> upFile; // 연결된 파일 목록
 	private int fileCheck; // 파일 유무 확인 (0 = 무, 1 = 유)
+	private int replyCount; // 리플 수
 
 	public int getgId() {
 		return gId;
@@ -96,6 +97,14 @@ public class Dto {
 
 	public void setFileCheck(int fileCheck) {
 		this.fileCheck = fileCheck;
+	}
+	
+	public int getReplyCount() {
+		return replyCount;
+	}
+
+	public void setReplyCount(int replyCount) {
+		this.replyCount = replyCount;
 	}
 
 }

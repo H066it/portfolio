@@ -14,9 +14,9 @@
 
 	<select id="list" resultType="com.h066it.portfolio.dto.Dto"
 		parameterType="com.h066it.portfolio.vo.PageVo">
-		SELECT S.gId, S.bId, S.bWriter, S.bTitle, S.bContent, S.bDate, S.bCount, S.fileCheck
-		FROM (SELECT rownum AS rnum, F.gId, F.bId, F.bWriter, F.bTitle, F.bContent, F.bDate, F.bCount, F.fileCheck
-				FROM (SELECT gId, bId, bWriter, bTitle, bContent, bDate, bCount, fileCheck
+		SELECT S.gId, S.bId, S.bWriter, S.bTitle, S.bContent, S.bDate, S.bCount, S.fileCheck, S.replyCount
+		FROM (SELECT rownum AS rnum, F.gId, F.bId, F.bWriter, F.bTitle, F.bContent, F.bDate, F.bCount, F.fileCheck, F.replyCount
+				FROM (SELECT gId, bId, bWriter, bTitle, bContent, bDate, bCount, fileCheck, replyCount
 						FROM freeBoard WHERE gId = #{gId} ORDER BY bId DESC) F
 						WHERE rownum <![CDATA[<=]]> #{lstNum}) S
 		WHERE S.rnum <![CDATA[>=]]> #{firNum}		
@@ -73,9 +73,9 @@
 	</select>
 
 	<select id="searchList" resultType="com.h066it.portfolio.dto.Dto" parameterType="String">
-		SELECT S.gId, S.bId, S.bWriter, S.bTitle, S.bContent, S.bDate, S.bCount, S.fileCheck
-		FROM (SELECT rownum AS rnum, F.gId, F.bId, F.bWriter, F.bTitle, F.bContent, F.bDate, F.bCount, F.fileCheck
-				FROM (SELECT gId, bId, bWriter, bTitle, bContent, bDate, bCount, fileCheck
+		SELECT S.gId, S.bId, S.bWriter, S.bTitle, S.bContent, S.bDate, S.bCount, S.fileCheck, S.replyCount
+		FROM (SELECT rownum AS rnum, F.gId, F.bId, F.bWriter, F.bTitle, F.bContent, F.bDate, F.bCount, F.fileCheck, F.replyCount
+				FROM (SELECT gId, bId, bWriter, bTitle, bContent, bDate, bCount, fileCheck, replyCount
 						FROM freeBoard ORDER BY bId DESC) F
 						WHERE gId = #{gId} AND
 						<if test="searchType.equals('bTitle')">bTitle LIKE '%'||#{keyword}||'%'</if>

@@ -95,4 +95,11 @@
 		WHERE gId = #{gId} AND bId = #{bId} AND rId = #{rId} AND rPassword = #{rPassword}
 	</update>
 	
+	
+	<update id="replyCountUpdate">
+		UPDATE freeBoard
+		SET replyCount = replyCount + 1
+		WHERE gId = #{gId} AND bId = #{bId}
+	</update>
+	
 </mapper>

@@ -29,5 +29,6 @@ public interface ReplyIDao {
 			@Param("rWriter")String rWriter, @Param("rPassword")String rPassword, @Param("rContent")String rContent);
 	public boolean replyDelete(@Param("gId")int gId, @Param("bId")int bId,
 			@Param("rId")int rId, @Param("rPassword")String rPassword);
-		
+	
+	public void replyCountUpdate(@Param("gId")int gId, @Param("bId")int bId);
 }
