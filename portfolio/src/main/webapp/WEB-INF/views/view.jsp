@@ -49,8 +49,9 @@
 			<div class="control-group">
 				<label class="control-label">내용</label>
 				<div class="controls">
-					<c:forEach items="${files }" var="file">
-						<img src="/portfolio/fileRepository/${file.fName }" align="left" style="padding-left: 4%"/>
+					<c:forEach items="${files }" var="file">									
+						<img src="/portfolio/fileRepository/${file.fName }" class="fileImg"
+						 onerror="this.style.display='none'"/>
 					</c:forEach>
 					<textarea name="bContent" cols="30" rows="10"
 						style="resize: none; width: 90%;" readonly="readonly">${dto.bContent }</textarea>

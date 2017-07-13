@@ -56,3 +56,8 @@
 		text-align: right;
 		padding-right: 18%;
 	}
+	
+	.fileImg {
+		float: left;
+		padding-left: 4%;
+	}

@@ -19,11 +19,7 @@
 <script type="text/javascript" src="js/pwdChk.js"></script>
 </head>
 <body>
-	
-	<form action="test">		
-		<input type="submit" value="error page test"/>
-	</form>
-	
+		
 	<img src="/portfolio/img/귤은 귤귤하고 웁니다.png" class="img-circle" width="200px">
 	
 	<jsp:include page="/resources/assets/jsp/signBar.jsp"></jsp:include>
