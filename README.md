@@ -10,7 +10,7 @@ JSP / Spring Framework 4
 ## Other used...
 Bootstrap / jQuery / Spring Security / Ajax / MyBatis
 
-AWS EC2 / RDS (Oracle 12c)
+AWS EC2 / RDS (Oracle 12c) / open api (Daum Map)
 
 #### Tester
 Do-hun Choi, Min-chang Kim, Min-woo Seo, Gwang-woo Lee, Ho-jun Choi
