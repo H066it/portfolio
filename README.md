@@ -1,4 +1,7 @@
-# portfolio
+# Portfolio
+<strong>Project : Spring MVC board</strong>
+
+## Who am I?
 Do-hun Choi / Back-end Web Developer / Gimhae, South Korea.
 
 ## Front-end
